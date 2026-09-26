@@ -2,7 +2,12 @@
 (function () {
   'use strict';
 
+  // Адрес Cloudflare Worker, который пересылает заявку в Telegram-группу.
+  // Пока пусто — кнопка «Отправить заявку» скрыта, работают копирование и Direct.
+  var BRIEF_ENDPOINT = '';
+
   var STORAGE_KEY = 'mmm-brief-draft';
+  var startedAt = Date.now();
   var TOTAL = 10; // вопросов; шаг 11 — итог
 
   var form = document.getElementById('brief-form');
@@ -115,6 +120,15 @@
   }
 
   // ---------- Итоговый текст ----------
+  function buildFields() {
+    var data = collect();
+    return FIELDS.map(function (f) {
+      var v = data[f[0]];
+      if (Array.isArray(v)) v = v.join(', ');
+      return [f[1], v || '—'];
+    });
+  }
+
   function buildText() {
     var data = collect();
     var lines = ['Бриф для MUST MOVIE MEDIA', ''];
@@ -166,6 +180,13 @@
       tgLink.href = 'https://t.me/share/url?url=' + encodeURIComponent('https://www.instagram.com/mmm_creative_production/') +
         '&text=' + encodeURIComponent(text);
       copyStatus.textContent = '';
+      if (BRIEF_ENDPOINT && !sent) {
+        sendBox.hidden = false;
+        sendBtn.disabled = false;
+        sendBtn.textContent = 'Отправить заявку';
+        sendStatus.textContent = '';
+        finalHint.textContent = 'Проверьте ответы и нажмите «Отправить» — заявка сразу придёт нашей команде в Telegram. Вернёмся с идеей, сметой и сроками.';
+      }
     }
 
     if (focus) {
@@ -205,6 +226,45 @@
   });
   form.addEventListener('change', save);
 
+  // ---------- Отправка в Telegram через Worker ----------
+  var sendBox = document.getElementById('send-box');
+  var sendBtn = document.getElementById('send');
+  var sendStatus = document.getElementById('send-status');
+  var finalHint = document.getElementById('final-hint');
+  var sent = false;
+
+  sendBtn.addEventListener('click', function () {
+    if (sent || !BRIEF_ENDPOINT) return;
+    sendBtn.disabled = true;
+    sendBtn.textContent = 'Отправляем…';
+    sendStatus.textContent = '';
+    var hp = form.querySelector('input[name="website"]');
+    fetch(BRIEF_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fields: buildFields(),
+        lang: document.documentElement.lang || 'ru',
+        website: hp ? hp.value : '',
+        elapsed: Date.now() - startedAt
+      })
+    }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (j) {
+        if (!r.ok || !j.ok) throw new Error(j.error || r.status);
+      });
+    }).then(function () {
+      sent = true;
+      sendBtn.textContent = 'Заявка отправлена ✓';
+      sendStatus.textContent = 'Спасибо! Мы получили бриф и свяжемся с вами в течение рабочего дня.';
+      sendBox.classList.add('is-sent');
+      storageClear();
+    }).catch(function () {
+      sendBtn.disabled = false;
+      sendBtn.textContent = 'Попробовать ещё раз';
+      sendStatus.textContent = 'Не получилось отправить. Скопируйте ответы и напишите нам в Direct — кнопки ниже.';
+    });
+  });
+
   // ---------- Копирование ----------
   function selectSummary() {
     var range = document.createRange();
@@ -237,6 +297,9 @@
     if (!window.confirm('Очистить все ответы?')) return;
     form.reset();
     setPlan('');
+    sent = false;
+    sendBox.classList.remove('is-sent');
+    startedAt = Date.now();
     form.querySelectorAll('[aria-invalid]').forEach(function (el) { el.setAttribute('aria-invalid', 'false'); });
     form.querySelectorAll('.error').forEach(function (el) { el.classList.remove('is-shown'); });
     storageClear();

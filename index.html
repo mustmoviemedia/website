@@ -595,7 +595,8 @@
             <button type="button" class="link-btn" id="brief-plan-clear">Убрать</button>
             <input type="hidden" name="package" id="package">
           </div>
-          <div class="progress" role="progressbar" aria-label="Прогресс заполнения брифа" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="hp" aria-hidden="true"><label>Сайт <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <div class="progress" role="progressbar" aria-label="Прогресс заполнения брифа" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
             <div class="progress__bar" id="progress-bar"></div>
           </div>
 
@@ -776,8 +777,12 @@
           <!-- Итог -->
           <section class="brief-step" data-step="11" aria-labelledby="q11">
             <h3 id="q11" tabindex="-1">Готово! <span class="red">Отправьте нам бриф</span></h3>
-            <p class="hint">Скопируйте ответы и отправьте их в Instagram Direct — или сразу поделитесь через Telegram. Вернёмся с идеей, сметой и сроками.</p>
+            <p class="hint" id="final-hint">Скопируйте ответы и отправьте их в Instagram Direct — или сразу поделитесь через Telegram. Вернёмся с идеей, сметой и сроками.</p>
             <pre class="summary" id="summary"></pre>
+            <div class="send-box" id="send-box" hidden>
+              <button type="button" class="btn btn--red btn--big" id="send">Отправить заявку</button>
+              <p class="send-status" id="send-status" role="status" aria-live="polite"></p>
+            </div>
             <div class="summary-actions">
               <button type="button" class="btn btn--red" id="copy">Скопировать ответы</button>
               <a class="btn btn--outline" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener">Открыть Direct</a>

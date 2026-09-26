@@ -856,3 +856,11 @@ legend { font-weight: 700; margin-bottom: 12px; padding: 0; }
   .brief-wrap { grid-template-columns: 1fr; }
   .brief-intro { position: static; }
 }
+
+/* ---------- Отправка брифа в Telegram ---------- */
+.hp { position: absolute !important; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.send-box { margin: 0 0 20px; }
+.btn--big { width: 100%; min-height: 56px; font-size: 17px; }
+.send-status { margin: 12px 0 0; min-height: 1.6em; color: var(--muted); }
+.send-box.is-sent .btn--big { background: #1f7a3a; opacity: 1; cursor: default; }
+.send-box.is-sent .send-status { color: #fff; font-weight: 600; }

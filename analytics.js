@@ -3,7 +3,7 @@
 (function () {
   'use strict';
 
-  var GA_ID = ''; // ID потока данных, вида G-XXXXXXXXXX
+  var GA_ID = 'G-7J48M4FL71'; // ID потока данных, вида G-XXXXXXXXXX
 
   // Безопасная заглушка: код сайта может вызывать MMM_track всегда
   window.MMM_track = function () {};

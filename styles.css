@@ -217,7 +217,7 @@ span.todo, p.todo, strong.todo {
 .burger[aria-expanded="true"] span::before { transform: translateY(6px) rotate(45deg); }
 .burger[aria-expanded="true"] span::after { transform: translateY(-6px) rotate(-45deg); }
 
-@media (max-width: 1080px) {
+@media (max-width: 1240px) {
   .burger { display: inline-flex; }
   .nav__links {
     display: none;
@@ -235,13 +235,74 @@ span.todo, p.todo, strong.todo {
 }
 @media (max-width: 480px) {
   .logo-text { font-size: 16px; }
-  .nav { gap: 10px; }
+  .nav { gap: 8px; }
   .nav .btn { padding: 8px 12px; font-size: 13px; }
+}
+/* На узком экране логотип сворачивается в «MMM», чтобы в шапке поместился переключатель языка */
+@media (max-width: 430px) {
+  .logo-rest { display: none; }
+  .logo-text { font-size: 22px; letter-spacing: .02em; }
+}
+
+/* ---------- Кнопка «Написать»: полная и короткая подпись ---------- */
+.nav .btn .short { display: none; }
+@media (max-width: 480px) {
   .nav .btn .long { display: none; }
+  .nav .btn .short { display: inline; }
 }
-@media (max-width: 359px) {
-  .logo-text { font-size: 14px; }
+
+/* ---------- Переключатель языка ---------- */
+.lang-switch { display: flex; align-items: center; gap: 2px; }
+.lang-switch button {
+  min-width: 36px;
+  min-height: 40px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: .06em;
+  cursor: pointer;
+  position: relative;
+  transition: color .2s, background-color .2s;
 }
+.lang-switch button + button::before {
+  content: "·";
+  position: absolute;
+  left: -3px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #555;
+  pointer-events: none;
+}
+.lang-switch button:hover { color: #fff; }
+.lang-switch button.is-active,
+.lang-switch button[aria-pressed="true"] { color: var(--red); }
+.lang-switch--menu { display: none; }
+@media (max-width: 1240px) {
+  .lang-switch--menu {
+    display: flex;
+    gap: 8px;
+    padding-top: 14px;
+  }
+  .lang-switch--menu button {
+    min-width: 56px;
+    min-height: 44px;
+    border: 1px solid var(--line);
+    font-size: 16px;
+  }
+  .lang-switch--menu button + button::before { content: none; }
+  .lang-switch--menu button[aria-pressed="true"] { border-color: var(--red); }
+}
+@media (max-width: 480px) {
+  .lang-switch--head button { min-width: 30px; padding: 0 4px; font-size: 13px; }
+}
+
+/* Примечание «ответы на русском» нужно только в UZ / EN */
+html[lang="ru"] .brief-ru-note { display: none; }
 
 /* ---------- Секции ---------- */
 .section { padding: clamp(64px, 9vw, 112px) 0; }

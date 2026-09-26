@@ -6,6 +6,7 @@
   // Пока пусто — кнопка «Отправить заявку» скрыта, работают копирование и Direct.
   var BRIEF_ENDPOINT = '';
 
+  var i18n = window.MMM_I18N;
   var STORAGE_KEY = 'mmm-brief-draft';
   var startedAt = Date.now();
   var TOTAL = 10; // вопросов; шаг 11 — итог
@@ -91,16 +92,39 @@
   }
 
   // ---------- Выбранный пакет ----------
-  function setPlan(label) {
-    planInput.value = label || '';
-    planName.textContent = label || '';
-    planBox.hidden = !label;
+  // В скрытом поле хранится ссылка на выбор в JSON: {type:'plan', id} или {type:'calc', state}.
+  // По ней строим подпись на языке посетителя и русский текст для итогового брифа.
+  function parseRef(value) {
+    if (!value) return null;
+    try { var r = JSON.parse(value); if (r && r.type) return r; } catch (e) { /* старый черновик — просто текст */ }
+    return { type: 'text', text: value };
   }
-  document.getElementById('brief-plan-clear').addEventListener('click', function () { setPlan(''); save(); });
+  function describe(ref, lang) {
+    if (!ref) return '';
+    if (ref.type === 'plan') {
+      var all = window.MMM_PLANS || {};
+      var p = (all[lang] || all.ru || {})[ref.id];
+      if (!p) return '';
+      var price = p.price == null ? p.priceText : i18n.moneyText(p.price, p.per, lang);
+      return p.name + ' — ' + price + ' (' + p.group + ')';
+    }
+    if (ref.type === 'calc' && window.MMM_CALC) return window.MMM_CALC.describe(ref.state, lang);
+    return ref.text || '';
+  }
+  function renderPlan() {
+    var ref = parseRef(planInput.value);
+    planName.textContent = describe(ref, i18n.lang());
+    planBox.hidden = !ref;
+  }
+  function setPlan(ref) {
+    planInput.value = ref ? (typeof ref === 'string' ? ref : JSON.stringify(ref)) : '';
+    renderPlan();
+  }
+  document.getElementById('brief-plan-clear').addEventListener('click', function () { setPlan(null); save(); });
 
-  // Вызывается из окна пакета: подставляем пакет и тип съёмки, листаем к брифу
-  window.MMM_choosePlan = function (label, kind) {
-    setPlan(label);
+  // Вызывается из окна пакета и из калькулятора: подставляем выбор и тип съёмки, листаем к брифу
+  window.MMM_choosePlan = function (ref, kind) {
+    setPlan(ref);
     if (kind) {
       form.querySelectorAll('input[name="what"]').forEach(function (el) {
         if (el.value === kind) el.checked = true;
@@ -120,23 +144,19 @@
   }
 
   // ---------- Итоговый текст ----------
+  // Всегда на русском — так удобнее команде. Значения чипов в HTML тоже русские.
   function buildFields() {
     var data = collect();
     return FIELDS.map(function (f) {
-      var v = data[f[0]];
+      var v = f[0] === 'package' ? describe(parseRef(data.package), 'ru') : data[f[0]];
       if (Array.isArray(v)) v = v.join(', ');
       return [f[1], v || '—'];
     });
   }
 
   function buildText() {
-    var data = collect();
-    var lines = ['Бриф для MUST MOVIE MEDIA', ''];
-    FIELDS.forEach(function (f) {
-      var v = data[f[0]];
-      if (Array.isArray(v)) v = v.join(', ');
-      lines.push(f[1] + ': ' + (v ? v : '—'));
-    });
+    var lines = ['Бриф для MUST MOVIE MEDIA', 'Язык клиента: ' + i18n.lang().toUpperCase(), ''];
+    buildFields().forEach(function (f) { lines.push(f[0] + ': ' + f[1]); });
     return lines.join('\n');
   }
 
@@ -157,6 +177,25 @@
     return ok;
   }
 
+  // ---------- Тексты, зависящие от языка ----------
+  function renderLabels() {
+    var done = current > TOTAL;
+    label.textContent = done ? i18n.t('brief.done') : i18n.t('brief.step', { n: current, total: TOTAL });
+    nextBtn.textContent = i18n.t(current === TOTAL ? 'brief.finish' : 'brief.next');
+  }
+  function renderSummary() {
+    var text = buildText();
+    summary.textContent = text;
+    tgLink.href = 'https://t.me/share/url?url=' + encodeURIComponent('https://www.instagram.com/mmm_creative_production/') +
+      '&text=' + encodeURIComponent(text);
+  }
+  i18n.onChange(function () {
+    renderLabels();
+    renderPlan();
+    if (current > TOTAL) { renderSummary(); renderSend(); }
+    copyStatus.textContent = '';
+  });
+
   // ---------- Показ шага ----------
   function show(n, focus) {
     current = Math.max(1, Math.min(TOTAL + 1, n));
@@ -168,24 +207,16 @@
     var pct = Math.round(((done ? TOTAL : current - 1) / TOTAL) * 100);
     bar.style.width = pct + '%';
     progress.setAttribute('aria-valuenow', String(pct));
-    label.textContent = done ? 'Бриф заполнен' : 'Шаг ' + current + ' из ' + TOTAL;
-
+    renderLabels();
     prevBtn.disabled = current === 1;
     nextBtn.hidden = done;
-    nextBtn.textContent = current === TOTAL ? 'Готово' : 'Далее';
 
     if (done) {
-      var text = buildText();
-      summary.textContent = text;
-      tgLink.href = 'https://t.me/share/url?url=' + encodeURIComponent('https://www.instagram.com/mmm_creative_production/') +
-        '&text=' + encodeURIComponent(text);
+      renderSummary();
       copyStatus.textContent = '';
       if (BRIEF_ENDPOINT && !sent) {
-        sendBox.hidden = false;
-        sendBtn.disabled = false;
-        sendBtn.textContent = 'Отправить заявку';
-        sendStatus.textContent = '';
-        finalHint.textContent = 'Проверьте ответы и нажмите «Отправить» — заявка сразу придёт нашей команде в Telegram. Вернёмся с идеей, сметой и сроками.';
+        sendState = 'idle';
+        renderSend();
       }
     }
 
@@ -232,12 +263,24 @@
   var sendStatus = document.getElementById('send-status');
   var finalHint = document.getElementById('final-hint');
   var sent = false;
+  var sendState = 'idle'; // idle | sending | sent | failed
+
+  // Тексты кнопки и статуса — на языке посетителя
+  function renderSend() {
+    if (!BRIEF_ENDPOINT) return;
+    sendBox.hidden = false;
+    finalHint.textContent = i18n.t('brief.doneHintSend');
+    var btn = { idle: 'brief.send', sending: 'brief.sending', sent: 'brief.sentBtn', failed: 'brief.retry' }[sendState];
+    var status = { sent: 'brief.sentMsg', failed: 'brief.sendFail' }[sendState];
+    sendBtn.textContent = i18n.t(btn);
+    sendBtn.disabled = sendState === 'sending';
+    sendStatus.textContent = status ? i18n.t(status) : '';
+  }
 
   sendBtn.addEventListener('click', function () {
     if (sent || !BRIEF_ENDPOINT) return;
-    sendBtn.disabled = true;
-    sendBtn.textContent = 'Отправляем…';
-    sendStatus.textContent = '';
+    sendState = 'sending';
+    renderSend();
     var hp = form.querySelector('input[name="website"]');
     fetch(BRIEF_ENDPOINT, {
       method: 'POST',
@@ -254,14 +297,13 @@
       });
     }).then(function () {
       sent = true;
-      sendBtn.textContent = 'Заявка отправлена ✓';
-      sendStatus.textContent = 'Спасибо! Мы получили бриф и свяжемся с вами в течение рабочего дня.';
+      sendState = 'sent';
+      renderSend();
       sendBox.classList.add('is-sent');
       storageClear();
     }).catch(function () {
-      sendBtn.disabled = false;
-      sendBtn.textContent = 'Попробовать ещё раз';
-      sendStatus.textContent = 'Не получилось отправить. Скопируйте ответы и напишите нам в Direct — кнопки ниже.';
+      sendState = 'failed';
+      renderSend();
     });
   });
 
@@ -277,15 +319,13 @@
     selectSummary();
     var ok = false;
     try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
-    copyStatus.textContent = ok
-      ? 'Ответы скопированы. Вставьте их в сообщение в Direct.'
-      : 'Текст выделен — нажмите Ctrl+C (или «Копировать» на телефоне).';
+    copyStatus.textContent = i18n.t(ok ? 'brief.copied' : 'brief.selected');
   }
   copyBtn.addEventListener('click', function () {
     var text = buildText();
     if (navigator.clipboard && window.isSecureContext) {
       navigator.clipboard.writeText(text).then(function () {
-        copyStatus.textContent = 'Ответы скопированы. Вставьте их в сообщение в Direct.';
+        copyStatus.textContent = i18n.t('brief.copied');
       }, fallbackCopy);
     } else {
       fallbackCopy();
@@ -294,10 +334,11 @@
 
   // ---------- Сброс ----------
   document.getElementById('reset').addEventListener('click', function () {
-    if (!window.confirm('Очистить все ответы?')) return;
+    if (!window.confirm(i18n.t('brief.confirmReset'))) return;
     form.reset();
-    setPlan('');
+    setPlan(null);
     sent = false;
+    sendState = 'idle';
     sendBox.classList.remove('is-sent');
     startedAt = Date.now();
     form.querySelectorAll('[aria-invalid]').forEach(function (el) { el.setAttribute('aria-invalid', 'false'); });
@@ -309,7 +350,7 @@
   // ---------- Старт ----------
   var draft = storageGet();
   if (draft) restore(draft.answers);
-  setPlan(planInput.value);
+  renderPlan();
   var startStep = draft && draft.step ? Number(draft.step) : 1;
   // Не пускаем сразу на поздние шаги, если обязательные поля пусты
   if (startStep > 1 && !(document.getElementById('name').value.trim() && document.getElementById('contact').value.trim())) startStep = 1;

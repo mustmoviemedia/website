@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MUST MOVIE MEDIA — видеопродакшен в Ташкенте</title>
-  <meta name="description" content="MMM Creative Production — видеопродакшен полного цикла в Ташкенте: Reels и реклама, фото и видео, SMM, съёмка мероприятий, прямые эфиры и аэросъёмка.">
+  <title data-i18n="meta.title">MUST MOVIE MEDIA — видеопродакшен в Ташкенте</title>
+  <meta name="description" data-i18n-content="meta.desc" content="MMM Creative Production — видеопродакшен полного цикла в Ташкенте: Reels и реклама, фото и видео, SMM, съёмка мероприятий, прямые эфиры и аэросъёмка.">
   <meta name="theme-color" content="#0A0A0A">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
   <meta property="og:site_name" content="MUST MOVIE MEDIA">
-  <meta property="og:title" content="MUST MOVIE MEDIA — Снимаем. Создаём. Продвигаем.">
-  <meta property="og:description" content="Видеопродакшен полного цикла в Ташкенте: визуал с эффектом WOW для бизнеса, брендов и мероприятий.">
+  <meta property="og:title" data-i18n-content="meta.ogTitle" content="MUST MOVIE MEDIA — Снимаем. Создаём. Продвигаем.">
+  <meta property="og:description" data-i18n-content="meta.ogDesc" content="Видеопродакшен полного цикла в Ташкенте: визуал с эффектом WOW для бизнеса, брендов и мероприятий.">
   <meta property="og:image" content="assets/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
 
@@ -23,26 +23,36 @@
   <script>document.documentElement.classList.remove('no-js');</script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Перейти к содержанию</a>
+  <a class="skip-link" href="#main" data-i18n="a11y.skip">Перейти к содержанию</a>
 
   <!-- Черновая плашка: удалите этот блок, когда сайт будет готов -->
-  <div class="draft-bar">Черновая версия сайта</div>
+  <div class="draft-bar" data-i18n="draft">Черновая версия сайта</div>
 
   <header class="site-header">
     <div class="container site-header__inner">
-      <a class="logo-text" href="#top" aria-label="MUST MOVIE MEDIA — наверх"><b>M</b>UST <b>M</b>OVIE <b>M</b>EDIA</a>
-      <nav class="nav" aria-label="Основная навигация">
+      <a class="logo-text" href="#top" aria-label="MUST MOVIE MEDIA — наверх" data-i18n-aria-label="logo.aria"><b>M</b><span class="logo-rest">UST </span><b>M</b><span class="logo-rest">OVIE </span><b>M</b><span class="logo-rest">EDIA</span></a>
+      <nav class="nav" aria-label="Основная навигация" data-i18n-aria-label="nav.aria">
         <div class="nav__links" id="nav-links">
-          <a href="#about">О нас</a>
-          <a href="#works">Работы</a>
-          <a href="#audience">Для кого</a>
-          <a href="#pricing">Услуги и цены</a>
-          <a href="#events">Мероприятия</a>
-          <a href="#team">Команда</a>
-          <a href="#brief">Бриф</a>
+          <a href="#about" data-i18n="nav.about">О нас</a>
+          <a href="#works" data-i18n="nav.works">Работы</a>
+          <a href="#audience" data-i18n="nav.audience">Для кого</a>
+          <a href="#pricing" data-i18n="nav.pricing">Услуги и цены</a>
+          <a href="#events" data-i18n="nav.events">Мероприятия</a>
+          <a href="#team" data-i18n="nav.team">Команда</a>
+          <a href="#brief" data-i18n="nav.brief">Бриф</a>
+          <div class="lang-switch lang-switch--menu" role="group" aria-label="Язык сайта" data-i18n-aria-label="lang.aria">
+            <button type="button" data-set-lang="ru" lang="ru" aria-label="Русский">RU</button>
+            <button type="button" data-set-lang="uz" lang="uz" aria-label="O'zbekcha">UZ</button>
+            <button type="button" data-set-lang="en" lang="en" aria-label="English">EN</button>
+          </div>
         </div>
-        <a class="btn btn--red btn--sm" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener">Написать<span class="long">&nbsp;в Direct</span></a>
-        <button class="burger" type="button" aria-controls="nav-links" aria-expanded="false" aria-label="Открыть меню"><span></span></button>
+        <div class="lang-switch lang-switch--head" role="group" aria-label="Язык сайта" data-i18n-aria-label="lang.aria">
+          <button type="button" data-set-lang="ru" lang="ru" aria-label="Русский">RU</button>
+          <button type="button" data-set-lang="uz" lang="uz" aria-label="O'zbekcha">UZ</button>
+          <button type="button" data-set-lang="en" lang="en" aria-label="English">EN</button>
+        </div>
+        <a class="btn btn--red btn--sm" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener"><span class="long" data-i18n="nav.writeFull">Написать в Direct</span><span class="short" data-i18n="nav.writeShort">Написать</span></a>
+        <button class="burger" type="button" aria-controls="nav-links" aria-expanded="false" aria-label="Открыть меню" data-i18n-aria-label="nav.open"><span></span></button>
       </nav>
     </div>
   </header>
@@ -57,28 +67,28 @@
           <span class="vf-corner vf-corner--tr" aria-hidden="true"></span>
           <span class="vf-corner vf-corner--bl" aria-hidden="true"></span>
           <span class="vf-corner vf-corner--br" aria-hidden="true"></span>
-          <div class="rec"><span class="rec__dot" aria-hidden="true"></span>REC · Открыты для проектов</div>
+          <div class="rec"><span class="rec__dot" aria-hidden="true"></span><span data-i18n="hero.rec">REC · Открыты для проектов</span></div>
 
           <div class="hero__grid">
             <div>
-              <p class="eyebrow">MMM Creative Production · Ташкент</p>
+              <p class="eyebrow" data-i18n="hero.eyebrow">MMM Creative Production · Ташкент</p>
               <h1 class="hero__title">
-                <span>Снимаем.</span>
-                <span>Создаём.</span>
-                <span class="red">Продвигаем.</span>
+                <span data-i18n="hero.t1">Снимаем.</span>
+                <span data-i18n="hero.t2">Создаём.</span>
+                <span class="red" data-i18n="hero.t3">Продвигаем.</span>
               </h1>
-              <p class="hero__lead">Мы открыты для новых проектов. Создаём не просто контент, а визуал с эффектом WOW — красиво, масштабно и так, чтобы видео хотелось досмотреть и отправить другому.</p>
+              <p class="hero__lead" data-i18n="hero.lead">Мы открыты для новых проектов. Создаём не просто контент, а визуал с эффектом WOW — красиво, масштабно и так, чтобы видео хотелось досмотреть и отправить другому.</p>
               <div class="hero__actions">
-                <a class="btn btn--red" href="#brief">Заполнить бриф</a>
-                <a class="btn btn--outline" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener">Написать в Direct</a>
+                <a class="btn btn--red" href="#brief" data-i18n="btn.brief">Заполнить бриф</a>
+                <a class="btn btn--outline" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener" data-i18n="btn.direct">Написать в Direct</a>
               </div>
-              <ul class="tags" aria-label="Направления">
+              <ul class="tags" aria-label="Направления" data-i18n-aria-label="hero.tagsAria">
                 <li>Films</li>
                 <li>Commercials</li>
                 <li>Content</li>
               </ul>
             </div>
-            <img class="hero__logo" src="assets/logo-white.svg" alt="Логотип MUST MOVIE MEDIA" width="360" height="360">
+            <img class="hero__logo" src="assets/logo-white.svg" alt="Логотип MUST MOVIE MEDIA" data-i18n-alt="hero.logoAlt" width="360" height="360">
           </div>
         </div>
       </div>
@@ -88,14 +98,14 @@
     <section class="section section--alt" id="showreel" aria-labelledby="showreel-title">
       <div class="container">
         <div class="section__head reveal">
-          <p class="eyebrow">Шоурил</p>
-          <h2 id="showreel-title">Смотрите, как мы снимаем</h2>
+          <p class="eyebrow" data-i18n="showreel.eyebrow">Шоурил</p>
+          <h2 id="showreel-title" data-i18n="showreel.title">Смотрите, как мы снимаем</h2>
         </div>
-        <a class="showreel reveal" href="https://www.instagram.com/mmm_creative_production/" target="_blank" rel="noopener" aria-label="Смотреть шоурил в Instagram">
+        <a class="showreel reveal" href="https://www.instagram.com/mmm_creative_production/" target="_blank" rel="noopener" aria-label="Смотреть шоурил в Instagram" data-i18n-aria-label="showreel.aria">
           <span class="showreel__play" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M5 3.5v17a1 1 0 0 0 1.5.86l14-8.5a1 1 0 0 0 0-1.72l-14-8.5A1 1 0 0 0 5 3.5z"/></svg>
           </span>
-          <span class="showreel__label todo">[Шоурил 30–60 сек]</span>
+          <span class="showreel__label todo" data-i18n="showreel.todo">[Шоурил 30–60 сек]</span>
         </a>
       </div>
     </section>
@@ -104,40 +114,40 @@
     <section class="section" id="why" aria-labelledby="why-title">
       <div class="container">
         <div class="section__head reveal">
-          <p class="eyebrow">Почему MMM</p>
-          <h2 id="why-title">Продакшен полного цикла</h2>
+          <p class="eyebrow" data-i18n="why.eyebrow">Почему MMM</p>
+          <h2 id="why-title" data-i18n="why.title">Продакшен полного цикла</h2>
         </div>
         <div class="grid grid--3">
           <article class="card feature reveal">
-            <h3>От идеи <span>до продвижения</span></h3>
-            <p>Концепция, сценарий, съёмка, монтаж, цвет и ведение Instagram в одних руках.</p>
+            <h3 data-i18n-html="why.1h">От идеи <span>до продвижения</span></h3>
+            <p data-i18n="why.1p">Концепция, сценарий, съёмка, монтаж, цвет и ведение Instagram в одних руках.</p>
           </article>
           <article class="card feature reveal">
-            <h3>Свой <span>сценарист</span></h3>
-            <p>Story developer в команде: ролики строятся на истории, а не на случайных кадрах.</p>
+            <h3 data-i18n-html="why.2h">Свой <span>сценарист</span></h3>
+            <p data-i18n="why.2p">Story developer в команде: ролики строятся на истории, а не на случайных кадрах.</p>
           </article>
           <article class="card feature reveal">
-            <h3>Масштаб <span>8 камер</span></h3>
-            <p>На крупном мероприятии до 8 операторов, 3 фотографа и режиссёр трансляции.</p>
+            <h3 data-i18n-html="why.3h">Масштаб <span>8 камер</span></h3>
+            <p data-i18n="why.3p">На крупном мероприятии до 8 операторов, 3 фотографа и режиссёр трансляции.</p>
           </article>
           <article class="card feature reveal">
-            <h3>Прямые <span>эфиры</span></h3>
-            <p>Трансляции с режиссёром и техником.</p>
+            <h3 data-i18n-html="why.4h">Прямые <span>эфиры</span></h3>
+            <p data-i18n="why.4p">Трансляции с режиссёром и техником.</p>
           </article>
           <article class="card feature reveal">
-            <h3>Аэросъёмка <span>с лицензией</span></h3>
-            <p>Классический дрон и FPV.</p>
+            <h3 data-i18n-html="why.5h">Аэросъёмка <span>с лицензией</span></h3>
+            <p data-i18n="why.5p">Классический дрон и FPV.</p>
           </article>
           <article class="card feature reveal">
-            <h3>Мероприятия <span>от 250 гостей</span></h3>
-            <p>Приглашения, LED-заставки, welcome-съёмка, отчётный ролик и фото 200+.</p>
+            <h3 data-i18n-html="why.6h">Мероприятия <span>от 250 гостей</span></h3>
+            <p data-i18n="why.6p">Приглашения, LED-заставки, welcome-съёмка, отчётный ролик и фото 200+.</p>
           </article>
         </div>
         <div class="grid grid--4 stats">
-          <div class="stat todo"><strong>[N]</strong>лет в продакшене</div>
-          <div class="stat todo"><strong>[N]+</strong>проектов</div>
-          <div class="stat todo"><strong>[N]+</strong>мероприятий</div>
-          <div class="stat todo"><strong>[N] млн</strong>просмотров</div>
+          <div class="stat todo" data-i18n-html="stats.1"><strong>[N]</strong>лет в продакшене</div>
+          <div class="stat todo" data-i18n-html="stats.2"><strong>[N]+</strong>проектов</div>
+          <div class="stat todo" data-i18n-html="stats.3"><strong>[N]+</strong>мероприятий</div>
+          <div class="stat todo" data-i18n-html="stats.4"><strong>[N] млн</strong>просмотров</div>
         </div>
       </div>
     </section>
@@ -146,19 +156,19 @@
     <section class="section section--alt" id="about" aria-labelledby="about-title">
       <div class="container about">
         <div class="about__text reveal">
-          <p class="eyebrow">О нас</p>
-          <h2 id="about-title">Команда специалистов и новаторов</h2>
-          <p>MUST MOVIE MEDIA — команда с многолетним опытом в аудиовизуальной сфере. Мы находим свежий и креативный подход к каждому проекту, не забывая об индивидуальности каждого заказчика, и отвечаем за качество результата.</p>
+          <p class="eyebrow" data-i18n="about.eyebrow">О нас</p>
+          <h2 id="about-title" data-i18n="about.title">Команда специалистов и новаторов</h2>
+          <p data-i18n="about.text">MUST MOVIE MEDIA — команда с многолетним опытом в аудиовизуальной сфере. Мы находим свежий и креативный подход к каждому проекту, не забывая об индивидуальности каждого заказчика, и отвечаем за качество результата.</p>
         </div>
         <div class="reveal">
-          <h3>Что делаем</h3>
+          <h3 data-i18n="about.what">Что делаем</h3>
           <ul class="cells">
-            <li>Reels и реклама</li>
-            <li>Фото и видео</li>
-            <li>Концепции и сценарии</li>
-            <li>Контент и продвижение Instagram</li>
-            <li>Имиджевые съёмки</li>
-            <li>Мероприятия</li>
+            <li data-i18n="what.1">Reels и реклама</li>
+            <li data-i18n="what.2">Фото и видео</li>
+            <li data-i18n="what.3">Концепции и сценарии</li>
+            <li data-i18n="what.4">Контент и продвижение Instagram</li>
+            <li data-i18n="what.5">Имиджевые съёмки</li>
+            <li data-i18n="what.6">Мероприятия</li>
           </ul>
         </div>
       </div>
@@ -168,19 +178,19 @@
     <section class="section" id="audience" aria-labelledby="audience-title">
       <div class="container">
         <div class="section__head reveal">
-          <p class="eyebrow">Для кого</p>
-          <h2 id="audience-title">Для кого мы снимаем</h2>
-          <p>Если вашему бизнесу, бренду или личному блогу нужен новый уровень визуала — это к нам.</p>
+          <p class="eyebrow" data-i18n="aud.eyebrow">Для кого</p>
+          <h2 id="audience-title" data-i18n="aud.title">Для кого мы снимаем</h2>
+          <p data-i18n="aud.text">Если вашему бизнесу, бренду или личному блогу нужен новый уровень визуала — это к нам.</p>
         </div>
         <ul class="chips reveal">
-          <li>Кофейни и рестораны</li>
-          <li>Спортивные клубы</li>
-          <li>Магазины и бренды</li>
-          <li>Производство и строительство</li>
-          <li>Бизнес и предприятия</li>
-          <li>Блогеры и личные проекты</li>
-          <li>Мероприятия</li>
-          <li>Персональные фото- и видеосъёмки</li>
+          <li data-i18n="aud.1">Кофейни и рестораны</li>
+          <li data-i18n="aud.2">Спортивные клубы</li>
+          <li data-i18n="aud.3">Магазины и бренды</li>
+          <li data-i18n="aud.4">Производство и строительство</li>
+          <li data-i18n="aud.5">Бизнес и предприятия</li>
+          <li data-i18n="aud.6">Блогеры и личные проекты</li>
+          <li data-i18n="aud.7">Мероприятия</li>
+          <li data-i18n="aud.8">Персональные фото- и видеосъёмки</li>
         </ul>
       </div>
     </section>
@@ -189,53 +199,53 @@
     <section class="section section--alt" id="works" aria-labelledby="works-title">
       <div class="container">
         <div class="section__head reveal">
-          <p class="eyebrow">Работы</p>
-          <h2 id="works-title">Кейсы</h2>
+          <p class="eyebrow" data-i18n="works.eyebrow">Работы</p>
+          <h2 id="works-title" data-i18n="works.title">Кейсы</h2>
         </div>
         <div class="grid grid--4">
           <article class="card case reveal">
-            <div class="case__cover todo">[Обложка 3:4]</div>
+            <div class="case__cover todo" data-i18n="works.cover">[Обложка 3:4]</div>
             <div class="case__body">
-              <h3 class="todo">[Клиент · что сделали]</h3>
-              <p class="todo">[Задача → результат]</p>
-              <a class="btn btn--ghost btn--sm" href="https://www.instagram.com/reel/DVEi8xZjBU0/" target="_blank" rel="noopener">Смотреть<span class="visually-hidden"> кейс 1 в Instagram</span></a>
+              <h3 class="todo" data-i18n="works.caseTitle">[Клиент · что сделали]</h3>
+              <p class="todo" data-i18n="works.caseText">[Задача → результат]</p>
+              <a class="btn btn--ghost btn--sm" href="https://www.instagram.com/reel/DVEi8xZjBU0/" target="_blank" rel="noopener" data-i18n-html="works.watch" data-i18n-n="1">Смотреть<span class="visually-hidden"> кейс 1 в Instagram</span></a>
             </div>
           </article>
           <article class="card case reveal">
-            <div class="case__cover todo">[Обложка 3:4]</div>
+            <div class="case__cover todo" data-i18n="works.cover">[Обложка 3:4]</div>
             <div class="case__body">
-              <h3 class="todo">[Клиент · что сделали]</h3>
-              <p class="todo">[Задача → результат]</p>
-              <a class="btn btn--ghost btn--sm" href="https://www.instagram.com/reel/DVZGf4LjI6D/" target="_blank" rel="noopener">Смотреть<span class="visually-hidden"> кейс 2 в Instagram</span></a>
+              <h3 class="todo" data-i18n="works.caseTitle">[Клиент · что сделали]</h3>
+              <p class="todo" data-i18n="works.caseText">[Задача → результат]</p>
+              <a class="btn btn--ghost btn--sm" href="https://www.instagram.com/reel/DVZGf4LjI6D/" target="_blank" rel="noopener" data-i18n-html="works.watch" data-i18n-n="2">Смотреть<span class="visually-hidden"> кейс 2 в Instagram</span></a>
             </div>
           </article>
           <article class="card case reveal">
-            <div class="case__cover todo">[Обложка 3:4]</div>
+            <div class="case__cover todo" data-i18n="works.cover">[Обложка 3:4]</div>
             <div class="case__body">
-              <h3 class="todo">[Клиент · что сделали]</h3>
-              <p class="todo">[Задача → результат]</p>
-              <a class="btn btn--ghost btn--sm" href="https://www.instagram.com/reel/Da2C8edBgK8/" target="_blank" rel="noopener">Смотреть<span class="visually-hidden"> кейс 3 в Instagram</span></a>
+              <h3 class="todo" data-i18n="works.caseTitle">[Клиент · что сделали]</h3>
+              <p class="todo" data-i18n="works.caseText">[Задача → результат]</p>
+              <a class="btn btn--ghost btn--sm" href="https://www.instagram.com/reel/Da2C8edBgK8/" target="_blank" rel="noopener" data-i18n-html="works.watch" data-i18n-n="3">Смотреть<span class="visually-hidden"> кейс 3 в Instagram</span></a>
             </div>
           </article>
           <article class="card case reveal">
-            <div class="case__cover todo">[Обложка 3:4]</div>
+            <div class="case__cover todo" data-i18n="works.cover">[Обложка 3:4]</div>
             <div class="case__body">
-              <h3 class="todo">[Клиент · что сделали]</h3>
-              <p class="todo">[Задача → результат]</p>
-              <a class="btn btn--ghost btn--sm" href="https://www.instagram.com/reel/Db5FRrEoBl7/" target="_blank" rel="noopener">Смотреть<span class="visually-hidden"> кейс 4 в Instagram</span></a>
+              <h3 class="todo" data-i18n="works.caseTitle">[Клиент · что сделали]</h3>
+              <p class="todo" data-i18n="works.caseText">[Задача → результат]</p>
+              <a class="btn btn--ghost btn--sm" href="https://www.instagram.com/reel/Db5FRrEoBl7/" target="_blank" rel="noopener" data-i18n-html="works.watch" data-i18n-n="4">Смотреть<span class="visually-hidden"> кейс 4 в Instagram</span></a>
             </div>
           </article>
         </div>
 
         <div class="clients reveal">
-          <h3>С нами работали</h3>
+          <h3 data-i18n="works.clients">С нами работали</h3>
           <div class="grid">
-            <div class="client-logo todo">[Логотип]</div>
-            <div class="client-logo todo">[Логотип]</div>
-            <div class="client-logo todo">[Логотип]</div>
-            <div class="client-logo todo">[Логотип]</div>
-            <div class="client-logo todo">[Логотип]</div>
-            <div class="client-logo todo">[Логотип]</div>
+            <div class="client-logo todo" data-i18n="works.logo">[Логотип]</div>
+            <div class="client-logo todo" data-i18n="works.logo">[Логотип]</div>
+            <div class="client-logo todo" data-i18n="works.logo">[Логотип]</div>
+            <div class="client-logo todo" data-i18n="works.logo">[Логотип]</div>
+            <div class="client-logo todo" data-i18n="works.logo">[Логотип]</div>
+            <div class="client-logo todo" data-i18n="works.logo">[Логотип]</div>
           </div>
         </div>
       </div>
@@ -245,113 +255,113 @@
     <section class="section" id="pricing" aria-labelledby="pricing-title">
       <div class="container">
         <div class="section__head reveal">
-          <p class="eyebrow">Услуги и цены</p>
-          <h2 id="pricing-title">Пакеты и стоимость</h2>
-          <p>Цены в сумах. Нажмите на любой пакет — покажем, что входит, сколько часов снимаем, какая команда и техника, и когда будет готово.</p>
+          <p class="eyebrow" data-i18n="pricing.eyebrow">Услуги и цены</p>
+          <h2 id="pricing-title" data-i18n="pricing.title">Пакеты и стоимость</h2>
+          <p data-i18n="pricing.text">Цены в сумах. Нажмите на любой пакет — покажем, что входит, сколько часов снимаем, какая команда и техника, и когда будет готово.</p>
         </div>
 
         <!-- SMM -->
         <div class="price-group">
           <div class="price-group__head reveal">
-            <h3>SMM · фото + видео</h3>
-            <p>Ежемесячно</p>
+            <h3 data-i18n="grp.smm">SMM · фото + видео</h3>
+            <p data-i18n="grp.monthly">Ежемесячно</p>
           </div>
           <div class="grid grid--3">
             <article class="card plan reveal" data-plan="smm-start">
               <h4 class="plan__name">Start</h4>
-              <div class="plan__price">16,0 млн <small>/ мес</small></div>
+              <div class="plan__price" data-money="16.0" data-money-per>16,0 млн <small>/ мес</small></div>
               <ul class="dia-list">
                 <li>4 Reels</li>
                 <li>8 Stories</li>
-                <li>25–30 фото</li>
-                <li>1 видео-поздравление</li>
+                <li data-i18n="smm.s3">25–30 фото</li>
+                <li data-i18n="smm.s4">1 видео-поздравление</li>
               </ul>
-              <button type="button" class="plan__more" data-open-plan="smm-start">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
+              <button type="button" class="plan__more" data-open-plan="smm-start" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
             </article>
             <article class="card plan plan--hot reveal" data-plan="smm-pro">
-              <span class="badge">Популярный</span>
+              <span class="badge" data-i18n="badge.popular">Популярный</span>
               <h4 class="plan__name">Pro</h4>
-              <div class="plan__price">23,4 млн <small>/ мес</small></div>
+              <div class="plan__price" data-money="23.4" data-money-per>23,4 млн <small>/ мес</small></div>
               <ul class="dia-list">
                 <li>6 Reels</li>
                 <li>12 Stories</li>
-                <li>45–50 фото</li>
-                <li>1 мини-сюжет до 1,5 мин</li>
+                <li data-i18n="smm.p3">45–50 фото</li>
+                <li data-i18n="smm.p4">1 мини-сюжет до 1,5 мин</li>
               </ul>
-              <button type="button" class="plan__more" data-open-plan="smm-pro">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
+              <button type="button" class="plan__more" data-open-plan="smm-pro" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
             </article>
             <article class="card plan reveal" data-plan="smm-premium">
               <h4 class="plan__name">Premium</h4>
-              <div class="plan__price">35,8 млн <small>/ мес</small></div>
+              <div class="plan__price" data-money="35.8" data-money-per>35,8 млн <small>/ мес</small></div>
               <ul class="dia-list">
                 <li>9 Reels</li>
                 <li>15 Stories</li>
-                <li>65–70 фото</li>
-                <li>1 имиджевое видео</li>
-                <li>1 репортаж с мероприятия</li>
+                <li data-i18n="smm.pr3">65–70 фото</li>
+                <li data-i18n="smm.pr4">1 имиджевое видео</li>
+                <li data-i18n="smm.pr5">1 репортаж с мероприятия</li>
               </ul>
-              <button type="button" class="plan__more" data-open-plan="smm-premium">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
+              <button type="button" class="plan__more" data-open-plan="smm-premium" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
             </article>
           </div>
 
-          <h4 class="visually-hidden">Скидки за предоплату</h4>
-          <ul class="discount-row reveal" aria-label="Скидки за предоплату">
-            <li><b>−7%</b> за 3 месяца</li>
-            <li><b>−12%</b> за 6 месяцев</li>
-            <li><b>−18%</b> за 12 месяцев</li>
+          <h4 class="visually-hidden" data-i18n="disc.aria">Скидки за предоплату</h4>
+          <ul class="discount-row reveal" aria-label="Скидки за предоплату" data-i18n-aria-label="disc.aria">
+            <li data-i18n-html="disc.3"><b>−7%</b> за 3 месяца</li>
+            <li data-i18n-html="disc.6"><b>−12%</b> за 6 месяцев</li>
+            <li data-i18n-html="disc.12"><b>−18%</b> за 12 месяцев</li>
           </ul>
           <div class="table-wrap reveal" role="region" aria-labelledby="smm-table-cap" tabindex="0">
             <table>
-              <caption id="smm-table-cap" class="visually-hidden">Стоимость SMM при предоплате, млн сум</caption>
+              <caption id="smm-table-cap" class="visually-hidden" data-i18n="tbl.smmCap">Стоимость SMM при предоплате, млн сум</caption>
               <thead>
-                <tr><th scope="col">Пакет</th><th scope="col">3 мес</th><th scope="col">6 мес</th><th scope="col">12 мес</th></tr>
+                <tr><th scope="col" data-i18n="tbl.package">Пакет</th><th scope="col" data-i18n="tbl.3m">3 мес</th><th scope="col" data-i18n="tbl.6m">6 мес</th><th scope="col" data-i18n="tbl.12m">12 мес</th></tr>
               </thead>
               <tbody>
-                <tr><th scope="row">Start</th><td>44,6</td><td>84,5</td><td>157,3</td></tr>
-                <tr class="is-hot"><th scope="row">Pro</th><td>66,0</td><td>124,9</td><td>232,8</td></tr>
-                <tr><th scope="row">Premium</th><td>99,7</td><td>188,8</td><td>351,8</td></tr>
+                <tr><th scope="row">Start</th><td data-num="44.6">44,6</td><td data-num="84.5">84,5</td><td data-num="157.3">157,3</td></tr>
+                <tr class="is-hot"><th scope="row">Pro</th><td data-num="66.0">66,0</td><td data-num="124.9">124,9</td><td data-num="232.8">232,8</td></tr>
+                <tr><th scope="row">Premium</th><td data-num="99.7">99,7</td><td data-num="188.8">188,8</td><td data-num="351.8">351,8</td></tr>
               </tbody>
             </table>
           </div>
-          <p class="table-caption">Итог с учётом скидки за предоплату, млн сум.</p>
+          <p class="table-caption" data-i18n="tbl.note">Итог с учётом скидки за предоплату, млн сум.</p>
         </div>
 
         <!-- Фото -->
         <div class="price-group">
           <div class="price-group__head reveal">
-            <h3>Только фото</h3>
+            <h3 data-i18n="grp.foto">Только фото</h3>
           </div>
           <div class="grid grid--3">
             <article class="card plan reveal" data-plan="foto-start">
               <h4 class="plan__name">Foto Start</h4>
-              <div class="plan__price">4,9 млн</div>
+              <div class="plan__price" data-money="4.9">4,9 млн</div>
               <ul class="dia-list">
-                <li>25–30 обработанных фото</li>
-                <li>1 смена</li>
-                <li>Цветокоррекция и ретушь</li>
+                <li data-i18n="foto.s1">25–30 обработанных фото</li>
+                <li data-i18n="foto.s2">1 смена</li>
+                <li data-i18n="foto.retouch">Цветокоррекция и ретушь</li>
               </ul>
-              <button type="button" class="plan__more" data-open-plan="foto-start">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
+              <button type="button" class="plan__more" data-open-plan="foto-start" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
             </article>
             <article class="card plan plan--hot reveal" data-plan="foto-pro">
-              <span class="badge">Популярный</span>
+              <span class="badge" data-i18n="badge.popular">Популярный</span>
               <h4 class="plan__name">Foto Pro</h4>
-              <div class="plan__price">7,8 млн</div>
+              <div class="plan__price" data-money="7.8">7,8 млн</div>
               <ul class="dia-list">
-                <li>50 фото</li>
-                <li>До 2 смен</li>
-                <li>Цветокоррекция и ретушь</li>
+                <li data-i18n="foto.p1">50 фото</li>
+                <li data-i18n="foto.p2">До 2 смен</li>
+                <li data-i18n="foto.retouch">Цветокоррекция и ретушь</li>
               </ul>
-              <button type="button" class="plan__more" data-open-plan="foto-pro">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
+              <button type="button" class="plan__more" data-open-plan="foto-pro" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
             </article>
             <article class="card plan reveal" data-plan="foto-custom">
-              <h4 class="plan__name">Индивидуально</h4>
-              <div class="plan__price">По запросу</div>
+              <h4 class="plan__name" data-i18n="plan.custom">Индивидуально</h4>
+              <div class="plan__price" data-i18n="price.onRequest">По запросу</div>
               <ul class="dia-list">
-                <li>Любой объём</li>
-                <li>Продукт, команда, интерьер</li>
-                <li>Своя концепция</li>
+                <li data-i18n="foto.c1">Любой объём</li>
+                <li data-i18n="foto.c2">Продукт, команда, интерьер</li>
+                <li data-i18n="foto.c3">Своя концепция</li>
               </ul>
-              <button type="button" class="plan__more" data-open-plan="foto-custom">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
+              <button type="button" class="plan__more" data-open-plan="foto-custom" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
             </article>
           </div>
         </div>
@@ -359,45 +369,45 @@
         <!-- Видео -->
         <div class="price-group">
           <div class="price-group__head reveal">
-            <h3>Только видео</h3>
-            <p>Ежемесячно</p>
+            <h3 data-i18n="grp.video">Только видео</h3>
+            <p data-i18n="grp.monthly">Ежемесячно</p>
           </div>
           <div class="grid grid--3">
             <article class="card plan reveal" data-plan="video-start">
               <h4 class="plan__name">Video Start</h4>
-              <div class="plan__price">11,7 млн <small>/ мес</small></div>
+              <div class="plan__price" data-money="11.7" data-money-per>11,7 млн <small>/ мес</small></div>
               <ul class="dia-list">
                 <li>4 Reels</li>
                 <li>8 Stories</li>
-                <li>Монтаж и цвет</li>
+                <li data-i18n="video.s3">Монтаж и цвет</li>
               </ul>
-              <button type="button" class="plan__more" data-open-plan="video-start">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
+              <button type="button" class="plan__more" data-open-plan="video-start" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
             </article>
             <article class="card plan plan--hot reveal" data-plan="video-pro">
-              <span class="badge">Популярный</span>
+              <span class="badge" data-i18n="badge.popular">Популярный</span>
               <h4 class="plan__name">Video Pro</h4>
-              <div class="plan__price">17,6 млн <small>/ мес</small></div>
+              <div class="plan__price" data-money="17.6" data-money-per>17,6 млн <small>/ мес</small></div>
               <ul class="dia-list">
                 <li>6 Reels</li>
                 <li>12 Stories</li>
-                <li>1 сюжет</li>
+                <li data-i18n="video.p3">1 сюжет</li>
               </ul>
-              <button type="button" class="plan__more" data-open-plan="video-pro">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
+              <button type="button" class="plan__more" data-open-plan="video-pro" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
             </article>
             <article class="card plan reveal" data-plan="video-premium">
               <h4 class="plan__name">Video Premium</h4>
-              <div class="plan__price">26,0 млн <small>/ мес</small></div>
+              <div class="plan__price" data-money="26.0" data-money-per>26,0 млн <small>/ мес</small></div>
               <ul class="dia-list">
                 <li>9 Reels</li>
                 <li>15 Stories</li>
-                <li>1 имиджевый ролик</li>
+                <li data-i18n="video.pr3">1 имиджевый ролик</li>
               </ul>
-              <button type="button" class="plan__more" data-open-plan="video-premium">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
+              <button type="button" class="plan__more" data-open-plan="video-premium" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
             </article>
           </div>
         </div>
 
-        <p class="estimate-note reveal">Точную смету считаем после брифа. <a href="#brief" class="red">Заполнить бриф →</a></p>
+        <p class="estimate-note reveal" data-i18n-html="pricing.estimate">Точную смету считаем после брифа. <a href="#brief" class="red">Заполнить бриф →</a></p>
       </div>
     </section>
 
@@ -405,124 +415,124 @@
     <section class="section section--alt" id="events" aria-labelledby="events-title">
       <div class="container">
         <div class="section__head reveal">
-          <p class="eyebrow">Мероприятия · цена за 1 день</p>
-          <h2 id="events-title">«Исторические» пакеты</h2>
-          <p>Мы называем их историческими, потому что снимаем событие так, чтобы оно вошло в историю вашей компании. Гости пересматривают ролик, делятся им в соцсетях, а вы используете кадры ещё год: в рекламе, на сайте, в приглашении на следующее событие.</p>
+          <p class="eyebrow" data-i18n="ev.eyebrow">Мероприятия · цена за 1 день</p>
+          <h2 id="events-title" data-i18n="ev.title">«Исторические» пакеты</h2>
+          <p data-i18n="ev.text">Мы называем их историческими, потому что снимаем событие так, чтобы оно вошло в историю вашей компании. Гости пересматривают ролик, делятся им в соцсетях, а вы используете кадры ещё год: в рекламе, на сайте, в приглашении на следующее событие.</p>
         </div>
 
         <ul class="ev-points reveal">
-          <li><b>до 8</b>операторов на площадке</li>
-          <li><b>24–48 ч</b>первые ролики после события</li>
-          <li><b>200+</b>фото в фотоотчёте</li>
-          <li><b>4K</b>аэросъёмка с лицензией</li>
+          <li data-i18n-html="ev.pt1"><b>до 8</b>операторов на площадке</li>
+          <li data-i18n-html="ev.pt2"><b>24–48 ч</b>первые ролики после события</li>
+          <li data-i18n-html="ev.pt3"><b>200+</b>фото в фотоотчёте</li>
+          <li data-i18n-html="ev.pt4"><b>4K</b>аэросъёмка с лицензией</li>
         </ul>
 
         <div class="grid grid--2 ev-grid">
           <article class="card plan plan--hot reveal" data-plan="ev-blockbuster">
-            <span class="badge">Максимум</span>
-            <h3 class="plan__name">Блокбастер</h3>
-            <div class="plan__price">170,7 млн</div>
-            <p class="plan__note">От 250 гостей · прямой эфир · до 8 камер</p>
+            <span class="badge" data-i18n="badge.max">Максимум</span>
+            <h3 class="plan__name" data-i18n="pkg.bb">Блокбастер</h3>
+            <div class="plan__price" data-money="170.7">170,7 млн</div>
+            <p class="plan__note" data-i18n="ev.bbNote">От 250 гостей · прямой эфир · до 8 камер</p>
             <ul class="dia-list">
-              <li>Видео- и фото-приглашение</li>
-              <li>LED-заставки до 10</li>
-              <li>Welcome-фотосессия</li>
-              <li>Прямой эфир и запись всего события</li>
-              <li>Аэросъёмка с лицензией</li>
-              <li>Отчётный ролик 2–5 мин</li>
-              <li>10 вертикальных роликов</li>
-              <li>Фотоотчёт 200+ и исходники</li>
+              <li data-i18n="ev.bb1">Видео- и фото-приглашение</li>
+              <li data-i18n="ev.bb2">LED-заставки до 10</li>
+              <li data-i18n="ev.bb3">Welcome-фотосессия</li>
+              <li data-i18n="ev.bb4">Прямой эфир и запись всего события</li>
+              <li data-i18n="ev.bb5">Аэросъёмка с лицензией</li>
+              <li data-i18n="ev.bb6">Отчётный ролик 2–5 мин</li>
+              <li data-i18n="ev.bb7">10 вертикальных роликов</li>
+              <li data-i18n="ev.bb8">Фотоотчёт 200+ и исходники</li>
             </ul>
-            <button type="button" class="plan__more" data-open-plan="ev-blockbuster">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
+            <button type="button" class="plan__more" data-open-plan="ev-blockbuster" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
           </article>
           <article class="card plan reveal" data-plan="ev-hist1">
-            <h3 class="plan__name">Исторический 1</h3>
-            <div class="plan__price">97,7 млн</div>
-            <p class="plan__note">100–300 гостей · без прямого эфира</p>
+            <h3 class="plan__name" data-i18n="pkg.h1">Исторический 1</h3>
+            <div class="plan__price" data-money="97.7">97,7 млн</div>
+            <p class="plan__note" data-i18n="ev.h1Note">100–300 гостей · без прямого эфира</p>
             <ul class="dia-list">
-              <li>Приглашение</li>
-              <li>3 оператора и 3 фотографа</li>
+              <li data-i18n="ev.h1_1">Приглашение</li>
+              <li data-i18n="ev.h1_2">3 оператора и 3 фотографа</li>
               <li>GoPro</li>
-              <li>Отчётный ролик</li>
-              <li>10 вертикальных роликов</li>
-              <li>10 анимаций</li>
-              <li>Аэросъёмка</li>
-              <li>Исходники</li>
+              <li data-i18n="ev.h1_4">Отчётный ролик</li>
+              <li data-i18n="ev.bb7">10 вертикальных роликов</li>
+              <li data-i18n="ev.h1_6">10 анимаций</li>
+              <li data-i18n="ev.aerial">Аэросъёмка</li>
+              <li data-i18n="ev.sources">Исходники</li>
             </ul>
-            <button type="button" class="plan__more" data-open-plan="ev-hist1">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
+            <button type="button" class="plan__more" data-open-plan="ev-hist1" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
           </article>
           <article class="card plan reveal" data-plan="ev-hist2">
-            <h3 class="plan__name">Исторический 2</h3>
-            <div class="plan__price">57,9 млн</div>
-            <p class="plan__note">До 200 гостей · оптимальный</p>
+            <h3 class="plan__name" data-i18n="pkg.h2">Исторический 2</h3>
+            <div class="plan__price" data-money="57.9">57,9 млн</div>
+            <p class="plan__note" data-i18n="ev.h2Note">До 200 гостей · оптимальный</p>
             <ul class="dia-list">
-              <li>Отчётный ролик 2–5 мин</li>
-              <li>Адаптация для соцсетей</li>
-              <li>5 вертикальных роликов</li>
-              <li>Фотоотчёт 200+</li>
-              <li>Аэросъёмка</li>
-              <li>Запись звука</li>
+              <li data-i18n="ev.bb6">Отчётный ролик 2–5 мин</li>
+              <li data-i18n="ev.h2_2">Адаптация для соцсетей</li>
+              <li data-i18n="ev.vert5">5 вертикальных роликов</li>
+              <li data-i18n="ev.h2_4">Фотоотчёт 200+</li>
+              <li data-i18n="ev.aerial">Аэросъёмка</li>
+              <li data-i18n="ev.h2_6">Запись звука</li>
             </ul>
-            <button type="button" class="plan__more" data-open-plan="ev-hist2">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
+            <button type="button" class="plan__more" data-open-plan="ev-hist2" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
           </article>
           <article class="card plan reveal" data-plan="ev-hist3">
-            <h3 class="plan__name">Исторический 3</h3>
-            <div class="plan__price">27,9 млн</div>
-            <p class="plan__note">До 100 гостей · минимальный</p>
+            <h3 class="plan__name" data-i18n="pkg.h3">Исторический 3</h3>
+            <div class="plan__price" data-money="27.9">27,9 млн</div>
+            <p class="plan__note" data-i18n="ev.h3Note">До 100 гостей · минимальный</p>
             <ul class="dia-list">
-              <li>2 оператора</li>
-              <li>2 фотографа</li>
-              <li>Монтаж ролика</li>
-              <li>5 вертикальных роликов</li>
+              <li data-i18n="ev.h3_1">2 оператора</li>
+              <li data-i18n="ev.h3_2">2 фотографа</li>
+              <li data-i18n="ev.h3_3">Монтаж ролика</li>
+              <li data-i18n="ev.vert5">5 вертикальных роликов</li>
             </ul>
-            <button type="button" class="plan__more" data-open-plan="ev-hist3">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
+            <button type="button" class="plan__more" data-open-plan="ev-hist3" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
           </article>
         </div>
 
         <div class="ev-compare reveal">
-          <h3>Сравнение пакетов</h3>
+          <h3 data-i18n="cmp.title">Сравнение пакетов</h3>
           <div class="table-wrap" role="region" aria-labelledby="ev-table-cap" tabindex="0">
             <table>
-              <caption id="ev-table-cap" class="visually-hidden">Сравнение пакетов для мероприятий</caption>
+              <caption id="ev-table-cap" class="visually-hidden" data-i18n="cmp.cap">Сравнение пакетов для мероприятий</caption>
               <thead>
-                <tr><th scope="col"></th><th scope="col">Блокбастер</th><th scope="col">Истор. 1</th><th scope="col">Истор. 2</th><th scope="col">Истор. 3</th></tr>
+                <tr><th scope="col"></th><th scope="col" data-i18n="pkg.bb">Блокбастер</th><th scope="col" data-i18n="pkg.h1s">Истор. 1</th><th scope="col" data-i18n="pkg.h2s">Истор. 2</th><th scope="col" data-i18n="pkg.h3s">Истор. 3</th></tr>
               </thead>
               <tbody>
-                <tr><th scope="row">Гостей</th><td>250+</td><td>100–300</td><td>до 200</td><td>до 100</td></tr>
-                <tr><th scope="row">Операторы</th><td>до 8</td><td>3</td><td>2</td><td>2</td></tr>
-                <tr><th scope="row">Фотографы</th><td>3</td><td>3</td><td>2</td><td>2</td></tr>
-                <tr><th scope="row">Прямой эфир</th><td class="yes">✓</td><td>—</td><td>—</td><td>—</td></tr>
-                <tr><th scope="row">Приглашение</th><td class="yes">✓</td><td class="yes">✓</td><td>—</td><td>—</td></tr>
-                <tr><th scope="row">Аэросъёмка</th><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td>—</td></tr>
-                <tr><th scope="row">Вертикальные ролики</th><td>10</td><td>10</td><td>5</td><td>5</td></tr>
-                <tr><th scope="row">Фотоотчёт</th><td>200+</td><td>✓</td><td>200+</td><td>✓</td></tr>
-                <tr><th scope="row">Исходники</th><td class="yes">✓</td><td class="yes">✓</td><td>—</td><td>—</td></tr>
-                <tr><th scope="row">Цена за день</th><td class="price">170,7 млн</td><td class="price">97,7 млн</td><td class="price">57,9 млн</td><td class="price">27,9 млн</td></tr>
+                <tr><th scope="row" data-i18n="cmp.guests">Гостей</th><td>250+</td><td>100–300</td><td data-i18n="cmp.upto200">до 200</td><td data-i18n="cmp.upto100">до 100</td></tr>
+                <tr><th scope="row" data-i18n="cmp.ops">Операторы</th><td data-i18n="cmp.upto8">до 8</td><td>3</td><td>2</td><td>2</td></tr>
+                <tr><th scope="row" data-i18n="cmp.ph">Фотографы</th><td>3</td><td>3</td><td>2</td><td>2</td></tr>
+                <tr><th scope="row" data-i18n="cmp.live">Прямой эфир</th><td class="yes">✓</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><th scope="row" data-i18n="cmp.invite">Приглашение</th><td class="yes">✓</td><td class="yes">✓</td><td>—</td><td>—</td></tr>
+                <tr><th scope="row" data-i18n="ev.aerial">Аэросъёмка</th><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td>—</td></tr>
+                <tr><th scope="row" data-i18n="cmp.vert">Вертикальные ролики</th><td>10</td><td>10</td><td>5</td><td>5</td></tr>
+                <tr><th scope="row" data-i18n="cmp.photo">Фотоотчёт</th><td>200+</td><td>✓</td><td>200+</td><td>✓</td></tr>
+                <tr><th scope="row" data-i18n="ev.sources">Исходники</th><td class="yes">✓</td><td class="yes">✓</td><td>—</td><td>—</td></tr>
+                <tr><th scope="row" data-i18n="cmp.price">Цена за день</th><td class="price" data-money="170.7">170,7 млн</td><td class="price" data-money="97.7">97,7 млн</td><td class="price" data-money="57.9">57,9 млн</td><td class="price" data-money="27.9">27,9 млн</td></tr>
               </tbody>
             </table>
           </div>
         </div>
 
         <div class="ev-day reveal">
-          <h3>Как проходит «Блокбастер»</h3>
+          <h3 data-i18n="ev.dayTitle">Как проходит «Блокбастер»</h3>
           <ol class="ev-timeline">
-            <li><span>За 2–3 недели</span>Бриф, сценарий дня и съёмка приглашения для гостей</li>
-            <li><span>За неделю</span>LED-заставки и тест трансляции прямо на площадке</li>
-            <li><span>День события</span>Welcome-зона, эфир, аэросъёмка и репортаж — от входа гостей до финала</li>
-            <li><span>Через 24–48 ч</span>Первые вертикальные ролики, пока все ещё обсуждают событие</li>
-            <li><span>Через 10–14 дней</span>Отчётный ролик, фотоотчёт 200+ и все исходники</li>
+            <li data-i18n-html="ev.d1"><span>За 2–3 недели</span>Бриф, сценарий дня и съёмка приглашения для гостей</li>
+            <li data-i18n-html="ev.d2"><span>За неделю</span>LED-заставки и тест трансляции прямо на площадке</li>
+            <li data-i18n-html="ev.d3"><span>День события</span>Welcome-зона, эфир, аэросъёмка и репортаж — от входа гостей до финала</li>
+            <li data-i18n-html="ev.d4"><span>Через 24–48 ч</span>Первые вертикальные ролики, пока все ещё обсуждают событие</li>
+            <li data-i18n-html="ev.d5"><span>Через 10–14 дней</span>Отчётный ролик, фотоотчёт 200+ и все исходники</li>
           </ol>
         </div>
 
         <div class="extras reveal">
-          <h3>Дополнительно оплачиваются</h3>
+          <h3 data-i18n="extras.title">Дополнительно оплачиваются</h3>
           <ul class="chips">
-            <li>Модели и блогеры</li>
-            <li>Аренда локаций</li>
-            <li>Сложный реквизит</li>
-            <li>Визажисты и стилисты</li>
-            <li>Транспорт за пределами зоны</li>
-            <li>Таргет и рекламный бюджет</li>
+            <li data-i18n="extras.1">Модели и блогеры</li>
+            <li data-i18n="extras.2">Аренда локаций</li>
+            <li data-i18n="extras.3">Сложный реквизит</li>
+            <li data-i18n="extras.4">Визажисты и стилисты</li>
+            <li data-i18n="extras.5">Транспорт за пределами зоны</li>
+            <li data-i18n="extras.6">Таргет и рекламный бюджет</li>
           </ul>
         </div>
       </div>
@@ -532,16 +542,16 @@
     <section class="section" id="gear" aria-labelledby="gear-title">
       <div class="container">
         <div class="section__head reveal">
-          <p class="eyebrow">Техника</p>
-          <h2 id="gear-title">На чём снимаем</h2>
+          <p class="eyebrow" data-i18n="gear.eyebrow">Техника</p>
+          <h2 id="gear-title" data-i18n="gear.title">На чём снимаем</h2>
         </div>
         <div class="grid grid--3">
-          <div class="card gear reveal"><div><h3>Дрон</h3><p>С лицензией на аэросъёмку</p></div></div>
-          <div class="card gear reveal"><div><h3>FPV-дрон</h3><p>Динамичные пролёты</p></div></div>
-          <div class="card gear reveal"><div><h3>GoPro</h3><p>Экшн-ракурсы</p></div></div>
-          <div class="card gear todo reveal"><div><h3>[Камеры]</h3></div></div>
-          <div class="card gear todo reveal"><div><h3>[Оптика]</h3></div></div>
-          <div class="card gear todo reveal"><div><h3>[Свет]</h3></div></div>
+          <div class="card gear reveal"><div><h3 data-i18n="gear.drone">Дрон</h3><p data-i18n="gear.droneP">С лицензией на аэросъёмку</p></div></div>
+          <div class="card gear reveal"><div><h3 data-i18n="gear.fpv">FPV-дрон</h3><p data-i18n="gear.fpvP">Динамичные пролёты</p></div></div>
+          <div class="card gear reveal"><div><h3>GoPro</h3><p data-i18n="gear.goproP">Экшн-ракурсы</p></div></div>
+          <div class="card gear todo reveal"><div><h3 data-i18n="gear.cams">[Камеры]</h3></div></div>
+          <div class="card gear todo reveal"><div><h3 data-i18n="gear.optics">[Оптика]</h3></div></div>
+          <div class="card gear todo reveal"><div><h3 data-i18n="gear.light">[Свет]</h3></div></div>
         </div>
       </div>
     </section>
@@ -550,23 +560,23 @@
     <section class="section section--alt" id="process" aria-labelledby="process-title">
       <div class="container">
         <div class="section__head reveal">
-          <p class="eyebrow">Процесс</p>
-          <h2 id="process-title">Как мы работаем</h2>
+          <p class="eyebrow" data-i18n="proc.eyebrow">Процесс</p>
+          <h2 id="process-title" data-i18n="proc.title">Как мы работаем</h2>
         </div>
         <ol class="steps" style="list-style:none;padding:0;margin:0">
-          <li class="card step reveal"><span class="step__num">01</span><h3>Бриф</h3></li>
-          <li class="card step reveal"><span class="step__num">02</span><h3>Идея и смета</h3></li>
-          <li class="card step reveal"><span class="step__num">03</span><h3>Съёмка</h3></li>
-          <li class="card step reveal"><span class="step__num">04</span><h3>Монтаж и цвет</h3></li>
-          <li class="card step reveal"><span class="step__num">05</span><h3>Сдача</h3></li>
+          <li class="card step reveal"><span class="step__num">01</span><h3 data-i18n="proc.1">Бриф</h3></li>
+          <li class="card step reveal"><span class="step__num">02</span><h3 data-i18n="proc.2">Идея и смета</h3></li>
+          <li class="card step reveal"><span class="step__num">03</span><h3 data-i18n="proc.3">Съёмка</h3></li>
+          <li class="card step reveal"><span class="step__num">04</span><h3 data-i18n="proc.4">Монтаж и цвет</h3></li>
+          <li class="card step reveal"><span class="step__num">05</span><h3 data-i18n="proc.5">Сдача</h3></li>
         </ol>
         <div class="guarantees reveal">
-          <h3>Гарантии</h3>
+          <h3 data-i18n="guar.title">Гарантии</h3>
           <div class="grid grid--4">
-            <div class="card guarantee todo"><h4>Договор</h4>[Условия договора]</div>
-            <div class="card guarantee todo"><h4>Сроки сдачи</h4>[Сроки]</div>
-            <div class="card guarantee todo"><h4>Правки</h4>[Количество правок]</div>
-            <div class="card guarantee todo"><h4>Оплата</h4>[Порядок оплаты]</div>
+            <div class="card guarantee todo" data-i18n-html="guar.1"><h4>Договор</h4>[Условия договора]</div>
+            <div class="card guarantee todo" data-i18n-html="guar.2"><h4>Сроки сдачи</h4>[Сроки]</div>
+            <div class="card guarantee todo" data-i18n-html="guar.3"><h4>Правки</h4>[Количество правок]</div>
+            <div class="card guarantee todo" data-i18n-html="guar.4"><h4>Оплата</h4>[Порядок оплаты]</div>
           </div>
         </div>
       </div>
@@ -576,226 +586,227 @@
     <section class="section brief-section" id="brief" aria-labelledby="brief-title">
       <div class="container brief-wrap">
         <div class="brief-intro reveal">
-          <p class="eyebrow">Бриф на съёмку</p>
-          <h2 id="brief-title">Расскажите о проекте</h2>
-          <p>10 коротких вопросов, 3 минуты. После брифа вернёмся с идеей, сметой и сроками — без лишних созвонов.</p>
+          <p class="eyebrow" data-i18n="brief.eyebrow">Бриф на съёмку</p>
+          <h2 id="brief-title" data-i18n="brief.title">Расскажите о проекте</h2>
+          <p data-i18n="brief.text">10 коротких вопросов, 3 минуты. После брифа вернёмся с идеей, сметой и сроками — без лишних созвонов.</p>
           <ul class="dia-list">
-            <li>Можно пропускать вопросы — заполните то, что знаете</li>
-            <li>Ответы сохраняются в браузере, можно вернуться позже</li>
-            <li>В конце — отправка в Direct или Telegram в один клик</li>
+            <li data-i18n="brief.li1">Можно пропускать вопросы — заполните то, что знаете</li>
+            <li data-i18n="brief.li2">Ответы сохраняются в браузере, можно вернуться позже</li>
+            <li data-i18n="brief.li3">В конце — отправка в Direct или Telegram в один клик</li>
           </ul>
         </div>
         <form class="brief" id="brief-form" novalidate>
-                  <div class="brief__top">
+          <div class="brief__top">
             <span id="step-label" aria-live="polite">Шаг 1 из 10</span>
-            <button type="button" class="link-btn" id="reset">Очистить ответы</button>
+            <button type="button" class="link-btn" id="reset" data-i18n="brief.reset">Очистить ответы</button>
           </div>
           <div class="brief-plan" id="brief-plan" hidden>
-            <span>Выбран пакет: <b id="brief-plan-name"></b></span>
-            <button type="button" class="link-btn" id="brief-plan-clear">Убрать</button>
+            <span><span data-i18n="brief.chosen">Выбран пакет:</span> <b id="brief-plan-name"></b></span>
+            <button type="button" class="link-btn" id="brief-plan-clear" data-i18n="brief.clear">Убрать</button>
             <input type="hidden" name="package" id="package">
           </div>
-            <div class="hp" aria-hidden="true"><label>Сайт <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
-        <div class="progress" role="progressbar" aria-label="Прогресс заполнения брифа" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="hp" aria-hidden="true"><label>Сайт <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+          <div class="progress" role="progressbar" aria-label="Прогресс заполнения брифа" data-i18n-aria-label="brief.progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
             <div class="progress__bar" id="progress-bar"></div>
           </div>
 
           <!-- 1 -->
           <section class="brief-step" data-step="1" aria-labelledby="q1">
-            <h3 id="q1" tabindex="-1">Давайте знакомиться</h3>
-            <p class="hint">Поля со звёздочкой обязательны.</p>
+            <h3 id="q1" tabindex="-1" data-i18n="brief.q1">Давайте знакомиться</h3>
+            <p class="hint" data-i18n="brief.reqHint">Поля со звёздочкой обязательны.</p>
             <div class="field">
-              <label for="name">Имя <span class="req">*</span></label>
+              <label for="name"><span data-i18n="f.name">Имя</span> <span class="req">*</span></label>
               <input id="name" name="name" type="text" autocomplete="name" required aria-describedby="name-error">
-              <div class="error" id="name-error">Укажите, как к вам обращаться.</div>
+              <div class="error" id="name-error" data-i18n="f.nameErr">Укажите, как к вам обращаться.</div>
             </div>
             <div class="field">
-              <label for="company">Компания</label>
+              <label for="company" data-i18n="f.company">Компания</label>
               <input id="company" name="company" type="text" autocomplete="organization">
             </div>
             <div class="field">
-              <label for="contact">Телефон или Telegram <span class="req">*</span></label>
-              <input id="contact" name="contact" type="text" autocomplete="tel" placeholder="+998 … или @username" required aria-describedby="contact-error">
-              <div class="error" id="contact-error">Оставьте телефон или Telegram, чтобы мы могли ответить.</div>
+              <label for="contact"><span data-i18n="f.contact">Телефон или Telegram</span> <span class="req">*</span></label>
+              <input id="contact" name="contact" type="text" autocomplete="tel" placeholder="+998 … или @username" data-i18n-placeholder="f.contactPh" required aria-describedby="contact-error">
+              <div class="error" id="contact-error" data-i18n="f.contactErr">Оставьте телефон или Telegram, чтобы мы могли ответить.</div>
             </div>
           </section>
 
           <!-- 2 -->
           <section class="brief-step" data-step="2" aria-labelledby="q2">
-            <h3 id="q2" tabindex="-1">Что нужно снять?</h3>
-            <p class="hint">Можно выбрать несколько вариантов.</p>
+            <h3 id="q2" tabindex="-1" data-i18n="brief.q2">Что нужно снять?</h3>
+            <p class="hint" data-i18n="brief.multi">Можно выбрать несколько вариантов.</p>
             <fieldset>
-              <legend class="visually-hidden">Что снять</legend>
+              <legend class="visually-hidden" data-i18n="brief.q2legend">Что снять</legend>
               <div class="chip-group">
-                <label class="chip"><input type="checkbox" name="what" value="Рекламный ролик"><span>Рекламный ролик</span></label>
+                <label class="chip"><input type="checkbox" name="what" value="Рекламный ролик"><span data-i18n="w.ad">Рекламный ролик</span></label>
                 <label class="chip"><input type="checkbox" name="what" value="Reels"><span>Reels</span></label>
-                <label class="chip"><input type="checkbox" name="what" value="SMM на месяц"><span>SMM на месяц</span></label>
-                <label class="chip"><input type="checkbox" name="what" value="Фотосъёмка"><span>Фотосъёмка</span></label>
-                <label class="chip"><input type="checkbox" name="what" value="Мероприятие"><span>Мероприятие</span></label>
-                <label class="chip"><input type="checkbox" name="what" value="Трансляция"><span>Трансляция</span></label>
-                <label class="chip"><input type="checkbox" name="what" value="Аэросъёмка"><span>Аэросъёмка</span></label>
-                <label class="chip"><input type="checkbox" name="what" value="Другое"><span>Другое</span></label>
+                <label class="chip"><input type="checkbox" name="what" value="SMM на месяц"><span data-i18n="w.smm">SMM на месяц</span></label>
+                <label class="chip"><input type="checkbox" name="what" value="Фотосъёмка"><span data-i18n="w.photo">Фотосъёмка</span></label>
+                <label class="chip"><input type="checkbox" name="what" value="Мероприятие"><span data-i18n="w.event">Мероприятие</span></label>
+                <label class="chip"><input type="checkbox" name="what" value="Трансляция"><span data-i18n="w.stream">Трансляция</span></label>
+                <label class="chip"><input type="checkbox" name="what" value="Аэросъёмка"><span data-i18n="ev.aerial">Аэросъёмка</span></label>
+                <label class="chip"><input type="checkbox" name="what" value="Другое"><span data-i18n="w.other">Другое</span></label>
               </div>
             </fieldset>
           </section>
 
           <!-- 3 -->
           <section class="brief-step" data-step="3" aria-labelledby="q3">
-            <h3 id="q3" tabindex="-1">Какая цель?</h3>
-            <p class="hint">Выберите одну.</p>
+            <h3 id="q3" tabindex="-1" data-i18n="brief.q3">Какая цель?</h3>
+            <p class="hint" data-i18n="brief.one">Выберите одну.</p>
             <fieldset>
-              <legend class="visually-hidden">Цель</legend>
+              <legend class="visually-hidden" data-i18n="brief.goalLegend">Цель</legend>
               <div class="chip-group">
-                <label class="chip"><input type="radio" name="goal" value="Продажи"><span>Продажи</span></label>
-                <label class="chip"><input type="radio" name="goal" value="Узнаваемость"><span>Узнаваемость</span></label>
-                <label class="chip"><input type="radio" name="goal" value="Запуск продукта"><span>Запуск продукта</span></label>
-                <label class="chip"><input type="radio" name="goal" value="Отчёт о мероприятии"><span>Отчёт о мероприятии</span></label>
-                <label class="chip"><input type="radio" name="goal" value="Регулярный контент"><span>Регулярный контент</span></label>
-                <label class="chip"><input type="radio" name="goal" value="Другое"><span>Другое</span></label>
+                <label class="chip"><input type="radio" name="goal" value="Продажи"><span data-i18n="g.sales">Продажи</span></label>
+                <label class="chip"><input type="radio" name="goal" value="Узнаваемость"><span data-i18n="g.aware">Узнаваемость</span></label>
+                <label class="chip"><input type="radio" name="goal" value="Запуск продукта"><span data-i18n="g.launch">Запуск продукта</span></label>
+                <label class="chip"><input type="radio" name="goal" value="Отчёт о мероприятии"><span data-i18n="g.report">Отчёт о мероприятии</span></label>
+                <label class="chip"><input type="radio" name="goal" value="Регулярный контент"><span data-i18n="g.regular">Регулярный контент</span></label>
+                <label class="chip"><input type="radio" name="goal" value="Другое"><span data-i18n="w.other">Другое</span></label>
               </div>
             </fieldset>
             <div class="field">
-              <label for="message">Главная мысль</label>
-              <textarea id="message" name="message" placeholder="Что зритель должен понять или почувствовать после просмотра?"></textarea>
+              <label for="message" data-i18n="f.message">Главная мысль</label>
+              <textarea id="message" name="message" placeholder="Что зритель должен понять или почувствовать после просмотра?" data-i18n-placeholder="f.messagePh"></textarea>
             </div>
           </section>
 
           <!-- 4 -->
           <section class="brief-step" data-step="4" aria-labelledby="q4">
-            <h3 id="q4" tabindex="-1">Где будет контент?</h3>
-            <p class="hint">Можно выбрать несколько площадок.</p>
+            <h3 id="q4" tabindex="-1" data-i18n="brief.q4">Где будет контент?</h3>
+            <p class="hint" data-i18n="brief.multiPlatforms">Можно выбрать несколько площадок.</p>
             <fieldset>
-              <legend class="visually-hidden">Площадки</legend>
+              <legend class="visually-hidden" data-i18n="brief.platformsLegend">Площадки</legend>
               <div class="chip-group">
                 <label class="chip"><input type="checkbox" name="platforms" value="Instagram"><span>Instagram</span></label>
                 <label class="chip"><input type="checkbox" name="platforms" value="TikTok / Shorts"><span>TikTok / Shorts</span></label>
                 <label class="chip"><input type="checkbox" name="platforms" value="YouTube"><span>YouTube</span></label>
-                <label class="chip"><input type="checkbox" name="platforms" value="Сайт"><span>Сайт</span></label>
-                <label class="chip"><input type="checkbox" name="platforms" value="Таргет"><span>Таргет</span></label>
-                <label class="chip"><input type="checkbox" name="platforms" value="ТВ / LED"><span>ТВ / LED</span></label>
-                <label class="chip"><input type="checkbox" name="platforms" value="Внутреннее использование"><span>Внутреннее</span></label>
+                <label class="chip"><input type="checkbox" name="platforms" value="Сайт"><span data-i18n="pl.site">Сайт</span></label>
+                <label class="chip"><input type="checkbox" name="platforms" value="Таргет"><span data-i18n="pl.target">Таргет</span></label>
+                <label class="chip"><input type="checkbox" name="platforms" value="ТВ / LED"><span data-i18n="pl.tv">ТВ / LED</span></label>
+                <label class="chip"><input type="checkbox" name="platforms" value="Внутреннее использование"><span data-i18n="pl.internal">Внутреннее</span></label>
               </div>
             </fieldset>
           </section>
 
           <!-- 5 -->
           <section class="brief-step" data-step="5" aria-labelledby="q5">
-            <h3 id="q5" tabindex="-1">Формат</h3>
+            <h3 id="q5" tabindex="-1" data-i18n="brief.q5">Формат</h3>
             <fieldset>
-              <legend>Ориентация</legend>
+              <legend data-i18n="brief.orient">Ориентация</legend>
               <div class="chip-group">
-                <label class="chip"><input type="radio" name="orientation" value="Вертикаль 9:16"><span>9:16 вертикаль</span></label>
-                <label class="chip"><input type="radio" name="orientation" value="Горизонталь 16:9"><span>16:9 горизонталь</span></label>
-                <label class="chip"><input type="radio" name="orientation" value="Обе"><span>Обе</span></label>
+                <label class="chip"><input type="radio" name="orientation" value="Вертикаль 9:16"><span data-i18n="o.v">9:16 вертикаль</span></label>
+                <label class="chip"><input type="radio" name="orientation" value="Горизонталь 16:9"><span data-i18n="o.h">16:9 горизонталь</span></label>
+                <label class="chip"><input type="radio" name="orientation" value="Обе"><span data-i18n="o.both">Обе</span></label>
               </div>
             </fieldset>
             <div class="field">
-              <label for="amount">Сколько роликов / фото нужно?</label>
-              <input id="amount" name="amount" type="text" placeholder="Например: 4 Reels и 30 фото">
+              <label for="amount" data-i18n="f.amount">Сколько роликов / фото нужно?</label>
+              <input id="amount" name="amount" type="text" placeholder="Например: 4 Reels и 30 фото" data-i18n-placeholder="f.amountPh">
             </div>
           </section>
 
           <!-- 6 -->
           <section class="brief-step" data-step="6" aria-labelledby="q6">
-            <h3 id="q6" tabindex="-1">Настроение</h3>
-            <p class="hint">Можно выбрать несколько.</p>
+            <h3 id="q6" tabindex="-1" data-i18n="brief.q6">Настроение</h3>
+            <p class="hint" data-i18n="brief.multiShort">Можно выбрать несколько.</p>
             <fieldset>
-              <legend class="visually-hidden">Настроение</legend>
+              <legend class="visually-hidden" data-i18n="brief.q6">Настроение</legend>
               <div class="chip-group">
-                <label class="chip"><input type="checkbox" name="mood" value="Динамично"><span>Динамично</span></label>
-                <label class="chip"><input type="checkbox" name="mood" value="Кинематографично"><span>Кинематографично</span></label>
-                <label class="chip"><input type="checkbox" name="mood" value="Премиально"><span>Премиально</span></label>
-                <label class="chip"><input type="checkbox" name="mood" value="Эмоционально"><span>Эмоционально</span></label>
-                <label class="chip"><input type="checkbox" name="mood" value="С юмором"><span>С юмором</span></label>
-                <label class="chip"><input type="checkbox" name="mood" value="Минимализм"><span>Минимализм</span></label>
-                <label class="chip"><input type="checkbox" name="mood" value="Ярко"><span>Ярко</span></label>
-                <label class="chip"><input type="checkbox" name="mood" value="Документально"><span>Документально</span></label>
+                <label class="chip"><input type="checkbox" name="mood" value="Динамично"><span data-i18n="m.1">Динамично</span></label>
+                <label class="chip"><input type="checkbox" name="mood" value="Кинематографично"><span data-i18n="m.2">Кинематографично</span></label>
+                <label class="chip"><input type="checkbox" name="mood" value="Премиально"><span data-i18n="m.3">Премиально</span></label>
+                <label class="chip"><input type="checkbox" name="mood" value="Эмоционально"><span data-i18n="m.4">Эмоционально</span></label>
+                <label class="chip"><input type="checkbox" name="mood" value="С юмором"><span data-i18n="m.5">С юмором</span></label>
+                <label class="chip"><input type="checkbox" name="mood" value="Минимализм"><span data-i18n="m.6">Минимализм</span></label>
+                <label class="chip"><input type="checkbox" name="mood" value="Ярко"><span data-i18n="m.7">Ярко</span></label>
+                <label class="chip"><input type="checkbox" name="mood" value="Документально"><span data-i18n="m.8">Документально</span></label>
               </div>
             </fieldset>
             <div class="field">
-              <label for="refs">Ссылки на референсы</label>
-              <textarea id="refs" name="refs" placeholder="Ролики или аккаунты, которые нравятся — по одной ссылке на строку"></textarea>
+              <label for="refs" data-i18n="f.refs">Ссылки на референсы</label>
+              <textarea id="refs" name="refs" placeholder="Ролики или аккаунты, которые нравятся — по одной ссылке на строку" data-i18n-placeholder="f.refsPh"></textarea>
             </div>
           </section>
 
           <!-- 7 -->
           <section class="brief-step" data-step="7" aria-labelledby="q7">
-            <h3 id="q7" tabindex="-1">Съёмка</h3>
+            <h3 id="q7" tabindex="-1" data-i18n="brief.q7">Съёмка</h3>
             <div class="field">
-              <label for="date">Дата съёмки</label>
-              <input id="date" name="date" type="text" placeholder="Например: 15 октября или «гибко»">
+              <label for="date" data-i18n="f.date">Дата съёмки</label>
+              <input id="date" name="date" type="text" placeholder="Например: 15 октября или «гибко»" data-i18n-placeholder="f.datePh">
             </div>
             <div class="field">
-              <label for="location">Локация</label>
-              <input id="location" name="location" type="text" placeholder="Адрес, город или «нужно подобрать»">
+              <label for="location" data-i18n="f.location">Локация</label>
+              <input id="location" name="location" type="text" placeholder="Адрес, город или «нужно подобрать»" data-i18n-placeholder="f.locationPh">
             </div>
             <div class="field">
-              <label for="cast">Кто в кадре</label>
-              <input id="cast" name="cast" type="text" placeholder="Команда, основатель, модели, продукт…">
+              <label for="cast" data-i18n="f.cast">Кто в кадре</label>
+              <input id="cast" name="cast" type="text" placeholder="Команда, основатель, модели, продукт…" data-i18n-placeholder="f.castPh">
             </div>
           </section>
 
           <!-- 8 -->
           <section class="brief-step" data-step="8" aria-labelledby="q8">
-            <h3 id="q8" tabindex="-1">Сроки и согласование</h3>
+            <h3 id="q8" tabindex="-1" data-i18n="brief.q8">Сроки и согласование</h3>
             <div class="field">
-              <label for="deadline">Дедлайн</label>
-              <input id="deadline" name="deadline" type="text" placeholder="Когда нужен готовый результат?">
+              <label for="deadline" data-i18n="f.deadline">Дедлайн</label>
+              <input id="deadline" name="deadline" type="text" placeholder="Когда нужен готовый результат?" data-i18n-placeholder="f.deadlinePh">
             </div>
             <div class="field">
-              <label for="approver">Кто утверждает</label>
-              <input id="approver" name="approver" type="text" placeholder="Имя и должность">
+              <label for="approver" data-i18n="f.approver">Кто утверждает</label>
+              <input id="approver" name="approver" type="text" placeholder="Имя и должность" data-i18n-placeholder="f.approverPh">
             </div>
           </section>
 
           <!-- 9 -->
           <section class="brief-step" data-step="9" aria-labelledby="q9">
-            <h3 id="q9" tabindex="-1">Бюджет</h3>
-            <p class="hint">В сумах. Это поможет предложить подходящий формат.</p>
+            <h3 id="q9" tabindex="-1" data-i18n="brief.q9">Бюджет</h3>
+            <p class="hint" data-i18n="brief.budgetHint">В сумах. Это поможет предложить подходящий формат.</p>
             <fieldset>
-              <legend class="visually-hidden">Бюджет</legend>
+              <legend class="visually-hidden" data-i18n="brief.q9">Бюджет</legend>
               <div class="chip-group">
-                <label class="chip"><input type="radio" name="budget" value="До 5 млн"><span>До 5 млн</span></label>
-                <label class="chip"><input type="radio" name="budget" value="5–15 млн"><span>5–15 млн</span></label>
-                <label class="chip"><input type="radio" name="budget" value="15–35 млн"><span>15–35 млн</span></label>
-                <label class="chip"><input type="radio" name="budget" value="35–100 млн"><span>35–100 млн</span></label>
-                <label class="chip"><input type="radio" name="budget" value="Больше 100 млн"><span>Больше 100 млн</span></label>
-                <label class="chip"><input type="radio" name="budget" value="Не знаю"><span>Не знаю</span></label>
+                <label class="chip"><input type="radio" name="budget" value="До 5 млн"><span data-i18n="b.1">До 5 млн</span></label>
+                <label class="chip"><input type="radio" name="budget" value="5–15 млн"><span data-i18n="b.2">5–15 млн</span></label>
+                <label class="chip"><input type="radio" name="budget" value="15–35 млн"><span data-i18n="b.3">15–35 млн</span></label>
+                <label class="chip"><input type="radio" name="budget" value="35–100 млн"><span data-i18n="b.4">35–100 млн</span></label>
+                <label class="chip"><input type="radio" name="budget" value="Больше 100 млн"><span data-i18n="b.5">Больше 100 млн</span></label>
+                <label class="chip"><input type="radio" name="budget" value="Не знаю"><span data-i18n="b.6">Не знаю</span></label>
               </div>
             </fieldset>
           </section>
 
           <!-- 10 -->
           <section class="brief-step" data-step="10" aria-labelledby="q10">
-            <h3 id="q10" tabindex="-1">Комментарий</h3>
+            <h3 id="q10" tabindex="-1" data-i18n="brief.q10">Комментарий</h3>
             <div class="field">
-              <label for="comment">Всё, что ещё важно знать</label>
+              <label for="comment" data-i18n="f.comment">Всё, что ещё важно знать</label>
               <textarea id="comment" name="comment"></textarea>
             </div>
           </section>
 
           <!-- Итог -->
           <section class="brief-step" data-step="11" aria-labelledby="q11">
-            <h3 id="q11" tabindex="-1">Готово! <span class="red">Отправьте нам бриф</span></h3>
-            <p class="hint" id="final-hint">Скопируйте ответы и отправьте их в Instagram Direct — или сразу поделитесь через Telegram. Вернёмся с идеей, сметой и сроками.</p>
+            <h3 id="q11" tabindex="-1" data-i18n-html="brief.doneTitle">Готово! <span class="red">Отправьте нам бриф</span></h3>
+            <p class="hint" id="final-hint" data-i18n="brief.doneHint">Скопируйте ответы и отправьте их в Instagram Direct — или сразу поделитесь через Telegram. Вернёмся с идеей, сметой и сроками.</p>
+            <p class="hint brief-ru-note" data-i18n="brief.ruNote">Ответы собраны на русском — так команде удобнее.</p>
             <pre class="summary" id="summary"></pre>
             <div class="send-box" id="send-box" hidden>
-              <button type="button" class="btn btn--red btn--big" id="send">Отправить заявку</button>
+              <button type="button" class="btn btn--red btn--big" id="send" data-i18n="brief.send">Отправить заявку</button>
               <p class="send-status" id="send-status" role="status" aria-live="polite"></p>
             </div>
             <div class="summary-actions">
-              <button type="button" class="btn btn--red" id="copy">Скопировать ответы</button>
-              <a class="btn btn--outline" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener">Открыть Direct</a>
-              <a class="btn btn--ghost" id="tg" href="https://t.me/share/url" target="_blank" rel="noopener">Отправить через Telegram</a>
+              <button type="button" class="btn btn--red" id="copy" data-i18n="brief.copy">Скопировать ответы</button>
+              <a class="btn btn--outline" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener" data-i18n="brief.openDirect">Открыть Direct</a>
+              <a class="btn btn--ghost" id="tg" href="https://t.me/share/url" target="_blank" rel="noopener" data-i18n="brief.tg">Отправить через Telegram</a>
             </div>
             <p class="copy-status" id="copy-status" role="status"></p>
           </section>
 
           <div class="brief__nav">
-            <button type="button" class="btn btn--ghost" id="prev">Назад</button>
+            <button type="button" class="btn btn--ghost" id="prev" data-i18n="brief.prev">Назад</button>
             <button type="button" class="btn btn--red" id="next">Далее</button>
           </div>
-          <p class="draft-note">Черновик ответов сохраняется в этом браузере автоматически.</p>
+          <p class="draft-note" data-i18n="brief.draftNote">Черновик ответов сохраняется в этом браузере автоматически.</p>
         </form>
       </div>
     </section>
@@ -804,29 +815,29 @@
     <section class="section" id="team" aria-labelledby="team-title">
       <div class="container">
         <div class="section__head reveal">
-          <p class="eyebrow">Команда</p>
-          <h2 id="team-title">Люди за кадром</h2>
+          <p class="eyebrow" data-i18n="team.eyebrow">Команда</p>
+          <h2 id="team-title" data-i18n="team.title">Люди за кадром</h2>
         </div>
         <div class="team">
           <figure class="member reveal">
-            <div class="member__photo"><img src="assets/team-georgis.jpg" alt="Georgis Georgiadi, сооснователь MUST MOVIE MEDIA" width="870" height="1186" loading="lazy"></div>
+            <div class="member__photo"><img src="assets/team-georgis.jpg" alt="Georgis Georgiadi, сооснователь MUST MOVIE MEDIA" data-i18n-alt="team.alt1" width="870" height="1186" loading="lazy"></div>
             <figcaption><span class="member__name">Georgis Georgiadi</span><span class="member__role">Co-founder</span></figcaption>
           </figure>
           <figure class="member reveal">
-            <div class="member__photo"><img src="assets/team-vladimir.jpg" alt="Vladimir Zalesskiy, сооснователь MUST MOVIE MEDIA" width="822" height="1168" loading="lazy"></div>
+            <div class="member__photo"><img src="assets/team-vladimir.jpg" alt="Vladimir Zalesskiy, сооснователь MUST MOVIE MEDIA" data-i18n-alt="team.alt2" width="822" height="1168" loading="lazy"></div>
             <figcaption><span class="member__name">Vladimir Zalesskiy</span><span class="member__role">Co-founder</span></figcaption>
           </figure>
           <figure class="member reveal">
-            <div class="member__photo"><img src="assets/team-aleksandr.jpg" alt="Aleksandr Veselov, сценарист (Story developer)" width="882" height="1146" loading="lazy"></div>
+            <div class="member__photo"><img src="assets/team-aleksandr.jpg" alt="Aleksandr Veselov, сценарист (Story developer)" data-i18n-alt="team.alt3" width="882" height="1146" loading="lazy"></div>
             <figcaption><span class="member__name">Aleksandr Veselov</span><span class="member__role">Story developer</span></figcaption>
           </figure>
           <figure class="member reveal">
-            <div class="member__photo"><img src="assets/team-azamat.jpg" alt="Azamat Djavadov, фотограф" width="868" height="1158" loading="lazy"></div>
+            <div class="member__photo"><img src="assets/team-azamat.jpg" alt="Azamat Djavadov, фотограф" data-i18n-alt="team.alt4" width="868" height="1158" loading="lazy"></div>
             <figcaption><span class="member__name">Azamat Djavadov</span><span class="member__role">Photographer</span></figcaption>
           </figure>
           <figure class="member reveal">
             <div class="member__photo">
-              <img src="assets/team-ibragim-photo.jpg" alt="Ibragim Kamilov, видеограф" width="1160" height="1560" loading="lazy">
+              <img src="assets/team-ibragim-photo.jpg" alt="Ibragim Kamilov, видеограф" data-i18n-alt="team.alt5" width="1160" height="1560" loading="lazy">
               <span class="member__overlay-role" aria-hidden="true">Videographer</span>
               <span class="member__overlay-sign" aria-hidden="true"><span>Ibragim</span><span>Kamilov</span></span>
             </div>
@@ -840,21 +851,21 @@
     <section class="section section--alt" id="reviews" aria-labelledby="reviews-title">
       <div class="container">
         <div class="section__head reveal">
-          <p class="eyebrow">Отзывы</p>
-          <h2 id="reviews-title">Что говорят клиенты</h2>
+          <p class="eyebrow" data-i18n="rev.eyebrow">Отзывы</p>
+          <h2 id="reviews-title" data-i18n="rev.title">Что говорят клиенты</h2>
         </div>
         <div class="grid grid--3">
           <figure class="card review reveal" style="margin:0">
-            <blockquote class="todo">[Текст отзыва]</blockquote>
-            <figcaption><cite class="todo" style="display:inline-block;padding:2px 8px;border-radius:6px">[Имя, компания]</cite></figcaption>
+            <blockquote class="todo" data-i18n="rev.text">[Текст отзыва]</blockquote>
+            <figcaption><cite class="todo" style="display:inline-block;padding:2px 8px;border-radius:6px" data-i18n="rev.name">[Имя, компания]</cite></figcaption>
           </figure>
           <figure class="card review reveal" style="margin:0">
-            <blockquote class="todo">[Текст отзыва]</blockquote>
-            <figcaption><cite class="todo" style="display:inline-block;padding:2px 8px;border-radius:6px">[Имя, компания]</cite></figcaption>
+            <blockquote class="todo" data-i18n="rev.text">[Текст отзыва]</blockquote>
+            <figcaption><cite class="todo" style="display:inline-block;padding:2px 8px;border-radius:6px" data-i18n="rev.name">[Имя, компания]</cite></figcaption>
           </figure>
           <figure class="card review reveal" style="margin:0">
-            <blockquote class="todo">[Текст отзыва]</blockquote>
-            <figcaption><cite class="todo" style="display:inline-block;padding:2px 8px;border-radius:6px">[Имя, компания]</cite></figcaption>
+            <blockquote class="todo" data-i18n="rev.text">[Текст отзыва]</blockquote>
+            <figcaption><cite class="todo" style="display:inline-block;padding:2px 8px;border-radius:6px" data-i18n="rev.name">[Имя, компания]</cite></figcaption>
           </figure>
         </div>
       </div>
@@ -865,45 +876,45 @@
       <div class="container">
         <div class="section__head reveal">
           <p class="eyebrow">FAQ</p>
-          <h2 id="faq-title">Частые вопросы</h2>
+          <h2 id="faq-title" data-i18n="faq.title">Частые вопросы</h2>
         </div>
         <div class="faq reveal">
           <details>
-            <summary>Сколько стоит съёмка?</summary>
-            <div class="faq__answer">Фото от 4,9 млн, видео для соцсетей от 11,7 млн/мес, SMM от 16 млн/мес, мероприятия от 27,9 млн за день. Точная смета после брифа.</div>
+            <summary data-i18n="faq.q1">Сколько стоит съёмка?</summary>
+            <div class="faq__answer" data-i18n="faq.a1">Фото от 4,9 млн, видео для соцсетей от 11,7 млн/мес, SMM от 16 млн/мес, мероприятия от 27,9 млн за день. Точная смета после брифа.</div>
           </details>
           <details>
-            <summary>Как начать работу?</summary>
-            <div class="faq__answer">Заполните <a href="#brief" class="red">бриф</a> или <a href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener" class="red">напишите в Direct</a> — вернёмся с идеей, сметой и сроками.</div>
+            <summary data-i18n="faq.q2">Как начать работу?</summary>
+            <div class="faq__answer" data-i18n-html="faq.a2">Заполните <a href="#brief" class="red">бриф</a> или <a href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener" class="red">напишите в Direct</a> — вернёмся с идеей, сметой и сроками.</div>
           </details>
           <details>
-            <summary>Есть ли скидки?</summary>
-            <div class="faq__answer">Да: −7% / −12% / −18% за 3 / 6 / 12 месяцев предоплаты SMM.</div>
+            <summary data-i18n="faq.q3">Есть ли скидки?</summary>
+            <div class="faq__answer" data-i18n="faq.a3">Да: −7% / −12% / −18% за 3 / 6 / 12 месяцев предоплаты SMM.</div>
           </details>
           <details>
-            <summary>Что оплачивается отдельно?</summary>
+            <summary data-i18n="faq.q4">Что оплачивается отдельно?</summary>
             <div class="faq__answer">
               <ul class="dia-list">
-                <li>Модели и блогеры</li>
-                <li>Аренда локаций</li>
-                <li>Сложный реквизит</li>
-                <li>Визажисты и стилисты</li>
-                <li>Транспорт за пределами зоны</li>
-                <li>Таргет и рекламный бюджет</li>
+                <li data-i18n="extras.1">Модели и блогеры</li>
+                <li data-i18n="extras.2">Аренда локаций</li>
+                <li data-i18n="extras.3">Сложный реквизит</li>
+                <li data-i18n="extras.4">Визажисты и стилисты</li>
+                <li data-i18n="extras.5">Транспорт за пределами зоны</li>
+                <li data-i18n="extras.6">Таргет и рекламный бюджет</li>
               </ul>
             </div>
           </details>
           <details>
-            <summary>Снимаете крупные мероприятия?</summary>
-            <div class="faq__answer">Да, от 250 гостей: прямой эфир, аэросъёмка, до 8 операторов, отчётный ролик, фото 200+.</div>
+            <summary data-i18n="faq.q5">Снимаете крупные мероприятия?</summary>
+            <div class="faq__answer" data-i18n="faq.a5">Да, от 250 гостей: прямой эфир, аэросъёмка, до 8 операторов, отчётный ролик, фото 200+.</div>
           </details>
           <details>
-            <summary>Когда будет готов результат?</summary>
-            <div class="faq__answer"><span class="todo">[Сроки сдачи]</span></div>
+            <summary data-i18n="faq.q6">Когда будет готов результат?</summary>
+            <div class="faq__answer"><span class="todo" data-i18n="faq.a6">[Сроки сдачи]</span></div>
           </details>
           <details>
-            <summary>Сколько правок входит?</summary>
-            <div class="faq__answer"><span class="todo">[Количество правок]</span></div>
+            <summary data-i18n="faq.q7">Сколько правок входит?</summary>
+            <div class="faq__answer"><span class="todo" data-i18n="faq.a7">[Количество правок]</span></div>
           </details>
         </div>
       </div>
@@ -913,11 +924,11 @@
     <section class="section" style="padding-top:0" aria-labelledby="cta-title">
       <div class="container">
         <div class="cta reveal">
-          <h2 id="cta-title">Нужен новый уровень визуала?</h2>
-          <p>Наша задача — не просто показать, что вы делаете, а сделать так, чтобы ваш бренд запомнили.</p>
+          <h2 id="cta-title" data-i18n="cta.title">Нужен новый уровень визуала?</h2>
+          <p data-i18n="cta.text">Наша задача — не просто показать, что вы делаете, а сделать так, чтобы ваш бренд запомнили.</p>
           <div class="cta__actions">
-            <a class="btn btn--black" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener">Написать в Direct</a>
-            <a class="btn btn--outline" href="#brief">Заполнить бриф</a>
+            <a class="btn btn--black" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener" data-i18n="btn.direct">Написать в Direct</a>
+            <a class="btn btn--outline" href="#brief" data-i18n="btn.brief">Заполнить бриф</a>
           </div>
           <a class="cta__handle" href="https://www.instagram.com/mmm_creative_production/" target="_blank" rel="noopener">@mmm_creative_production</a>
         </div>
@@ -928,7 +939,7 @@
   <!-- 15. Подвал -->
   <footer class="site-footer">
     <div class="container">
-      <span>© MUST MOVIE MEDIA · Ташкент</span>
+      <span data-i18n="footer.copy">© MUST MOVIE MEDIA · Ташкент</span>
       <a href="https://www.instagram.com/mmm_creative_production/" target="_blank" rel="noopener">Instagram @mmm_creative_production</a>
     </div>
   </footer>
@@ -936,7 +947,7 @@
   <!-- Окно с подробностями пакета (заполняется из plans.js) -->
   <dialog class="plan-modal" id="plan-modal" aria-labelledby="pm-title">
     <div class="pm">
-      <button type="button" class="pm__close" data-close aria-label="Закрыть">×</button>
+      <button type="button" class="pm__close" data-close aria-label="Закрыть" data-i18n-aria-label="pm.close">×</button>
       <p class="eyebrow" id="pm-group"></p>
       <div class="pm__head">
         <h2 id="pm-title"></h2>
@@ -945,23 +956,24 @@
       <p class="pm__lead" id="pm-lead"></p>
       <div class="pm__facts" id="pm-facts"></div>
       <div class="pm__cols">
-        <div><h3>Что входит</h3><ul class="dia-list" id="pm-includes"></ul></div>
+        <div><h3 data-i18n="pm.includes">Что входит</h3><ul class="dia-list" id="pm-includes"></ul></div>
         <div>
-          <h3>Команда</h3><ul class="dia-list" id="pm-team"></ul>
-          <h3>Техника</h3><ul class="dia-list" id="pm-gear"></ul>
+          <h3 data-i18n="pm.team">Команда</h3><ul class="dia-list" id="pm-team"></ul>
+          <h3 data-i18n="pm.gear">Техника</h3><ul class="dia-list" id="pm-gear"></ul>
         </div>
       </div>
-      <div class="pm__block" id="pm-timeline-wrap"><h3>Как проходит</h3><ol class="ev-timeline" id="pm-timeline"></ol></div>
-      <div class="pm__block"><h3>Сроки и правки</h3><ul class="dia-list" id="pm-terms"></ul></div>
-      <div class="pm__block"><h3>Подходит для</h3><ul class="chips chips--sm" id="pm-fit"></ul></div>
+      <div class="pm__block" id="pm-timeline-wrap"><h3 data-i18n="pm.timeline">Как проходит</h3><ol class="ev-timeline" id="pm-timeline"></ol></div>
+      <div class="pm__block"><h3 data-i18n="pm.terms">Сроки и правки</h3><ul class="dia-list" id="pm-terms"></ul></div>
+      <div class="pm__block"><h3 data-i18n="pm.fit">Подходит для</h3><ul class="chips chips--sm" id="pm-fit"></ul></div>
       <div class="pm__actions">
-        <button type="button" class="btn btn--red" id="pm-choose">Выбрать пакет и заполнить бриф</button>
-        <a class="btn btn--ghost" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener">Спросить в Direct</a>
+        <button type="button" class="btn btn--red" id="pm-choose" data-i18n="pm.choose">Выбрать пакет и заполнить бриф</button>
+        <a class="btn btn--ghost" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener" data-i18n="pm.ask">Спросить в Direct</a>
       </div>
-      <p class="pm__note">Цены в сумах. Модели, локации, реквизит и таргет оплачиваются отдельно.</p>
+      <p class="pm__note" data-i18n="pm.note">Цены в сумах. Модели, локации, реквизит и таргет оплачиваются отдельно.</p>
     </div>
   </dialog>
 
+  <script src="i18n.js"></script>
   <script src="plans.js"></script>
   <script src="script.js"></script>
   <script src="brief.js"></script>

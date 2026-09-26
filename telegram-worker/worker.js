@@ -64,7 +64,7 @@ export default {
       }),
     });
 
-    if (!tgRes.ok) return reply(502, { ok: false, error: 'telegram' });
+    if (!tgRes.ok) return reply(502, { ok: false, error: 'telegram', detail: await tgRes.text() });
     return reply(200, { ok: true });
   },
 };

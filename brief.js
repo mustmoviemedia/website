@@ -3,8 +3,8 @@
   'use strict';
 
   // Адрес Cloudflare Worker, который пересылает заявку в Telegram-группу.
-  // Пока пусто — кнопка «Отправить заявку» скрыта, работают копирование и Direct.
-  var BRIEF_ENDPOINT = '';
+  // Если оставить пустым — кнопка «Отправить заявку» скрыта, работают копирование и Direct.
+  var BRIEF_ENDPOINT = 'https://mmm-brief.spotifyibrawkee.workers.dev';
 
   var i18n = window.MMM_I18N;
   var STORAGE_KEY = 'mmm-brief-draft';

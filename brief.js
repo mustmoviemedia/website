@@ -232,8 +232,17 @@
     save();
   }
 
+  var tracked = {};
+  function track(name) {
+    if (tracked[name] || !window.MMM_track) return;
+    tracked[name] = true;
+    window.MMM_track(name);
+  }
+
   nextBtn.addEventListener('click', function () {
     if (!validateStep(current)) return;
+    if (current === 1) track('brief_start');
+    if (current === TOTAL) track('brief_complete');
     show(current + 1, true);
   });
   prevBtn.addEventListener('click', function () { show(current - 1, true); });
@@ -298,6 +307,7 @@
     }).then(function () {
       sent = true;
       sendState = 'sent';
+      track('generate_lead');
       renderSend();
       sendBox.classList.add('is-sent');
       storageClear();

@@ -513,6 +513,96 @@
           </div>
         </div>
 
+        <!-- Калькулятор мероприятия (логика и цены — calc.js) -->
+        <section class="calc-block" id="calculator" aria-labelledby="calc-title">
+          <div class="section__head">
+            <p class="eyebrow" data-i18n="calc.eyebrow">Калькулятор</p>
+            <h2 id="calc-title" data-i18n="calc.title">Посчитайте своё мероприятие</h2>
+            <p data-i18n="calc.text">Выберите масштаб и опции — сумма пересчитается сразу. Можно начать с готового пакета.</p>
+          </div>
+          <div class="calc-presets" role="group" aria-labelledby="calc-quick">
+            <span id="calc-quick" data-i18n="calc.quick">Быстрый старт:</span>
+            <button type="button" class="calc-preset" data-preset="ev-blockbuster" aria-pressed="false" data-i18n="calc.likeBb">Как Блокбастер</button>
+            <button type="button" class="calc-preset" data-preset="ev-hist1" aria-pressed="false" data-i18n="calc.likeH1">Как Исторический 1</button>
+            <button type="button" class="calc-preset" data-preset="ev-hist2" aria-pressed="false" data-i18n="calc.likeH2">Как Исторический 2</button>
+            <button type="button" class="calc-preset" data-preset="ev-hist3" aria-pressed="false" data-i18n="calc.likeH3">Как Исторический 3</button>
+          </div>
+
+          <div class="calc">
+            <form class="calc__form" id="calc-form" novalidate>
+          <div class="calc-field">
+            <div class="calc-field__head"><label for="calc-guests" data-i18n="calc.guests">Количество гостей</label><output id="calc-guests-out" for="calc-guests"></output></div>
+            <input type="range" id="calc-guests" name="guests" min="50" max="1000" step="50">
+          </div>
+          <fieldset class="calc-field">
+            <legend data-i18n="calc.hours">Длительность</legend>
+            <div class="chip-group">
+              <label class="chip"><input type="radio" name="hours" value="4"><span data-i18n="calc.hUnit" data-i18n-n="4">4 ч</span></label>
+              <label class="chip"><input type="radio" name="hours" value="6"><span data-i18n="calc.hUnit" data-i18n-n="6">6 ч</span></label>
+              <label class="chip"><input type="radio" name="hours" value="8"><span data-i18n="calc.hUnit" data-i18n-n="8">8 ч</span></label>
+              <label class="chip"><input type="radio" name="hours" value="10"><span data-i18n="calc.hUnit" data-i18n-n="10">10 ч</span></label>
+              <label class="chip"><input type="radio" name="hours" value="12"><span data-i18n="calc.hUnit" data-i18n-n="12">12 ч</span></label>
+            </div>
+          </fieldset>
+          <div class="calc-field">
+            <div class="calc-field__head"><label for="calc-operators" data-i18n="calc.ops">Операторы</label><output id="calc-operators-out" for="calc-operators"></output></div>
+            <input type="range" id="calc-operators" name="operators" min="1" max="8" step="1">
+          </div>
+          <div class="calc-field">
+            <div class="calc-field__head"><label for="calc-photographers" data-i18n="calc.ph">Фотографы</label><output id="calc-photographers-out" for="calc-photographers"></output></div>
+            <input type="range" id="calc-photographers" name="photographers" min="0" max="3" step="1">
+          </div>
+          <fieldset class="calc-field">
+            <legend data-i18n="calc.options">Опции</legend>
+            <div class="calc-switches">
+              <label class="switch"><input type="checkbox" name="live"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.live">Прямой эфир</span></label>
+              <label class="switch"><input type="checkbox" name="drone"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.drone">Аэросъёмка (дрон)</span></label>
+              <label class="switch"><input type="checkbox" name="fpv"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.fpv">FPV-дрон</span></label>
+              <label class="switch"><input type="checkbox" name="gopro"><span class="switch__track" aria-hidden="true"></span><span>GoPro</span></label>
+              <label class="switch"><input type="checkbox" name="invite"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.invite">Видео-приглашение</span></label>
+              <label class="switch"><input type="checkbox" name="welcome"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.welcome">Welcome-фотосессия</span></label>
+              <label class="switch"><input type="checkbox" name="sources"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.sources">Исходники</span></label>
+            </div>
+          </fieldset>
+          <div class="calc-field">
+            <div class="calc-field__head"><label for="calc-led" data-i18n="calc.led">LED-заставки</label><output id="calc-led-out" for="calc-led"></output></div>
+            <input type="range" id="calc-led" name="led" min="0" max="10" step="1">
+          </div>
+          <div class="calc-field">
+            <div class="calc-field__head"><label for="calc-vertical" data-i18n="calc.vert">Вертикальные ролики</label><output id="calc-vertical-out" for="calc-vertical"></output></div>
+            <input type="range" id="calc-vertical" name="vertical" min="0" max="15" step="1">
+          </div>
+          <fieldset class="calc-field">
+            <legend data-i18n="calc.report">Отчётный ролик</legend>
+            <div class="chip-group">
+              <label class="chip"><input type="radio" name="report" value="none"><span data-i18n="calc.reportNone">Нет</span></label>
+              <label class="chip"><input type="radio" name="report" value="short"><span data-i18n="calc.reportShort">До 2 мин</span></label>
+              <label class="chip"><input type="radio" name="report" value="long"><span data-i18n="calc.reportLong">2–5 мин</span></label>
+            </div>
+          </fieldset>
+            </form>
+
+            <aside class="calc__result" aria-labelledby="calc-result-title">
+              <p class="calc__label" id="calc-result-title" data-i18n="calc.resultTitle">Предварительная стоимость</p>
+              <p class="calc__total" id="calc-total" aria-hidden="true"></p>
+              <p class="visually-hidden" id="calc-live" aria-live="polite" aria-atomic="true"></p>
+              <ul class="calc__rows" id="calc-rows"></ul>
+              <div class="calc__closest">
+                <span><span data-i18n="calc.closest">Ближе всего к пакету:</span> <b id="calc-closest-name"></b></span>
+                <button type="button" class="btn btn--ghost btn--sm" id="calc-closest-open" data-i18n="calc.openPkg">Посмотреть пакет</button>
+              </div>
+              <button type="button" class="btn btn--red calc__send" id="calc-send" data-calc-send data-i18n="calc.send">Отправить расчёт в бриф</button>
+              <p class="calc__note" data-i18n="calc.note">Предварительный расчёт. Точная смета — после брифа.</p>
+            </aside>
+
+            <!-- На телефоне: сумма закреплена снизу, пока калькулятор на экране -->
+            <div class="calc__bar">
+              <span class="calc__bar-text"><small data-i18n="calc.barLabel">Итого</small> <b id="calc-bar-total" aria-hidden="true"></b></span>
+              <button type="button" class="btn btn--red btn--sm" data-calc-send data-i18n="calc.sendShort">В бриф</button>
+            </div>
+          </div>
+        </section>
+
         <div class="ev-day reveal">
           <h3 data-i18n="ev.dayTitle">Как проходит «Блокбастер»</h3>
           <ol class="ev-timeline">
@@ -976,6 +1066,7 @@
   <script src="i18n.js"></script>
   <script src="plans.js"></script>
   <script src="script.js"></script>
+  <script src="calc.js"></script>
   <script src="brief.js"></script>
 </body>
 </html>

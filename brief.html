@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ru" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Бриф на съёмку — MUST MOVIE MEDIA</title>
+  <meta name="description" content="Короткая анкета для заказа съёмки у MUST MOVIE MEDIA: 10 вопросов, после которых мы вернёмся с идеей, сметой и сроками.">
+  <meta name="theme-color" content="#0A0A0A">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="MUST MOVIE MEDIA">
+  <meta property="og:title" content="Бриф на съёмку — MUST MOVIE MEDIA">
+  <meta property="og:description" content="10 коротких вопросов — и мы вернёмся с идеей, сметой и сроками.">
+  <meta property="og:image" content="assets/og-image.png">
+
+  <link rel="icon" href="assets/logo-white.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Manrope:wght@400;500;600;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.remove('no-js');</script>
+</head>
+<body class="brief-page">
+  <a class="skip-link" href="#brief">Перейти к анкете</a>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="logo-text" href="index.html" aria-label="MUST MOVIE MEDIA — на главную"><b>M</b>UST <b>M</b>OVIE <b>M</b>EDIA</a>
+      <a class="btn btn--ghost btn--sm" href="index.html">← На сайт</a>
+    </div>
+  </header>
+
+  <main class="brief-main">
+    <div class="container">
+      <form class="brief" id="brief" novalidate>
+        <p class="eyebrow">Бриф на съёмку</p>
+        <div class="brief__top">
+          <span id="step-label" aria-live="polite">Шаг 1 из 10</span>
+          <button type="button" class="link-btn" id="reset">Очистить ответы</button>
+        </div>
+        <div class="progress" role="progressbar" aria-label="Прогресс заполнения брифа" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="progress__bar" id="progress-bar"></div>
+        </div>
+
+        <!-- 1 -->
+        <section class="brief-step" data-step="1" aria-labelledby="q1">
+          <h1 id="q1" tabindex="-1">Давайте знакомиться</h1>
+          <p class="hint">Поля со звёздочкой обязательны.</p>
+          <div class="field">
+            <label for="name">Имя <span class="req">*</span></label>
+            <input id="name" name="name" type="text" autocomplete="name" required aria-describedby="name-error">
+            <div class="error" id="name-error">Укажите, как к вам обращаться.</div>
+          </div>
+          <div class="field">
+            <label for="company">Компания</label>
+            <input id="company" name="company" type="text" autocomplete="organization">
+          </div>
+          <div class="field">
+            <label for="contact">Телефон или Telegram <span class="req">*</span></label>
+            <input id="contact" name="contact" type="text" autocomplete="tel" placeholder="+998 … или @username" required aria-describedby="contact-error">
+            <div class="error" id="contact-error">Оставьте телефон или Telegram, чтобы мы могли ответить.</div>
+          </div>
+        </section>
+
+        <!-- 2 -->
+        <section class="brief-step" data-step="2" aria-labelledby="q2">
+          <h2 id="q2" tabindex="-1">Что нужно снять?</h2>
+          <p class="hint">Можно выбрать несколько вариантов.</p>
+          <fieldset>
+            <legend class="visually-hidden">Что снять</legend>
+            <div class="chip-group">
+              <label class="chip"><input type="checkbox" name="what" value="Рекламный ролик"><span>Рекламный ролик</span></label>
+              <label class="chip"><input type="checkbox" name="what" value="Reels"><span>Reels</span></label>
+              <label class="chip"><input type="checkbox" name="what" value="SMM на месяц"><span>SMM на месяц</span></label>
+              <label class="chip"><input type="checkbox" name="what" value="Фотосъёмка"><span>Фотосъёмка</span></label>
+              <label class="chip"><input type="checkbox" name="what" value="Мероприятие"><span>Мероприятие</span></label>
+              <label class="chip"><input type="checkbox" name="what" value="Трансляция"><span>Трансляция</span></label>
+              <label class="chip"><input type="checkbox" name="what" value="Аэросъёмка"><span>Аэросъёмка</span></label>
+              <label class="chip"><input type="checkbox" name="what" value="Другое"><span>Другое</span></label>
+            </div>
+          </fieldset>
+        </section>
+
+        <!-- 3 -->
+        <section class="brief-step" data-step="3" aria-labelledby="q3">
+          <h2 id="q3" tabindex="-1">Какая цель?</h2>
+          <p class="hint">Выберите одну.</p>
+          <fieldset>
+            <legend class="visually-hidden">Цель</legend>
+            <div class="chip-group">
+              <label class="chip"><input type="radio" name="goal" value="Продажи"><span>Продажи</span></label>
+              <label class="chip"><input type="radio" name="goal" value="Узнаваемость"><span>Узнаваемость</span></label>
+              <label class="chip"><input type="radio" name="goal" value="Запуск продукта"><span>Запуск продукта</span></label>
+              <label class="chip"><input type="radio" name="goal" value="Отчёт о мероприятии"><span>Отчёт о мероприятии</span></label>
+              <label class="chip"><input type="radio" name="goal" value="Регулярный контент"><span>Регулярный контент</span></label>
+              <label class="chip"><input type="radio" name="goal" value="Другое"><span>Другое</span></label>
+            </div>
+          </fieldset>
+          <div class="field">
+            <label for="message">Главная мысль</label>
+            <textarea id="message" name="message" placeholder="Что зритель должен понять или почувствовать после просмотра?"></textarea>
+          </div>
+        </section>
+
+        <!-- 4 -->
+        <section class="brief-step" data-step="4" aria-labelledby="q4">
+          <h2 id="q4" tabindex="-1">Где будет контент?</h2>
+          <p class="hint">Можно выбрать несколько площадок.</p>
+          <fieldset>
+            <legend class="visually-hidden">Площадки</legend>
+            <div class="chip-group">
+              <label class="chip"><input type="checkbox" name="platforms" value="Instagram"><span>Instagram</span></label>
+              <label class="chip"><input type="checkbox" name="platforms" value="TikTok / Shorts"><span>TikTok / Shorts</span></label>
+              <label class="chip"><input type="checkbox" name="platforms" value="YouTube"><span>YouTube</span></label>
+              <label class="chip"><input type="checkbox" name="platforms" value="Сайт"><span>Сайт</span></label>
+              <label class="chip"><input type="checkbox" name="platforms" value="Таргет"><span>Таргет</span></label>
+              <label class="chip"><input type="checkbox" name="platforms" value="ТВ / LED"><span>ТВ / LED</span></label>
+              <label class="chip"><input type="checkbox" name="platforms" value="Внутреннее использование"><span>Внутреннее</span></label>
+            </div>
+          </fieldset>
+        </section>
+
+        <!-- 5 -->
+        <section class="brief-step" data-step="5" aria-labelledby="q5">
+          <h2 id="q5" tabindex="-1">Формат</h2>
+          <fieldset>
+            <legend>Ориентация</legend>
+            <div class="chip-group">
+              <label class="chip"><input type="radio" name="orientation" value="Вертикаль 9:16"><span>9:16 вертикаль</span></label>
+              <label class="chip"><input type="radio" name="orientation" value="Горизонталь 16:9"><span>16:9 горизонталь</span></label>
+              <label class="chip"><input type="radio" name="orientation" value="Обе"><span>Обе</span></label>
+            </div>
+          </fieldset>
+          <div class="field">
+            <label for="amount">Сколько роликов / фото нужно?</label>
+            <input id="amount" name="amount" type="text" placeholder="Например: 4 Reels и 30 фото">
+          </div>
+        </section>
+
+        <!-- 6 -->
+        <section class="brief-step" data-step="6" aria-labelledby="q6">
+          <h2 id="q6" tabindex="-1">Настроение</h2>
+          <p class="hint">Можно выбрать несколько.</p>
+          <fieldset>
+            <legend class="visually-hidden">Настроение</legend>
+            <div class="chip-group">
+              <label class="chip"><input type="checkbox" name="mood" value="Динамично"><span>Динамично</span></label>
+              <label class="chip"><input type="checkbox" name="mood" value="Кинематографично"><span>Кинематографично</span></label>
+              <label class="chip"><input type="checkbox" name="mood" value="Премиально"><span>Премиально</span></label>
+              <label class="chip"><input type="checkbox" name="mood" value="Эмоционально"><span>Эмоционально</span></label>
+              <label class="chip"><input type="checkbox" name="mood" value="С юмором"><span>С юмором</span></label>
+              <label class="chip"><input type="checkbox" name="mood" value="Минимализм"><span>Минимализм</span></label>
+              <label class="chip"><input type="checkbox" name="mood" value="Ярко"><span>Ярко</span></label>
+              <label class="chip"><input type="checkbox" name="mood" value="Документально"><span>Документально</span></label>
+            </div>
+          </fieldset>
+          <div class="field">
+            <label for="refs">Ссылки на референсы</label>
+            <textarea id="refs" name="refs" placeholder="Ролики или аккаунты, которые нравятся — по одной ссылке на строку"></textarea>
+          </div>
+        </section>
+
+        <!-- 7 -->
+        <section class="brief-step" data-step="7" aria-labelledby="q7">
+          <h2 id="q7" tabindex="-1">Съёмка</h2>
+          <div class="field">
+            <label for="date">Дата съёмки</label>
+            <input id="date" name="date" type="text" placeholder="Например: 15 октября или «гибко»">
+          </div>
+          <div class="field">
+            <label for="location">Локация</label>
+            <input id="location" name="location" type="text" placeholder="Адрес, город или «нужно подобрать»">
+          </div>
+          <div class="field">
+            <label for="cast">Кто в кадре</label>
+            <input id="cast" name="cast" type="text" placeholder="Команда, основатель, модели, продукт…">
+          </div>
+        </section>
+
+        <!-- 8 -->
+        <section class="brief-step" data-step="8" aria-labelledby="q8">
+          <h2 id="q8" tabindex="-1">Сроки и согласование</h2>
+          <div class="field">
+            <label for="deadline">Дедлайн</label>
+            <input id="deadline" name="deadline" type="text" placeholder="Когда нужен готовый результат?">
+          </div>
+          <div class="field">
+            <label for="approver">Кто утверждает</label>
+            <input id="approver" name="approver" type="text" placeholder="Имя и должность">
+          </div>
+        </section>
+
+        <!-- 9 -->
+        <section class="brief-step" data-step="9" aria-labelledby="q9">
+          <h2 id="q9" tabindex="-1">Бюджет</h2>
+          <p class="hint">В сумах. Это поможет предложить подходящий формат.</p>
+          <fieldset>
+            <legend class="visually-hidden">Бюджет</legend>
+            <div class="chip-group">
+              <label class="chip"><input type="radio" name="budget" value="До 5 млн"><span>До 5 млн</span></label>
+              <label class="chip"><input type="radio" name="budget" value="5–15 млн"><span>5–15 млн</span></label>
+              <label class="chip"><input type="radio" name="budget" value="15–35 млн"><span>15–35 млн</span></label>
+              <label class="chip"><input type="radio" name="budget" value="35–100 млн"><span>35–100 млн</span></label>
+              <label class="chip"><input type="radio" name="budget" value="Больше 100 млн"><span>Больше 100 млн</span></label>
+              <label class="chip"><input type="radio" name="budget" value="Не знаю"><span>Не знаю</span></label>
+            </div>
+          </fieldset>
+        </section>
+
+        <!-- 10 -->
+        <section class="brief-step" data-step="10" aria-labelledby="q10">
+          <h2 id="q10" tabindex="-1">Комментарий</h2>
+          <div class="field">
+            <label for="comment">Всё, что ещё важно знать</label>
+            <textarea id="comment" name="comment"></textarea>
+          </div>
+        </section>
+
+        <!-- Итог -->
+        <section class="brief-step" data-step="11" aria-labelledby="q11">
+          <h2 id="q11" tabindex="-1">Готово! <span class="red">Отправьте нам бриф</span></h2>
+          <p class="hint">Скопируйте ответы и отправьте их в Instagram Direct — или сразу поделитесь через Telegram.</p>
+          <pre class="summary" id="summary"></pre>
+          <div class="summary-actions">
+            <button type="button" class="btn btn--red" id="copy">Скопировать ответы</button>
+            <a class="btn btn--outline" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener">Открыть Direct</a>
+            <a class="btn btn--ghost" id="tg" href="https://t.me/share/url" target="_blank" rel="noopener">Отправить через Telegram</a>
+          </div>
+          <p class="copy-status" id="copy-status" role="status"></p>
+        </section>
+
+        <div class="brief__nav">
+          <button type="button" class="btn btn--ghost" id="prev">Назад</button>
+          <button type="button" class="btn btn--red" id="next">Далее</button>
+        </div>
+        <p class="draft-note">Черновик ответов сохраняется в этом браузере автоматически.</p>
+      </form>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>© MUST MOVIE MEDIA · Ташкент</span>
+      <a href="https://www.instagram.com/mmm_creative_production/" target="_blank" rel="noopener">Instagram @mmm_creative_production</a>
+    </div>
+  </footer>
+
+  <script src="brief.js"></script>
+</body>
+</html>

@@ -25,6 +25,100 @@
     });
   }
 
+  // Окно «Подробнее о пакете»
+  (function () {
+    var plans = window.MMM_PLANS || {};
+    var modal = document.getElementById('plan-modal');
+    if (!modal || typeof modal.showModal !== 'function') return;
+    var $ = function (id) { return document.getElementById(id); };
+    var opener = null;
+    var currentId = null;
+    var KIND = { smm: 'SMM на месяц', foto: 'Фотосъёмка', video: 'Reels', ev: 'Мероприятие' };
+
+    function fillList(el, items, tag) {
+      el.innerHTML = '';
+      (items || []).forEach(function (t) {
+        var li = document.createElement(tag || 'li');
+        li.textContent = t;
+        el.appendChild(li);
+      });
+    }
+
+    function open(id, from) {
+      var p = plans[id];
+      if (!p) return;
+      currentId = id;
+      opener = from || null;
+      $('pm-group').textContent = p.group;
+      $('pm-title').textContent = p.name;
+      $('pm-price').innerHTML = '';
+      $('pm-price').appendChild(document.createTextNode(p.price + ' '));
+      if (p.per) { var sm = document.createElement('small'); sm.textContent = p.per; $('pm-price').appendChild(sm); }
+      $('pm-lead').textContent = p.lead;
+
+      var facts = $('pm-facts');
+      facts.innerHTML = '';
+      p.facts.forEach(function (f) {
+        var d = document.createElement('div');
+        d.className = 'pm__fact';
+        var s = document.createElement('span'); s.textContent = f[0];
+        var b = document.createElement('b'); b.textContent = f[1];
+        d.appendChild(s); d.appendChild(b);
+        facts.appendChild(d);
+      });
+
+      fillList($('pm-includes'), p.includes);
+      fillList($('pm-team'), p.team);
+      fillList($('pm-gear'), p.gear);
+      fillList($('pm-terms'), p.terms);
+      fillList($('pm-fit'), p.fit);
+
+      var tl = $('pm-timeline');
+      tl.innerHTML = '';
+      $('pm-timeline-wrap').hidden = !p.timeline;
+      (p.timeline || []).forEach(function (t) {
+        var li = document.createElement('li');
+        var s = document.createElement('span'); s.textContent = t[0];
+        li.appendChild(s); li.appendChild(document.createTextNode(t[1]));
+        tl.appendChild(li);
+      });
+
+      modal.classList.toggle('is-hot', !!p.hot);
+      modal.showModal();
+      modal.querySelector('.pm').scrollTop = 0;
+      modal.querySelector('.pm__close').focus();
+    }
+
+    function close() {
+      modal.close();
+    }
+
+    modal.addEventListener('close', function () {
+      if (opener && document.contains(opener)) opener.focus({ preventScroll: true });
+    });
+
+    // Открытие: по кнопке «Подробнее» или клику по карточке
+    document.addEventListener('click', function (e) {
+      var card = e.target.closest('[data-plan]');
+      if (!card || e.target.closest('a')) return;
+      var btn = card.querySelector('.plan__more');
+      open(card.getAttribute('data-plan'), btn || card);
+    });
+
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal || e.target.closest('[data-close]')) close();
+    });
+
+    $('pm-choose').addEventListener('click', function () {
+      var p = plans[currentId];
+      if (!p) return;
+      opener = null;
+      close();
+      var label = p.name + ' — ' + p.price + (p.per ? ' ' + p.per : '') + ' (' + p.group + ')';
+      if (window.MMM_choosePlan) window.MMM_choosePlan(label, KIND[currentId.split('-')[0]]);
+    });
+  })();
+
   // Появление блоков при скролле
   var items = document.querySelectorAll('.reveal');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

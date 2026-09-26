@@ -5,7 +5,12 @@
   var STORAGE_KEY = 'mmm-brief-draft';
   var TOTAL = 10; // вопросов; шаг 11 — итог
 
-  var form = document.getElementById('brief');
+  var form = document.getElementById('brief-form');
+  if (!form) return;
+  var section = document.getElementById('brief');
+  var planBox = document.getElementById('brief-plan');
+  var planName = document.getElementById('brief-plan-name');
+  var planInput = document.getElementById('package');
   var steps = Array.prototype.slice.call(form.querySelectorAll('.brief-step'));
   var prevBtn = document.getElementById('prev');
   var nextBtn = document.getElementById('next');
@@ -20,6 +25,7 @@
 
   // Порядок и подписи полей в итоговом тексте
   var FIELDS = [
+    ['package', 'Пакет'],
     ['name', 'Имя'],
     ['company', 'Компания'],
     ['contact', 'Телефон / Telegram'],
@@ -78,6 +84,31 @@
       else el.value = v || '';
     });
   }
+
+  // ---------- Выбранный пакет ----------
+  function setPlan(label) {
+    planInput.value = label || '';
+    planName.textContent = label || '';
+    planBox.hidden = !label;
+  }
+  document.getElementById('brief-plan-clear').addEventListener('click', function () { setPlan(''); save(); });
+
+  // Вызывается из окна пакета: подставляем пакет и тип съёмки, листаем к брифу
+  window.MMM_choosePlan = function (label, kind) {
+    setPlan(label);
+    if (kind) {
+      form.querySelectorAll('input[name="what"]').forEach(function (el) {
+        if (el.value === kind) el.checked = true;
+      });
+    }
+    save();
+    var header = document.querySelector('.site-header');
+    window.scrollTo({ top: section.getBoundingClientRect().top + window.pageYOffset - (header ? header.offsetHeight : 0), behavior: 'smooth' });
+    setTimeout(function () {
+      var first = current === 1 ? document.getElementById('name') : form.querySelector('.brief-step.is-active h3');
+      if (first) first.focus({ preventScroll: true });
+    }, 450);
+  };
 
   function save() {
     storageSet({ answers: collect(), step: current });
@@ -138,9 +169,13 @@
     }
 
     if (focus) {
-      var heading = form.querySelector('.brief-step.is-active h1, .brief-step.is-active h2');
+      var heading = form.querySelector('.brief-step.is-active h3');
       if (heading) heading.focus({ preventScroll: true });
-      window.scrollTo({ top: 0, behavior: 'auto' });
+      var top = form.getBoundingClientRect().top;
+      if (top < 0 || top > window.innerHeight * 0.6) {
+        var header = document.querySelector('.site-header');
+        window.scrollTo({ top: window.pageYOffset + top - (header ? header.offsetHeight : 0) - 16, behavior: 'smooth' });
+      }
     }
     save();
   }
@@ -201,6 +236,7 @@
   document.getElementById('reset').addEventListener('click', function () {
     if (!window.confirm('Очистить все ответы?')) return;
     form.reset();
+    setPlan('');
     form.querySelectorAll('[aria-invalid]').forEach(function (el) { el.setAttribute('aria-invalid', 'false'); });
     form.querySelectorAll('.error').forEach(function (el) { el.classList.remove('is-shown'); });
     storageClear();
@@ -210,6 +246,7 @@
   // ---------- Старт ----------
   var draft = storageGet();
   if (draft) restore(draft.answers);
+  setPlan(planInput.value);
   var startStep = draft && draft.step ? Number(draft.step) : 1;
   // Не пускаем сразу на поздние шаги, если обязательные поля пусты
   if (startStep > 1 && !(document.getElementById('name').value.trim() && document.getElementById('contact').value.trim())) startStep = 1;

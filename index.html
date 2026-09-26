@@ -39,6 +39,7 @@
           <a href="#pricing">Услуги и цены</a>
           <a href="#events">Мероприятия</a>
           <a href="#team">Команда</a>
+          <a href="#brief">Бриф</a>
         </div>
         <a class="btn btn--red btn--sm" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener">Написать<span class="long">&nbsp;в Direct</span></a>
         <button class="burger" type="button" aria-controls="nav-links" aria-expanded="false" aria-label="Открыть меню"><span></span></button>
@@ -68,7 +69,7 @@
               </h1>
               <p class="hero__lead">Мы открыты для новых проектов. Создаём не просто контент, а визуал с эффектом WOW — красиво, масштабно и так, чтобы видео хотелось досмотреть и отправить другому.</p>
               <div class="hero__actions">
-                <a class="btn btn--red" href="brief.html">Заполнить бриф</a>
+                <a class="btn btn--red" href="#brief">Заполнить бриф</a>
                 <a class="btn btn--outline" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener">Написать в Direct</a>
               </div>
               <ul class="tags" aria-label="Направления">
@@ -246,7 +247,7 @@
         <div class="section__head reveal">
           <p class="eyebrow">Услуги и цены</p>
           <h2 id="pricing-title">Пакеты и стоимость</h2>
-          <p>Цены в сумах. Точную смету считаем после брифа.</p>
+          <p>Цены в сумах. Нажмите на любой пакет — покажем, что входит, сколько часов снимаем, какая команда и техника, и когда будет готово.</p>
         </div>
 
         <!-- SMM -->
@@ -256,7 +257,7 @@
             <p>Ежемесячно</p>
           </div>
           <div class="grid grid--3">
-            <article class="card plan reveal">
+            <article class="card plan reveal" data-plan="smm-start">
               <h4 class="plan__name">Start</h4>
               <div class="plan__price">16,0 млн <small>/ мес</small></div>
               <ul class="dia-list">
@@ -265,8 +266,9 @@
                 <li>25–30 фото</li>
                 <li>1 видео-поздравление</li>
               </ul>
+              <button type="button" class="plan__more" data-open-plan="smm-start">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
             </article>
-            <article class="card plan plan--hot reveal">
+            <article class="card plan plan--hot reveal" data-plan="smm-pro">
               <span class="badge">Популярный</span>
               <h4 class="plan__name">Pro</h4>
               <div class="plan__price">23,4 млн <small>/ мес</small></div>
@@ -276,8 +278,9 @@
                 <li>45–50 фото</li>
                 <li>1 мини-сюжет до 1,5 мин</li>
               </ul>
+              <button type="button" class="plan__more" data-open-plan="smm-pro">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
             </article>
-            <article class="card plan reveal">
+            <article class="card plan reveal" data-plan="smm-premium">
               <h4 class="plan__name">Premium</h4>
               <div class="plan__price">35,8 млн <small>/ мес</small></div>
               <ul class="dia-list">
@@ -287,6 +290,7 @@
                 <li>1 имиджевое видео</li>
                 <li>1 репортаж с мероприятия</li>
               </ul>
+              <button type="button" class="plan__more" data-open-plan="smm-premium">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
             </article>
           </div>
 
@@ -318,7 +322,7 @@
             <h3>Только фото</h3>
           </div>
           <div class="grid grid--3">
-            <article class="card plan reveal">
+            <article class="card plan reveal" data-plan="foto-start">
               <h4 class="plan__name">Foto Start</h4>
               <div class="plan__price">4,9 млн</div>
               <ul class="dia-list">
@@ -326,8 +330,9 @@
                 <li>1 смена</li>
                 <li>Цветокоррекция и ретушь</li>
               </ul>
+              <button type="button" class="plan__more" data-open-plan="foto-start">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
             </article>
-            <article class="card plan plan--hot reveal">
+            <article class="card plan plan--hot reveal" data-plan="foto-pro">
               <span class="badge">Популярный</span>
               <h4 class="plan__name">Foto Pro</h4>
               <div class="plan__price">7,8 млн</div>
@@ -336,8 +341,9 @@
                 <li>До 2 смен</li>
                 <li>Цветокоррекция и ретушь</li>
               </ul>
+              <button type="button" class="plan__more" data-open-plan="foto-pro">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
             </article>
-            <article class="card plan reveal">
+            <article class="card plan reveal" data-plan="foto-custom">
               <h4 class="plan__name">Индивидуально</h4>
               <div class="plan__price">По запросу</div>
               <ul class="dia-list">
@@ -345,6 +351,7 @@
                 <li>Продукт, команда, интерьер</li>
                 <li>Своя концепция</li>
               </ul>
+              <button type="button" class="plan__more" data-open-plan="foto-custom">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
             </article>
           </div>
         </div>
@@ -356,7 +363,7 @@
             <p>Ежемесячно</p>
           </div>
           <div class="grid grid--3">
-            <article class="card plan reveal">
+            <article class="card plan reveal" data-plan="video-start">
               <h4 class="plan__name">Video Start</h4>
               <div class="plan__price">11,7 млн <small>/ мес</small></div>
               <ul class="dia-list">
@@ -364,8 +371,9 @@
                 <li>8 Stories</li>
                 <li>Монтаж и цвет</li>
               </ul>
+              <button type="button" class="plan__more" data-open-plan="video-start">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
             </article>
-            <article class="card plan plan--hot reveal">
+            <article class="card plan plan--hot reveal" data-plan="video-pro">
               <span class="badge">Популярный</span>
               <h4 class="plan__name">Video Pro</h4>
               <div class="plan__price">17,6 млн <small>/ мес</small></div>
@@ -374,8 +382,9 @@
                 <li>12 Stories</li>
                 <li>1 сюжет</li>
               </ul>
+              <button type="button" class="plan__more" data-open-plan="video-pro">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
             </article>
-            <article class="card plan reveal">
+            <article class="card plan reveal" data-plan="video-premium">
               <h4 class="plan__name">Video Premium</h4>
               <div class="plan__price">26,0 млн <small>/ мес</small></div>
               <ul class="dia-list">
@@ -383,11 +392,12 @@
                 <li>15 Stories</li>
                 <li>1 имиджевый ролик</li>
               </ul>
+              <button type="button" class="plan__more" data-open-plan="video-premium">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
             </article>
           </div>
         </div>
 
-        <p class="estimate-note reveal">Точную смету считаем после брифа. <a href="brief.html" class="red">Заполнить бриф →</a></p>
+        <p class="estimate-note reveal">Точную смету считаем после брифа. <a href="#brief" class="red">Заполнить бриф →</a></p>
       </div>
     </section>
 
@@ -397,13 +407,22 @@
         <div class="section__head reveal">
           <p class="eyebrow">Мероприятия · цена за 1 день</p>
           <h2 id="events-title">«Исторические» пакеты</h2>
+          <p>Мы называем их историческими, потому что снимаем событие так, чтобы оно вошло в историю вашей компании. Гости пересматривают ролик, делятся им в соцсетях, а вы используете кадры ещё год: в рекламе, на сайте, в приглашении на следующее событие.</p>
         </div>
-        <div class="grid grid--2">
-          <article class="card plan plan--hot reveal">
+
+        <ul class="ev-points reveal">
+          <li><b>до 8</b>операторов на площадке</li>
+          <li><b>24–48 ч</b>первые ролики после события</li>
+          <li><b>200+</b>фото в фотоотчёте</li>
+          <li><b>4K</b>аэросъёмка с лицензией</li>
+        </ul>
+
+        <div class="grid grid--2 ev-grid">
+          <article class="card plan plan--hot reveal" data-plan="ev-blockbuster">
             <span class="badge">Максимум</span>
             <h3 class="plan__name">Блокбастер</h3>
             <div class="plan__price">170,7 млн</div>
-            <p class="plan__note">От 250 человек</p>
+            <p class="plan__note">От 250 гостей · прямой эфир · до 8 камер</p>
             <ul class="dia-list">
               <li>Видео- и фото-приглашение</li>
               <li>LED-заставки до 10</li>
@@ -414,11 +433,12 @@
               <li>10 вертикальных роликов</li>
               <li>Фотоотчёт 200+ и исходники</li>
             </ul>
+            <button type="button" class="plan__more" data-open-plan="ev-blockbuster">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
           </article>
-          <article class="card plan reveal">
+          <article class="card plan reveal" data-plan="ev-hist1">
             <h3 class="plan__name">Исторический 1</h3>
             <div class="plan__price">97,7 млн</div>
-            <p class="plan__note">Без прямого эфира</p>
+            <p class="plan__note">100–300 гостей · без прямого эфира</p>
             <ul class="dia-list">
               <li>Приглашение</li>
               <li>3 оператора и 3 фотографа</li>
@@ -429,11 +449,12 @@
               <li>Аэросъёмка</li>
               <li>Исходники</li>
             </ul>
+            <button type="button" class="plan__more" data-open-plan="ev-hist1">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
           </article>
-          <article class="card plan reveal">
+          <article class="card plan reveal" data-plan="ev-hist2">
             <h3 class="plan__name">Исторический 2</h3>
             <div class="plan__price">57,9 млн</div>
-            <p class="plan__note">Бюджетный</p>
+            <p class="plan__note">До 200 гостей · оптимальный</p>
             <ul class="dia-list">
               <li>Отчётный ролик 2–5 мин</li>
               <li>Адаптация для соцсетей</li>
@@ -442,18 +463,55 @@
               <li>Аэросъёмка</li>
               <li>Запись звука</li>
             </ul>
+            <button type="button" class="plan__more" data-open-plan="ev-hist2">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
           </article>
-          <article class="card plan reveal">
+          <article class="card plan reveal" data-plan="ev-hist3">
             <h3 class="plan__name">Исторический 3</h3>
             <div class="plan__price">27,9 млн</div>
-            <p class="plan__note">Минимальный</p>
+            <p class="plan__note">До 100 гостей · минимальный</p>
             <ul class="dia-list">
               <li>2 оператора</li>
               <li>2 фотографа</li>
               <li>Монтаж ролика</li>
               <li>5 вертикальных роликов</li>
             </ul>
+            <button type="button" class="plan__more" data-open-plan="ev-hist3">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
           </article>
+        </div>
+
+        <div class="ev-compare reveal">
+          <h3>Сравнение пакетов</h3>
+          <div class="table-wrap" role="region" aria-labelledby="ev-table-cap" tabindex="0">
+            <table>
+              <caption id="ev-table-cap" class="visually-hidden">Сравнение пакетов для мероприятий</caption>
+              <thead>
+                <tr><th scope="col"></th><th scope="col">Блокбастер</th><th scope="col">Истор. 1</th><th scope="col">Истор. 2</th><th scope="col">Истор. 3</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">Гостей</th><td>250+</td><td>100–300</td><td>до 200</td><td>до 100</td></tr>
+                <tr><th scope="row">Операторы</th><td>до 8</td><td>3</td><td>2</td><td>2</td></tr>
+                <tr><th scope="row">Фотографы</th><td>3</td><td>3</td><td>2</td><td>2</td></tr>
+                <tr><th scope="row">Прямой эфир</th><td class="yes">✓</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><th scope="row">Приглашение</th><td class="yes">✓</td><td class="yes">✓</td><td>—</td><td>—</td></tr>
+                <tr><th scope="row">Аэросъёмка</th><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td>—</td></tr>
+                <tr><th scope="row">Вертикальные ролики</th><td>10</td><td>10</td><td>5</td><td>5</td></tr>
+                <tr><th scope="row">Фотоотчёт</th><td>200+</td><td>✓</td><td>200+</td><td>✓</td></tr>
+                <tr><th scope="row">Исходники</th><td class="yes">✓</td><td class="yes">✓</td><td>—</td><td>—</td></tr>
+                <tr><th scope="row">Цена за день</th><td class="price">170,7 млн</td><td class="price">97,7 млн</td><td class="price">57,9 млн</td><td class="price">27,9 млн</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="ev-day reveal">
+          <h3>Как проходит «Блокбастер»</h3>
+          <ol class="ev-timeline">
+            <li><span>За 2–3 недели</span>Бриф, сценарий дня и съёмка приглашения для гостей</li>
+            <li><span>За неделю</span>LED-заставки и тест трансляции прямо на площадке</li>
+            <li><span>День события</span>Welcome-зона, эфир, аэросъёмка и репортаж — от входа гостей до финала</li>
+            <li><span>Через 24–48 ч</span>Первые вертикальные ролики, пока все ещё обсуждают событие</li>
+            <li><span>Через 10–14 дней</span>Отчётный ролик, фотоотчёт 200+ и все исходники</li>
+          </ol>
         </div>
 
         <div class="extras reveal">
@@ -511,6 +569,229 @@
             <div class="card guarantee todo"><h4>Оплата</h4>[Порядок оплаты]</div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Бриф прямо на сайте -->
+    <section class="section brief-section" id="brief" aria-labelledby="brief-title">
+      <div class="container brief-wrap">
+        <div class="brief-intro reveal">
+          <p class="eyebrow">Бриф на съёмку</p>
+          <h2 id="brief-title">Расскажите о проекте</h2>
+          <p>10 коротких вопросов, 3 минуты. После брифа вернёмся с идеей, сметой и сроками — без лишних созвонов.</p>
+          <ul class="dia-list">
+            <li>Можно пропускать вопросы — заполните то, что знаете</li>
+            <li>Ответы сохраняются в браузере, можно вернуться позже</li>
+            <li>В конце — отправка в Direct или Telegram в один клик</li>
+          </ul>
+        </div>
+        <form class="brief" id="brief-form" novalidate>
+                  <div class="brief__top">
+            <span id="step-label" aria-live="polite">Шаг 1 из 10</span>
+            <button type="button" class="link-btn" id="reset">Очистить ответы</button>
+          </div>
+          <div class="brief-plan" id="brief-plan" hidden>
+            <span>Выбран пакет: <b id="brief-plan-name"></b></span>
+            <button type="button" class="link-btn" id="brief-plan-clear">Убрать</button>
+            <input type="hidden" name="package" id="package">
+          </div>
+          <div class="progress" role="progressbar" aria-label="Прогресс заполнения брифа" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="progress__bar" id="progress-bar"></div>
+          </div>
+
+          <!-- 1 -->
+          <section class="brief-step" data-step="1" aria-labelledby="q1">
+            <h3 id="q1" tabindex="-1">Давайте знакомиться</h3>
+            <p class="hint">Поля со звёздочкой обязательны.</p>
+            <div class="field">
+              <label for="name">Имя <span class="req">*</span></label>
+              <input id="name" name="name" type="text" autocomplete="name" required aria-describedby="name-error">
+              <div class="error" id="name-error">Укажите, как к вам обращаться.</div>
+            </div>
+            <div class="field">
+              <label for="company">Компания</label>
+              <input id="company" name="company" type="text" autocomplete="organization">
+            </div>
+            <div class="field">
+              <label for="contact">Телефон или Telegram <span class="req">*</span></label>
+              <input id="contact" name="contact" type="text" autocomplete="tel" placeholder="+998 … или @username" required aria-describedby="contact-error">
+              <div class="error" id="contact-error">Оставьте телефон или Telegram, чтобы мы могли ответить.</div>
+            </div>
+          </section>
+
+          <!-- 2 -->
+          <section class="brief-step" data-step="2" aria-labelledby="q2">
+            <h3 id="q2" tabindex="-1">Что нужно снять?</h3>
+            <p class="hint">Можно выбрать несколько вариантов.</p>
+            <fieldset>
+              <legend class="visually-hidden">Что снять</legend>
+              <div class="chip-group">
+                <label class="chip"><input type="checkbox" name="what" value="Рекламный ролик"><span>Рекламный ролик</span></label>
+                <label class="chip"><input type="checkbox" name="what" value="Reels"><span>Reels</span></label>
+                <label class="chip"><input type="checkbox" name="what" value="SMM на месяц"><span>SMM на месяц</span></label>
+                <label class="chip"><input type="checkbox" name="what" value="Фотосъёмка"><span>Фотосъёмка</span></label>
+                <label class="chip"><input type="checkbox" name="what" value="Мероприятие"><span>Мероприятие</span></label>
+                <label class="chip"><input type="checkbox" name="what" value="Трансляция"><span>Трансляция</span></label>
+                <label class="chip"><input type="checkbox" name="what" value="Аэросъёмка"><span>Аэросъёмка</span></label>
+                <label class="chip"><input type="checkbox" name="what" value="Другое"><span>Другое</span></label>
+              </div>
+            </fieldset>
+          </section>
+
+          <!-- 3 -->
+          <section class="brief-step" data-step="3" aria-labelledby="q3">
+            <h3 id="q3" tabindex="-1">Какая цель?</h3>
+            <p class="hint">Выберите одну.</p>
+            <fieldset>
+              <legend class="visually-hidden">Цель</legend>
+              <div class="chip-group">
+                <label class="chip"><input type="radio" name="goal" value="Продажи"><span>Продажи</span></label>
+                <label class="chip"><input type="radio" name="goal" value="Узнаваемость"><span>Узнаваемость</span></label>
+                <label class="chip"><input type="radio" name="goal" value="Запуск продукта"><span>Запуск продукта</span></label>
+                <label class="chip"><input type="radio" name="goal" value="Отчёт о мероприятии"><span>Отчёт о мероприятии</span></label>
+                <label class="chip"><input type="radio" name="goal" value="Регулярный контент"><span>Регулярный контент</span></label>
+                <label class="chip"><input type="radio" name="goal" value="Другое"><span>Другое</span></label>
+              </div>
+            </fieldset>
+            <div class="field">
+              <label for="message">Главная мысль</label>
+              <textarea id="message" name="message" placeholder="Что зритель должен понять или почувствовать после просмотра?"></textarea>
+            </div>
+          </section>
+
+          <!-- 4 -->
+          <section class="brief-step" data-step="4" aria-labelledby="q4">
+            <h3 id="q4" tabindex="-1">Где будет контент?</h3>
+            <p class="hint">Можно выбрать несколько площадок.</p>
+            <fieldset>
+              <legend class="visually-hidden">Площадки</legend>
+              <div class="chip-group">
+                <label class="chip"><input type="checkbox" name="platforms" value="Instagram"><span>Instagram</span></label>
+                <label class="chip"><input type="checkbox" name="platforms" value="TikTok / Shorts"><span>TikTok / Shorts</span></label>
+                <label class="chip"><input type="checkbox" name="platforms" value="YouTube"><span>YouTube</span></label>
+                <label class="chip"><input type="checkbox" name="platforms" value="Сайт"><span>Сайт</span></label>
+                <label class="chip"><input type="checkbox" name="platforms" value="Таргет"><span>Таргет</span></label>
+                <label class="chip"><input type="checkbox" name="platforms" value="ТВ / LED"><span>ТВ / LED</span></label>
+                <label class="chip"><input type="checkbox" name="platforms" value="Внутреннее использование"><span>Внутреннее</span></label>
+              </div>
+            </fieldset>
+          </section>
+
+          <!-- 5 -->
+          <section class="brief-step" data-step="5" aria-labelledby="q5">
+            <h3 id="q5" tabindex="-1">Формат</h3>
+            <fieldset>
+              <legend>Ориентация</legend>
+              <div class="chip-group">
+                <label class="chip"><input type="radio" name="orientation" value="Вертикаль 9:16"><span>9:16 вертикаль</span></label>
+                <label class="chip"><input type="radio" name="orientation" value="Горизонталь 16:9"><span>16:9 горизонталь</span></label>
+                <label class="chip"><input type="radio" name="orientation" value="Обе"><span>Обе</span></label>
+              </div>
+            </fieldset>
+            <div class="field">
+              <label for="amount">Сколько роликов / фото нужно?</label>
+              <input id="amount" name="amount" type="text" placeholder="Например: 4 Reels и 30 фото">
+            </div>
+          </section>
+
+          <!-- 6 -->
+          <section class="brief-step" data-step="6" aria-labelledby="q6">
+            <h3 id="q6" tabindex="-1">Настроение</h3>
+            <p class="hint">Можно выбрать несколько.</p>
+            <fieldset>
+              <legend class="visually-hidden">Настроение</legend>
+              <div class="chip-group">
+                <label class="chip"><input type="checkbox" name="mood" value="Динамично"><span>Динамично</span></label>
+                <label class="chip"><input type="checkbox" name="mood" value="Кинематографично"><span>Кинематографично</span></label>
+                <label class="chip"><input type="checkbox" name="mood" value="Премиально"><span>Премиально</span></label>
+                <label class="chip"><input type="checkbox" name="mood" value="Эмоционально"><span>Эмоционально</span></label>
+                <label class="chip"><input type="checkbox" name="mood" value="С юмором"><span>С юмором</span></label>
+                <label class="chip"><input type="checkbox" name="mood" value="Минимализм"><span>Минимализм</span></label>
+                <label class="chip"><input type="checkbox" name="mood" value="Ярко"><span>Ярко</span></label>
+                <label class="chip"><input type="checkbox" name="mood" value="Документально"><span>Документально</span></label>
+              </div>
+            </fieldset>
+            <div class="field">
+              <label for="refs">Ссылки на референсы</label>
+              <textarea id="refs" name="refs" placeholder="Ролики или аккаунты, которые нравятся — по одной ссылке на строку"></textarea>
+            </div>
+          </section>
+
+          <!-- 7 -->
+          <section class="brief-step" data-step="7" aria-labelledby="q7">
+            <h3 id="q7" tabindex="-1">Съёмка</h3>
+            <div class="field">
+              <label for="date">Дата съёмки</label>
+              <input id="date" name="date" type="text" placeholder="Например: 15 октября или «гибко»">
+            </div>
+            <div class="field">
+              <label for="location">Локация</label>
+              <input id="location" name="location" type="text" placeholder="Адрес, город или «нужно подобрать»">
+            </div>
+            <div class="field">
+              <label for="cast">Кто в кадре</label>
+              <input id="cast" name="cast" type="text" placeholder="Команда, основатель, модели, продукт…">
+            </div>
+          </section>
+
+          <!-- 8 -->
+          <section class="brief-step" data-step="8" aria-labelledby="q8">
+            <h3 id="q8" tabindex="-1">Сроки и согласование</h3>
+            <div class="field">
+              <label for="deadline">Дедлайн</label>
+              <input id="deadline" name="deadline" type="text" placeholder="Когда нужен готовый результат?">
+            </div>
+            <div class="field">
+              <label for="approver">Кто утверждает</label>
+              <input id="approver" name="approver" type="text" placeholder="Имя и должность">
+            </div>
+          </section>
+
+          <!-- 9 -->
+          <section class="brief-step" data-step="9" aria-labelledby="q9">
+            <h3 id="q9" tabindex="-1">Бюджет</h3>
+            <p class="hint">В сумах. Это поможет предложить подходящий формат.</p>
+            <fieldset>
+              <legend class="visually-hidden">Бюджет</legend>
+              <div class="chip-group">
+                <label class="chip"><input type="radio" name="budget" value="До 5 млн"><span>До 5 млн</span></label>
+                <label class="chip"><input type="radio" name="budget" value="5–15 млн"><span>5–15 млн</span></label>
+                <label class="chip"><input type="radio" name="budget" value="15–35 млн"><span>15–35 млн</span></label>
+                <label class="chip"><input type="radio" name="budget" value="35–100 млн"><span>35–100 млн</span></label>
+                <label class="chip"><input type="radio" name="budget" value="Больше 100 млн"><span>Больше 100 млн</span></label>
+                <label class="chip"><input type="radio" name="budget" value="Не знаю"><span>Не знаю</span></label>
+              </div>
+            </fieldset>
+          </section>
+
+          <!-- 10 -->
+          <section class="brief-step" data-step="10" aria-labelledby="q10">
+            <h3 id="q10" tabindex="-1">Комментарий</h3>
+            <div class="field">
+              <label for="comment">Всё, что ещё важно знать</label>
+              <textarea id="comment" name="comment"></textarea>
+            </div>
+          </section>
+
+          <!-- Итог -->
+          <section class="brief-step" data-step="11" aria-labelledby="q11">
+            <h3 id="q11" tabindex="-1">Готово! <span class="red">Отправьте нам бриф</span></h3>
+            <p class="hint">Скопируйте ответы и отправьте их в Instagram Direct — или сразу поделитесь через Telegram. Вернёмся с идеей, сметой и сроками.</p>
+            <pre class="summary" id="summary"></pre>
+            <div class="summary-actions">
+              <button type="button" class="btn btn--red" id="copy">Скопировать ответы</button>
+              <a class="btn btn--outline" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener">Открыть Direct</a>
+              <a class="btn btn--ghost" id="tg" href="https://t.me/share/url" target="_blank" rel="noopener">Отправить через Telegram</a>
+            </div>
+            <p class="copy-status" id="copy-status" role="status"></p>
+          </section>
+
+          <div class="brief__nav">
+            <button type="button" class="btn btn--ghost" id="prev">Назад</button>
+            <button type="button" class="btn btn--red" id="next">Далее</button>
+          </div>
+          <p class="draft-note">Черновик ответов сохраняется в этом браузере автоматически.</p>
+        </form>
       </div>
     </section>
 
@@ -588,7 +869,7 @@
           </details>
           <details>
             <summary>Как начать работу?</summary>
-            <div class="faq__answer">Заполните <a href="brief.html" class="red">бриф</a> или <a href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener" class="red">напишите в Direct</a> — вернёмся с идеей, сметой и сроками.</div>
+            <div class="faq__answer">Заполните <a href="#brief" class="red">бриф</a> или <a href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener" class="red">напишите в Direct</a> — вернёмся с идеей, сметой и сроками.</div>
           </details>
           <details>
             <summary>Есть ли скидки?</summary>
@@ -631,7 +912,7 @@
           <p>Наша задача — не просто показать, что вы делаете, а сделать так, чтобы ваш бренд запомнили.</p>
           <div class="cta__actions">
             <a class="btn btn--black" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener">Написать в Direct</a>
-            <a class="btn btn--outline" href="brief.html">Заполнить бриф</a>
+            <a class="btn btn--outline" href="#brief">Заполнить бриф</a>
           </div>
           <a class="cta__handle" href="https://www.instagram.com/mmm_creative_production/" target="_blank" rel="noopener">@mmm_creative_production</a>
         </div>
@@ -647,6 +928,37 @@
     </div>
   </footer>
 
+  <!-- Окно с подробностями пакета (заполняется из plans.js) -->
+  <dialog class="plan-modal" id="plan-modal" aria-labelledby="pm-title">
+    <div class="pm">
+      <button type="button" class="pm__close" data-close aria-label="Закрыть">×</button>
+      <p class="eyebrow" id="pm-group"></p>
+      <div class="pm__head">
+        <h2 id="pm-title"></h2>
+        <div class="plan__price" id="pm-price"></div>
+      </div>
+      <p class="pm__lead" id="pm-lead"></p>
+      <div class="pm__facts" id="pm-facts"></div>
+      <div class="pm__cols">
+        <div><h3>Что входит</h3><ul class="dia-list" id="pm-includes"></ul></div>
+        <div>
+          <h3>Команда</h3><ul class="dia-list" id="pm-team"></ul>
+          <h3>Техника</h3><ul class="dia-list" id="pm-gear"></ul>
+        </div>
+      </div>
+      <div class="pm__block" id="pm-timeline-wrap"><h3>Как проходит</h3><ol class="ev-timeline" id="pm-timeline"></ol></div>
+      <div class="pm__block"><h3>Сроки и правки</h3><ul class="dia-list" id="pm-terms"></ul></div>
+      <div class="pm__block"><h3>Подходит для</h3><ul class="chips chips--sm" id="pm-fit"></ul></div>
+      <div class="pm__actions">
+        <button type="button" class="btn btn--red" id="pm-choose">Выбрать пакет и заполнить бриф</button>
+        <a class="btn btn--ghost" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener">Спросить в Direct</a>
+      </div>
+      <p class="pm__note">Цены в сумах. Модели, локации, реквизит и таргет оплачиваются отдельно.</p>
+    </div>
+  </dialog>
+
+  <script src="plans.js"></script>
   <script src="script.js"></script>
+  <script src="brief.js"></script>
 </body>
 </html>

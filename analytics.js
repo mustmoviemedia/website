@@ -28,7 +28,7 @@
     var a = e.target.closest && e.target.closest('a[href]');
     if (!a) return;
     var href = a.getAttribute('href') || '';
-    if (href.indexOf('instagram.com') !== -1) window.MMM_track('contact_click', { method: 'instagram' });
+    if (href.indexOf('instagram.com') !== -1 || href.indexOf('ig.me/') !== -1) window.MMM_track('contact_click', { method: 'instagram' });
     else if (href.indexOf('t.me/') !== -1) window.MMM_track('contact_click', { method: 'telegram' });
   }, true);
 })();

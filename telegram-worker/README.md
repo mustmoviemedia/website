@@ -82,3 +82,7 @@ npx wrangler@4 dev --var TG_API:http://127.0.0.1:8790 --var EXTRA_ORIGINS:http:/
 ## Пока Worker не обновлён
 
 Бриф работает, как раньше. Чат на сайте отвечает из базы знаний, а «Позвать менеджера» предлагает написать в Telegram или Direct.
+
+## Автодеплой
+
+Worker связан с GitHub (Cloudflare Workers Builds): каждый пуш в `main` сам собирает и выкладывает бота (`npx wrangler deploy` из папки `telegram-worker`). Вручную деплоить не нужно.

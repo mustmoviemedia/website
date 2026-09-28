@@ -2,10 +2,12 @@
 <html lang="ru" class="no-js">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title data-i18n="meta.title">MUST MOVIE MEDIA — видеопродакшен в Ташкенте</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title data-i18n="v2.meta.title">MUST MOVIE MEDIA — видеопродакшен в Ташкенте</title>
   <meta name="description" data-i18n-content="meta.desc" content="MMM Creative Production — видеопродакшен полного цикла в Ташкенте: Reels и реклама, фото и видео, SMM, съёмка мероприятий, прямые эфиры и аэросъёмка.">
+  <link rel="canonical" href="https://must-movie-media.github.io/website/">
   <meta name="theme-color" content="#0A0A0A">
+  <meta name="color-scheme" content="dark">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
@@ -20,47 +22,52 @@
   <meta name="twitter:image" content="https://must-movie-media.github.io/website/assets/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
 
-  <link rel="canonical" href="https://must-movie-media.github.io/website/">
   <link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Manrope:wght@400;500;600;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Manrope:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Manrope:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap"></noscript>
+  <link rel="preload" as="image" href="assets/v2/hero-poster.jpg" fetchpriority="high">
   <link rel="stylesheet" href="styles.css">
   <script>document.documentElement.classList.remove('no-js');</script>
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="a11y.skip">Перейти к содержанию</a>
 
-  <!-- Черновая плашка: удалите этот блок, когда сайт будет готов -->
-  <div class="draft-bar" data-i18n="draft">Черновая версия сайта</div>
-
-  <header class="site-header">
-    <div class="container site-header__inner">
-      <a class="logo-text" href="#top" aria-label="MUST MOVIE MEDIA — наверх" data-i18n-aria-label="logo.aria"><b>M</b><span class="logo-rest">UST </span><b>M</b><span class="logo-rest">OVIE </span><b>M</b><span class="logo-rest">EDIA</span></a>
+  <!-- ============ ШАПКА ============ -->
+  <header class="site-header" id="site-header">
+    <div class="wrap site-header__inner">
+      <a class="brand" href="#top" aria-label="MUST MOVIE MEDIA — наверх" data-i18n-aria-label="logo.aria">
+        <svg class="brand__mark" viewBox="0 0 40 32" aria-hidden="true"><path d="M1 9V4a3 3 0 0 1 3-3h6M30 1h6a3 3 0 0 1 3 3v5M39 23v5a3 3 0 0 1-3 3h-6M10 31H4a3 3 0 0 1-3-3v-5" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="32" cy="8" r="2.2" fill="currentColor"/><path d="M10 23V9h3.6l3.4 7 3.4-7H24v14h-3.4v-7.4l-2.6 5.4h-2l-2.6-5.4V23z" fill="currentColor"/></svg>
+        <span class="brand__word"><b>M</b>UST <b>M</b>OVIE <b>M</b>EDIA</span>
+      </a>
       <nav class="nav" aria-label="Основная навигация" data-i18n-aria-label="nav.aria">
         <div class="nav__links" id="nav-links">
-          <a href="#about" data-i18n="nav.about">О нас</a>
-          <a href="#works" data-i18n="nav.works">Работы</a>
-          <a href="#audience" data-i18n="nav.audience">Для кого</a>
-          <a href="#pricing" data-i18n="nav.pricing">Услуги и цены</a>
-          <a href="#events" data-i18n="nav.events">Мероприятия</a>
-          <a href="#team" data-i18n="nav.team">Команда</a>
-          <a href="#brief" data-i18n="nav.brief">Бриф</a>
-          <div class="lang-switch lang-switch--menu" role="group" aria-label="Язык сайта" data-i18n-aria-label="lang.aria">
-            <button type="button" data-set-lang="ru" lang="ru" aria-label="Русский">RU</button>
-            <button type="button" data-set-lang="uz" lang="uz" aria-label="O'zbekcha">UZ</button>
-            <button type="button" data-set-lang="en" lang="en" aria-label="English">EN</button>
+          <a href="#services"><span class="nav__num">01</span><span data-i18n="v2.nav.services">Услуги</span></a>
+          <a href="#works"><span class="nav__num">02</span><span data-i18n="nav.works">Работы</span></a>
+          <a href="#pricing"><span class="nav__num">03</span><span data-i18n="v2.nav.pricing">Цены</span></a>
+          <a href="#team"><span class="nav__num">04</span><span data-i18n="nav.team">Команда</span></a>
+          <a href="#brief"><span class="nav__num">05</span><span data-i18n="nav.brief">Бриф</span></a>
+          <div class="nav__menu-foot">
+            <a class="btn btn--red" href="#brief" data-i18n="btn.brief">Заполнить бриф</a>
+            <div class="lang-switch" role="group" aria-label="Язык сайта" data-i18n-aria-label="lang.aria">
+              <button type="button" data-set-lang="ru" lang="ru" aria-label="RU — Русский">RU</button>
+              <button type="button" data-set-lang="uz" lang="uz" aria-label="UZ — O'zbekcha">UZ</button>
+              <button type="button" data-set-lang="en" lang="en" aria-label="EN — English">EN</button>
+            </div>
+            <a class="nav__ig" href="https://www.instagram.com/mmm_creative_production/" target="_blank" rel="noopener">Instagram · @mmm_creative_production</a>
           </div>
         </div>
         <div class="lang-switch lang-switch--head" role="group" aria-label="Язык сайта" data-i18n-aria-label="lang.aria">
-          <button type="button" data-set-lang="ru" lang="ru" aria-label="Русский">RU</button>
-          <button type="button" data-set-lang="uz" lang="uz" aria-label="O'zbekcha">UZ</button>
-          <button type="button" data-set-lang="en" lang="en" aria-label="English">EN</button>
+          <button type="button" data-set-lang="ru" lang="ru" aria-label="RU — Русский">RU</button>
+          <button type="button" data-set-lang="uz" lang="uz" aria-label="UZ — O'zbekcha">UZ</button>
+          <button type="button" data-set-lang="en" lang="en" aria-label="EN — English">EN</button>
         </div>
-        <a class="btn btn--red btn--sm" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener"><span class="long" data-i18n="nav.writeFull">Написать в Direct</span><span class="short" data-i18n="nav.writeShort">Написать</span></a>
+        <a class="btn btn--red btn--sm nav__cta" href="#brief" data-i18n="btn.brief">Заполнить бриф</a>
         <button class="burger" type="button" aria-controls="nav-links" aria-expanded="false" aria-label="Открыть меню" data-i18n-aria-label="nav.open"><span></span></button>
       </nav>
     </div>
@@ -68,560 +75,404 @@
 
   <main id="main">
 
-    <!-- 1. Главный экран -->
-    <section class="hero" id="top">
-      <div class="container">
-        <div class="viewfinder">
-          <span class="vf-corner vf-corner--tl" aria-hidden="true"></span>
-          <span class="vf-corner vf-corner--tr" aria-hidden="true"></span>
-          <span class="vf-corner vf-corner--bl" aria-hidden="true"></span>
-          <span class="vf-corner vf-corner--br" aria-hidden="true"></span>
-          <div class="rec"><span class="rec__dot" aria-hidden="true"></span><span data-i18n="hero.rec">REC · Открыты для проектов</span></div>
+    <!-- ============ 1. HERO ============ -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero__media" aria-hidden="true">
+        <!-- TODO: шоурил 15–30 сек, mp4 (H.264) 1920×1080 до 8 МБ + постер jpg 1920×1080.
+             Добавьте: <source src="assets/v2/hero.mp4" type="video/mp4"> и замените poster. -->
+        <video class="hero__video" autoplay muted loop playsinline preload="auto" poster="assets/v2/hero-poster.jpg" width="1920" height="1080"></video>
+        <div class="hero__shade"></div>
+      </div>
 
-          <div class="hero__grid">
-            <div>
-              <p class="eyebrow" data-i18n="hero.eyebrow">MMM Creative Production · Ташкент</p>
-              <h1 class="hero__title">
-                <span data-i18n="hero.t1">Снимаем.</span>
-                <span data-i18n="hero.t2">Создаём.</span>
-                <span class="red" data-i18n="hero.t3">Продвигаем.</span>
-              </h1>
-              <p class="hero__lead" data-i18n="hero.lead">Мы открыты для новых проектов. Создаём не просто контент, а визуал с эффектом WOW — красиво, масштабно и так, чтобы видео хотелось досмотреть и отправить другому.</p>
-              <div class="hero__actions">
-                <a class="btn btn--red" href="#brief" data-i18n="btn.brief">Заполнить бриф</a>
-                <a class="btn btn--outline" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener" data-i18n="btn.direct">Написать в Direct</a>
-              </div>
-              <ul class="tags" aria-label="Направления" data-i18n-aria-label="hero.tagsAria">
-                <li>Films</li>
-                <li>Commercials</li>
-                <li>Content</li>
-              </ul>
-            </div>
-            <img class="hero__logo" src="assets/logo-dark-bg.png" alt="Логотип MUST MOVIE MEDIA" data-i18n-alt="hero.logoAlt" width="720" height="559" fetchpriority="high">
+      <div class="hero__hud" aria-hidden="true">
+        <span class="vf vf--tl"></span><span class="vf vf--tr"></span><span class="vf vf--bl"></span><span class="vf vf--br"></span>
+        <div class="hud hud--tl"><span class="rec-dot"></span>REC <span class="hud__tc" data-tc-run>00:00:00:00</span></div>
+        <div class="hud hud--tr">4K · 25 FPS</div>
+        <div class="hud hud--bl todo" data-i18n="v2.hero.videoTodo">[Фоновое видео: шоурил 15–30 сек]</div>
+        <div class="hud hud--br"><span data-i18n="v2.hero.scroll">Листайте</span> <span class="hud__line"></span></div>
+      </div>
+
+      <div class="wrap hero__content">
+        <img class="hero__logo" src="assets/logo-dark-bg.png" alt="Логотип MUST MOVIE MEDIA" data-i18n-alt="hero.logoAlt" width="720" height="559" fetchpriority="high">
+        <p class="hero__eyebrow" data-i18n="hero.eyebrow">MMM Creative Production · Ташкент</p>
+        <h1 class="hero__title" id="hero-title">
+          <span class="line"><span data-i18n="hero.t1">Снимаем.</span></span>
+          <span class="line"><span data-i18n="hero.t2">Создаём.</span></span>
+          <span class="line line--red"><span data-i18n="hero.t3">Продвигаем.</span></span>
+        </h1>
+        <p class="hero__lead" data-i18n="v2.hero.lead">Видеопродакшен полного цикла: идея, съёмка, монтаж и продвижение.</p>
+        <div class="hero__actions">
+          <a class="btn btn--red btn--lg" href="#brief" data-i18n="btn.brief">Заполнить бриф</a>
+          <button type="button" class="btn btn--outline btn--lg" data-open-reel>
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>
+            <span data-i18n="v2.hero.reel">Смотреть шоурил</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2. МАНИФЕСТ ============ -->
+    <section class="scene" id="manifest" aria-labelledby="man-title">
+      <div class="wrap">
+        <p class="scene__label reveal"><span class="scene__num">SC 01</span><span data-i18n="v2.sc.manifest">Манифест</span><span class="scene__tc">00:00:12:04</span></p>
+        <div class="manifest">
+          <h2 class="manifest__title reveal" id="man-title" data-i18n-html="v2.man.title">Не просто контент. <span>Визуал, который досматривают и пересылают.</span></h2>
+          <div class="manifest__side reveal">
+            <p class="manifest__text" data-i18n="v2.man.text">Сценарий, съёмка, монтаж и продвижение — в одних руках.</p>
+            <button type="button" class="reel-card" data-open-reel aria-label="Смотреть шоурил" data-i18n-aria-label="v2.hero.reel">
+              <span class="frame" aria-hidden="true"><span class="frame__vf"></span><span class="frame__rec"><span class="rec-dot"></span>REC</span></span>
+              <span class="reel-card__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg></span>
+              <span class="reel-card__label" data-i18n="v2.hero.reel">Смотреть шоурил</span>
+            </button>
+          </div>
+        </div>
+        <ul class="stats">
+          <li class="stat todo reveal" data-i18n-html="stats.1"><strong>[N]</strong>лет в продакшене</li>
+          <li class="stat todo reveal" data-i18n-html="stats.2"><strong>[N]+</strong>проектов</li>
+          <li class="stat todo reveal" data-i18n-html="stats.3"><strong>[N]+</strong>мероприятий</li>
+          <li class="stat todo reveal" data-i18n-html="stats.4"><strong>[N] млн</strong>просмотров</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 3. УСЛУГИ ============ -->
+    <section class="scene" id="services" aria-labelledby="svc-title">
+      <div class="wrap">
+        <p class="scene__label reveal"><span class="scene__num">SC 02</span><span data-i18n="v2.nav.services">Услуги</span><span class="scene__tc">00:01:04:17</span></p>
+        <h2 class="scene__title reveal" id="svc-title" data-i18n="v2.svc.title">Что мы снимаем</h2>
+
+        <div class="bento">
+          <!-- TODO в каждой ячейке: кадр jpg 1600×1200 (или 1200×1500 для высоких) до 300 КБ, либо видео mp4 6–10 сек без звука до 3 МБ -->
+          <article class="cell cell--1 reveal">
+            <div class="cell__media frame todo" aria-hidden="true"><span class="frame__vf"></span><span class="frame__rec"><span class="rec-dot"></span>REC</span><span class="frame__note" data-i18n="v2.svc.frame">[Кадр или видео 6–10 сек]</span></div>
+            <div class="cell__text"><span class="cell__idx">01</span><h3 data-i18n="what.1">Reels и реклама</h3><p data-i18n="v2.svc.1d">Ролики, которые досматривают до конца.</p></div>
+          </article>
+          <article class="cell cell--2 reveal">
+            <div class="cell__media frame todo" aria-hidden="true"><span class="frame__vf"></span><span class="frame__note" data-i18n="v2.svc.frame">[Кадр или видео 6–10 сек]</span></div>
+            <div class="cell__text"><span class="cell__idx">02</span><h3 data-i18n="what.2">Фото и видео</h3><p data-i18n="v2.svc.2d">Имиджевые, предметные и командные съёмки.</p></div>
+          </article>
+          <article class="cell cell--3 reveal">
+            <div class="cell__media frame todo" aria-hidden="true"><span class="frame__vf"></span><span class="frame__note" data-i18n="v2.svc.frame">[Кадр или видео 6–10 сек]</span></div>
+            <div class="cell__text"><span class="cell__idx">03</span><h3>SMM</h3><p data-i18n="v2.svc.3d">Контент-план, съёмка и ведение Instagram.</p></div>
+          </article>
+          <article class="cell cell--4 reveal">
+            <div class="cell__media frame todo" aria-hidden="true"><span class="frame__vf"></span><span class="frame__rec"><span class="rec-dot"></span>REC</span><span class="frame__note" data-i18n="v2.svc.frame">[Кадр или видео 6–10 сек]</span></div>
+            <div class="cell__text"><span class="cell__idx">04</span><h3 data-i18n="what.6">Мероприятия</h3><p data-i18n="v2.svc.4d">До 8 операторов и первые ролики через 24–48 часов.</p></div>
+          </article>
+          <article class="cell cell--5 reveal">
+            <div class="cell__media frame todo" aria-hidden="true"><span class="frame__vf"></span><span class="frame__note" data-i18n="v2.svc.frame">[Кадр или видео 6–10 сек]</span></div>
+            <div class="cell__text"><span class="cell__idx">05</span><h3 data-i18n="v2.svc.5t">Прямые эфиры</h3><p data-i18n="why.4p">Трансляции с режиссёром и техником.</p></div>
+          </article>
+          <article class="cell cell--6 reveal">
+            <div class="cell__media frame todo" aria-hidden="true"><span class="frame__vf"></span><span class="frame__note" data-i18n="v2.svc.frame">[Кадр или видео 6–10 сек]</span></div>
+            <div class="cell__text"><span class="cell__idx">06</span><h3 data-i18n="ev.aerial">Аэросъёмка</h3><p data-i18n="v2.svc.6d">Классический дрон и FPV, с лицензией.</p></div>
+          </article>
+        </div>
+
+        <ul class="why reveal">
+          <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l10-10-4-4L4 16zM13 7l4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span data-i18n="v2.why.1">Свой сценарист в команде</span></li>
+          <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="13" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M16 11l5-3v8l-5-3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span data-i18n="v2.why.2">До 8 камер на площадке</span></li>
+          <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7.5 7.5a6.4 6.4 0 0 0 0 9M16.5 7.5a6.4 6.4 0 0 1 0 9M4.6 4.6a10.5 10.5 0 0 0 0 14.8M19.4 4.6a10.5 10.5 0 0 1 0 14.8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span data-i18n="v2.why.3">Эфир с режиссёром</span></li>
+          <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 10v4M8 12h8M5 5l3 3M19 5l-3 3M5 19l3-3M19 19l-3-3" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="4" cy="4" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="20" cy="4" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="4" cy="20" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="20" cy="20" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span data-i18n="v2.why.4">Лицензия на аэросъёмку</span></li>
+        </ul>
+
+        <div class="audience reveal">
+          <p class="audience__title" data-i18n="aud.title">Для кого мы снимаем</p>
+          <div class="marquee" aria-hidden="false">
+            <ul class="marquee__track">
+              <li data-i18n="aud.1">Кофейни и рестораны</li>
+              <li data-i18n="aud.2">Спортивные клубы</li>
+              <li data-i18n="aud.3">Магазины и бренды</li>
+              <li data-i18n="aud.4">Производство и строительство</li>
+              <li data-i18n="aud.5">Бизнес и предприятия</li>
+              <li data-i18n="aud.6">Блогеры и личные проекты</li>
+              <li data-i18n="aud.7">Мероприятия</li>
+              <li data-i18n="aud.8">Персональные фото- и видеосъёмки</li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 2. Шоурил -->
-    <section class="section section--alt" id="showreel" aria-labelledby="showreel-title">
-      <div class="container">
-        <div class="section__head reveal">
-          <p class="eyebrow" data-i18n="showreel.eyebrow">Шоурил</p>
-          <h2 id="showreel-title" data-i18n="showreel.title">Смотрите, как мы снимаем</h2>
+    <!-- ============ 4. РАБОТЫ ============ -->
+    <section class="scene scene--works" id="works" aria-labelledby="works-title">
+      <div class="wrap">
+        <p class="scene__label reveal"><span class="scene__num">SC 03</span><span data-i18n="nav.works">Работы</span><span class="scene__tc">00:02:31:09</span></p>
+        <div class="works__head">
+          <h2 class="scene__title reveal" id="works-title" data-i18n="v2.works.title">Избранные работы</h2>
+          <div class="filters reveal" role="group" aria-label="Фильтр работ" data-i18n-aria-label="v2.works.filter">
+            <button type="button" class="filter" data-filter="all" aria-pressed="true" data-i18n="v2.f.all">Все</button>
+            <button type="button" class="filter" data-filter="reels" aria-pressed="false">Reels</button>
+            <button type="button" class="filter" data-filter="ads" aria-pressed="false" data-i18n="v2.f.ads">Реклама</button>
+            <button type="button" class="filter" data-filter="events" aria-pressed="false" data-i18n="nav.events">Мероприятия</button>
+          </div>
         </div>
-        <a class="showreel reveal" href="https://www.instagram.com/mmm_creative_production/" target="_blank" rel="noopener" aria-label="Смотреть шоурил в Instagram" data-i18n-aria-label="showreel.aria">
-          <span class="showreel__play" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M5 3.5v17a1 1 0 0 0 1.5.86l14-8.5a1 1 0 0 0 0-1.72l-14-8.5A1 1 0 0 0 5 3.5z"/></svg>
-          </span>
-          <span class="showreel__label todo" data-i18n="showreel.todo">[Шоурил 30–60 сек]</span>
-        </a>
-      </div>
-    </section>
 
-    <!-- 3. Почему MMM -->
-    <section class="section" id="why" aria-labelledby="why-title">
-      <div class="container">
-        <div class="section__head reveal">
-          <p class="eyebrow" data-i18n="why.eyebrow">Почему MMM</p>
-          <h2 id="why-title" data-i18n="why.title">Продакшен полного цикла</h2>
-        </div>
-        <div class="grid grid--3">
-          <article class="card feature reveal">
-            <h3 data-i18n-html="why.1h">От идеи <span>до продвижения</span></h3>
-            <p data-i18n="why.1p">Концепция, сценарий, съёмка, монтаж, цвет и ведение Instagram в одних руках.</p>
-          </article>
-          <article class="card feature reveal">
-            <h3 data-i18n-html="why.2h">Свой <span>сценарист</span></h3>
-            <p data-i18n="why.2p">Story developer в команде: ролики строятся на истории, а не на случайных кадрах.</p>
-          </article>
-          <article class="card feature reveal">
-            <h3 data-i18n-html="why.3h">Масштаб <span>8 камер</span></h3>
-            <p data-i18n="why.3p">На крупном мероприятии до 8 операторов, 3 фотографа и режиссёр трансляции.</p>
-          </article>
-          <article class="card feature reveal">
-            <h3 data-i18n-html="why.4h">Прямые <span>эфиры</span></h3>
-            <p data-i18n="why.4p">Трансляции с режиссёром и техником.</p>
-          </article>
-          <article class="card feature reveal">
-            <h3 data-i18n-html="why.5h">Аэросъёмка <span>с лицензией</span></h3>
-            <p data-i18n="why.5p">Классический дрон и FPV.</p>
-          </article>
-          <article class="card feature reveal">
-            <h3 data-i18n-html="why.6h">Мероприятия <span>от 250 гостей</span></h3>
-            <p data-i18n="why.6p">Приглашения, LED-заставки, welcome-съёмка, отчётный ролик и фото 200+.</p>
-          </article>
-        </div>
-        <div class="grid grid--4 stats">
-          <div class="stat todo" data-i18n-html="stats.1"><strong>[N]</strong>лет в продакшене</div>
-          <div class="stat todo" data-i18n-html="stats.2"><strong>[N]+</strong>проектов</div>
-          <div class="stat todo" data-i18n-html="stats.3"><strong>[N]+</strong>мероприятий</div>
-          <div class="stat todo" data-i18n-html="stats.4"><strong>[N] млн</strong>просмотров</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 4. О нас -->
-    <section class="section section--alt" id="about" aria-labelledby="about-title">
-      <div class="container about">
-        <div class="about__text reveal">
-          <p class="eyebrow" data-i18n="about.eyebrow">О нас</p>
-          <h2 id="about-title" data-i18n="about.title">Команда специалистов и новаторов</h2>
-          <p data-i18n="about.text">MUST MOVIE MEDIA — команда с многолетним опытом в аудиовизуальной сфере. Мы находим свежий и креативный подход к каждому проекту, не забывая об индивидуальности каждого заказчика, и отвечаем за качество результата.</p>
-        </div>
-        <div class="reveal">
-          <h3 data-i18n="about.what">Что делаем</h3>
-          <ul class="cells">
-            <li data-i18n="what.1">Reels и реклама</li>
-            <li data-i18n="what.2">Фото и видео</li>
-            <li data-i18n="what.3">Концепции и сценарии</li>
-            <li data-i18n="what.4">Контент и продвижение Instagram</li>
-            <li data-i18n="what.5">Имиджевые съёмки</li>
-            <li data-i18n="what.6">Мероприятия</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- 5. Для кого -->
-    <section class="section" id="audience" aria-labelledby="audience-title">
-      <div class="container">
-        <div class="section__head reveal">
-          <p class="eyebrow" data-i18n="aud.eyebrow">Для кого</p>
-          <h2 id="audience-title" data-i18n="aud.title">Для кого мы снимаем</h2>
-          <p data-i18n="aud.text">Если вашему бизнесу, бренду или личному блогу нужен новый уровень визуала — это к нам.</p>
-        </div>
-        <ul class="chips reveal">
-          <li data-i18n="aud.1">Кофейни и рестораны</li>
-          <li data-i18n="aud.2">Спортивные клубы</li>
-          <li data-i18n="aud.3">Магазины и бренды</li>
-          <li data-i18n="aud.4">Производство и строительство</li>
-          <li data-i18n="aud.5">Бизнес и предприятия</li>
-          <li data-i18n="aud.6">Блогеры и личные проекты</li>
-          <li data-i18n="aud.7">Мероприятия</li>
-          <li data-i18n="aud.8">Персональные фото- и видеосъёмки</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- 6. Работы -->
-    <section class="section section--alt" id="works" aria-labelledby="works-title">
-      <div class="container">
-        <div class="section__head reveal">
-          <p class="eyebrow" data-i18n="works.eyebrow">Работы</p>
-          <h2 id="works-title" data-i18n="works.title">Кейсы</h2>
-        </div>
-        <div class="grid grid--4">
-          <article class="card case reveal">
-            <div class="case__cover todo" data-i18n="works.cover">[Обложка 3:4]</div>
-            <div class="case__body">
-              <h3 class="todo" data-i18n="works.caseTitle">[Клиент · что сделали]</h3>
-              <p class="todo" data-i18n="works.caseText">[Задача → результат]</p>
-              <a class="btn btn--ghost btn--sm" href="https://www.instagram.com/reel/DVEi8xZjBU0/" target="_blank" rel="noopener" data-i18n-html="works.watch" data-i18n-n="1">Смотреть<span class="visually-hidden"> кейс 1 в Instagram</span></a>
-            </div>
-          </article>
-          <article class="card case reveal">
-            <div class="case__cover todo" data-i18n="works.cover">[Обложка 3:4]</div>
-            <div class="case__body">
-              <h3 class="todo" data-i18n="works.caseTitle">[Клиент · что сделали]</h3>
-              <p class="todo" data-i18n="works.caseText">[Задача → результат]</p>
-              <a class="btn btn--ghost btn--sm" href="https://www.instagram.com/reel/DVZGf4LjI6D/" target="_blank" rel="noopener" data-i18n-html="works.watch" data-i18n-n="2">Смотреть<span class="visually-hidden"> кейс 2 в Instagram</span></a>
-            </div>
-          </article>
-          <article class="card case reveal">
-            <div class="case__cover todo" data-i18n="works.cover">[Обложка 3:4]</div>
-            <div class="case__body">
-              <h3 class="todo" data-i18n="works.caseTitle">[Клиент · что сделали]</h3>
-              <p class="todo" data-i18n="works.caseText">[Задача → результат]</p>
-              <a class="btn btn--ghost btn--sm" href="https://www.instagram.com/reel/Da2C8edBgK8/" target="_blank" rel="noopener" data-i18n-html="works.watch" data-i18n-n="3">Смотреть<span class="visually-hidden"> кейс 3 в Instagram</span></a>
-            </div>
-          </article>
-          <article class="card case reveal">
-            <div class="case__cover todo" data-i18n="works.cover">[Обложка 3:4]</div>
-            <div class="case__body">
-              <h3 class="todo" data-i18n="works.caseTitle">[Клиент · что сделали]</h3>
-              <p class="todo" data-i18n="works.caseText">[Задача → результат]</p>
-              <a class="btn btn--ghost btn--sm" href="https://www.instagram.com/reel/Db5FRrEoBl7/" target="_blank" rel="noopener" data-i18n-html="works.watch" data-i18n-n="4">Смотреть<span class="visually-hidden"> кейс 4 в Instagram</span></a>
-            </div>
-          </article>
+        <!-- TODO кейсы: превью jpg 1080×1350 (4:5) до 250 КБ; в модальном окне — видео mp4 1080p до 15 МБ, текст «задача → результат».
+             data-cat: reels | ads | events. data-url — ссылка на ролик в Instagram. -->
+        <div class="works">
+          <button type="button" class="case case--a reveal" data-case="1" data-cat="reels" data-url="https://www.instagram.com/reel/DVEi8xZjBU0/">
+            <span class="case__media frame todo"><span class="frame__vf"></span><span class="frame__rec"><span class="rec-dot"></span>REC</span><span class="frame__note" data-i18n="v2.works.cover">[Превью 4:5 · jpg 1080×1350]</span></span>
+            <span class="case__meta"><span class="case__cat">Reels</span><span class="case__title todo" data-i18n="works.caseTitle">[Клиент · что сделали]</span></span>
+          </button>
+          <button type="button" class="case case--b reveal" data-case="2" data-cat="reels" data-url="https://www.instagram.com/reel/DVZGf4LjI6D/">
+            <span class="case__media frame todo"><span class="frame__vf"></span><span class="frame__note" data-i18n="v2.works.cover">[Превью 4:5 · jpg 1080×1350]</span></span>
+            <span class="case__meta"><span class="case__cat">Reels</span><span class="case__title todo" data-i18n="works.caseTitle">[Клиент · что сделали]</span></span>
+          </button>
+          <button type="button" class="case case--c reveal" data-case="3" data-cat="events">
+            <span class="case__media frame todo"><span class="frame__vf"></span><span class="frame__rec"><span class="rec-dot"></span>REC</span><span class="frame__note" data-i18n="v2.works.cover">[Превью 4:5 · jpg 1080×1350]</span></span>
+            <span class="case__meta"><span class="case__cat" data-i18n="nav.events">Мероприятия</span><span class="case__title todo" data-i18n="works.caseTitle">[Клиент · что сделали]</span></span>
+          </button>
+          <button type="button" class="case case--d reveal" data-case="4" data-cat="reels" data-url="https://www.instagram.com/reel/Da2C8edBgK8/">
+            <span class="case__media frame todo"><span class="frame__vf"></span><span class="frame__note" data-i18n="v2.works.cover">[Превью 4:5 · jpg 1080×1350]</span></span>
+            <span class="case__meta"><span class="case__cat">Reels</span><span class="case__title todo" data-i18n="works.caseTitle">[Клиент · что сделали]</span></span>
+          </button>
+          <button type="button" class="case case--e reveal" data-case="5" data-cat="ads">
+            <span class="case__media frame todo"><span class="frame__vf"></span><span class="frame__note" data-i18n="v2.works.cover">[Превью 4:5 · jpg 1080×1350]</span></span>
+            <span class="case__meta"><span class="case__cat" data-i18n="v2.f.ads">Реклама</span><span class="case__title todo" data-i18n="works.caseTitle">[Клиент · что сделали]</span></span>
+          </button>
+          <button type="button" class="case case--f reveal" data-case="6" data-cat="reels" data-url="https://www.instagram.com/reel/Db5FRrEoBl7/">
+            <span class="case__media frame todo"><span class="frame__vf"></span><span class="frame__rec"><span class="rec-dot"></span>REC</span><span class="frame__note" data-i18n="v2.works.cover">[Превью 4:5 · jpg 1080×1350]</span></span>
+            <span class="case__meta"><span class="case__cat">Reels</span><span class="case__title todo" data-i18n="works.caseTitle">[Клиент · что сделали]</span></span>
+          </button>
         </div>
 
         <div class="clients reveal">
-          <h3 data-i18n="works.clients">С нами работали</h3>
-          <div class="grid">
-            <div class="client-logo todo" data-i18n="works.logo">[Логотип]</div>
-            <div class="client-logo todo" data-i18n="works.logo">[Логотип]</div>
-            <div class="client-logo todo" data-i18n="works.logo">[Логотип]</div>
-            <div class="client-logo todo" data-i18n="works.logo">[Логотип]</div>
-            <div class="client-logo todo" data-i18n="works.logo">[Логотип]</div>
-            <div class="client-logo todo" data-i18n="works.logo">[Логотип]</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 7. Услуги и цены -->
-    <section class="section" id="pricing" aria-labelledby="pricing-title">
-      <div class="container">
-        <div class="section__head reveal">
-          <p class="eyebrow" data-i18n="pricing.eyebrow">Услуги и цены</p>
-          <h2 id="pricing-title" data-i18n="pricing.title">Пакеты и стоимость</h2>
-          <p data-i18n="pricing.text">Цены в сумах. Нажмите на любой пакет — покажем, что входит, сколько часов снимаем, какая команда и техника, и когда будет готово.</p>
-        </div>
-
-        <!-- SMM -->
-        <div class="price-group">
-          <div class="price-group__head reveal">
-            <h3 data-i18n="grp.smm">SMM · фото + видео</h3>
-            <p data-i18n="grp.monthly">Ежемесячно</p>
-          </div>
-          <div class="grid grid--3">
-            <article class="card plan reveal" data-plan="smm-start">
-              <h4 class="plan__name">Start</h4>
-              <div class="plan__price" data-money="16.0" data-money-per>16,0 млн <small>/ мес</small></div>
-              <ul class="dia-list">
-                <li>4 Reels</li>
-                <li>8 Stories</li>
-                <li data-i18n="smm.s3">25–30 фото</li>
-                <li data-i18n="smm.s4">1 видео-поздравление</li>
-              </ul>
-              <button type="button" class="plan__more" data-open-plan="smm-start" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
-            </article>
-            <article class="card plan plan--hot reveal" data-plan="smm-pro">
-              <span class="badge" data-i18n="badge.popular">Популярный</span>
-              <h4 class="plan__name">Pro</h4>
-              <div class="plan__price" data-money="23.4" data-money-per>23,4 млн <small>/ мес</small></div>
-              <ul class="dia-list">
-                <li>6 Reels</li>
-                <li>12 Stories</li>
-                <li data-i18n="smm.p3">45–50 фото</li>
-                <li data-i18n="smm.p4">1 мини-сюжет до 1,5 мин</li>
-              </ul>
-              <button type="button" class="plan__more" data-open-plan="smm-pro" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
-            </article>
-            <article class="card plan reveal" data-plan="smm-premium">
-              <h4 class="plan__name">Premium</h4>
-              <div class="plan__price" data-money="35.8" data-money-per>35,8 млн <small>/ мес</small></div>
-              <ul class="dia-list">
-                <li>9 Reels</li>
-                <li>15 Stories</li>
-                <li data-i18n="smm.pr3">65–70 фото</li>
-                <li data-i18n="smm.pr4">1 имиджевое видео</li>
-                <li data-i18n="smm.pr5">1 репортаж с мероприятия</li>
-              </ul>
-              <button type="button" class="plan__more" data-open-plan="smm-premium" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
-            </article>
-          </div>
-
-          <h4 class="visually-hidden" data-i18n="disc.aria">Скидки за предоплату</h4>
-          <ul class="discount-row reveal" aria-label="Скидки за предоплату" data-i18n-aria-label="disc.aria">
-            <li data-i18n-html="disc.3"><b>−7%</b> за 3 месяца</li>
-            <li data-i18n-html="disc.6"><b>−12%</b> за 6 месяцев</li>
-            <li data-i18n-html="disc.12"><b>−18%</b> за 12 месяцев</li>
+          <p class="clients__title" data-i18n="works.clients">С нами работали</p>
+          <!-- TODO: логотипы клиентов, svg или png с прозрачным фоном, белые, высота 60 px -->
+          <ul class="clients__row">
+            <li class="todo" data-i18n="works.logo">[Логотип]</li>
+            <li class="todo" data-i18n="works.logo">[Логотип]</li>
+            <li class="todo" data-i18n="works.logo">[Логотип]</li>
+            <li class="todo" data-i18n="works.logo">[Логотип]</li>
+            <li class="todo" data-i18n="works.logo">[Логотип]</li>
+            <li class="todo" data-i18n="works.logo">[Логотип]</li>
           </ul>
-          <div class="table-wrap reveal" role="region" aria-labelledby="smm-table-cap" tabindex="0">
-            <table>
-              <caption id="smm-table-cap" class="visually-hidden" data-i18n="tbl.smmCap">Стоимость SMM при предоплате, млн сум</caption>
-              <thead>
-                <tr><th scope="col" data-i18n="tbl.package">Пакет</th><th scope="col" data-i18n="tbl.3m">3 мес</th><th scope="col" data-i18n="tbl.6m">6 мес</th><th scope="col" data-i18n="tbl.12m">12 мес</th></tr>
-              </thead>
-              <tbody>
-                <tr><th scope="row">Start</th><td data-num="44.6">44,6</td><td data-num="84.5">84,5</td><td data-num="157.3">157,3</td></tr>
-                <tr class="is-hot"><th scope="row">Pro</th><td data-num="66.0">66,0</td><td data-num="124.9">124,9</td><td data-num="232.8">232,8</td></tr>
-                <tr><th scope="row">Premium</th><td data-num="99.7">99,7</td><td data-num="188.8">188,8</td><td data-num="351.8">351,8</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="table-caption" data-i18n="tbl.note">Итог с учётом скидки за предоплату, млн сум.</p>
         </div>
-
-        <!-- Фото -->
-        <div class="price-group">
-          <div class="price-group__head reveal">
-            <h3 data-i18n="grp.foto">Только фото</h3>
-          </div>
-          <div class="grid grid--3">
-            <article class="card plan reveal" data-plan="foto-start">
-              <h4 class="plan__name">Foto Start</h4>
-              <div class="plan__price" data-money="4.9">4,9 млн</div>
-              <ul class="dia-list">
-                <li data-i18n="foto.s1">25–30 обработанных фото</li>
-                <li data-i18n="foto.s2">1 смена</li>
-                <li data-i18n="foto.retouch">Цветокоррекция и ретушь</li>
-              </ul>
-              <button type="button" class="plan__more" data-open-plan="foto-start" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
-            </article>
-            <article class="card plan plan--hot reveal" data-plan="foto-pro">
-              <span class="badge" data-i18n="badge.popular">Популярный</span>
-              <h4 class="plan__name">Foto Pro</h4>
-              <div class="plan__price" data-money="7.8">7,8 млн</div>
-              <ul class="dia-list">
-                <li data-i18n="foto.p1">50 фото</li>
-                <li data-i18n="foto.p2">До 2 смен</li>
-                <li data-i18n="foto.retouch">Цветокоррекция и ретушь</li>
-              </ul>
-              <button type="button" class="plan__more" data-open-plan="foto-pro" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
-            </article>
-            <article class="card plan reveal" data-plan="foto-custom">
-              <h4 class="plan__name" data-i18n="plan.custom">Индивидуально</h4>
-              <div class="plan__price" data-i18n="price.onRequest">По запросу</div>
-              <ul class="dia-list">
-                <li data-i18n="foto.c1">Любой объём</li>
-                <li data-i18n="foto.c2">Продукт, команда, интерьер</li>
-                <li data-i18n="foto.c3">Своя концепция</li>
-              </ul>
-              <button type="button" class="plan__more" data-open-plan="foto-custom" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
-            </article>
-          </div>
-        </div>
-
-        <!-- Видео -->
-        <div class="price-group">
-          <div class="price-group__head reveal">
-            <h3 data-i18n="grp.video">Только видео</h3>
-            <p data-i18n="grp.monthly">Ежемесячно</p>
-          </div>
-          <div class="grid grid--3">
-            <article class="card plan reveal" data-plan="video-start">
-              <h4 class="plan__name">Video Start</h4>
-              <div class="plan__price" data-money="11.7" data-money-per>11,7 млн <small>/ мес</small></div>
-              <ul class="dia-list">
-                <li>4 Reels</li>
-                <li>8 Stories</li>
-                <li data-i18n="video.s3">Монтаж и цвет</li>
-              </ul>
-              <button type="button" class="plan__more" data-open-plan="video-start" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
-            </article>
-            <article class="card plan plan--hot reveal" data-plan="video-pro">
-              <span class="badge" data-i18n="badge.popular">Популярный</span>
-              <h4 class="plan__name">Video Pro</h4>
-              <div class="plan__price" data-money="17.6" data-money-per>17,6 млн <small>/ мес</small></div>
-              <ul class="dia-list">
-                <li>6 Reels</li>
-                <li>12 Stories</li>
-                <li data-i18n="video.p3">1 сюжет</li>
-              </ul>
-              <button type="button" class="plan__more" data-open-plan="video-pro" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
-            </article>
-            <article class="card plan reveal" data-plan="video-premium">
-              <h4 class="plan__name">Video Premium</h4>
-              <div class="plan__price" data-money="26.0" data-money-per>26,0 млн <small>/ мес</small></div>
-              <ul class="dia-list">
-                <li>9 Reels</li>
-                <li>15 Stories</li>
-                <li data-i18n="video.pr3">1 имиджевый ролик</li>
-              </ul>
-              <button type="button" class="plan__more" data-open-plan="video-premium" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
-            </article>
-          </div>
-        </div>
-
-        <p class="estimate-note reveal" data-i18n-html="pricing.estimate">Точную смету считаем после брифа. <a href="#brief" class="red">Заполнить бриф →</a></p>
       </div>
     </section>
 
-    <!-- 8. Мероприятия -->
-    <section class="section section--alt" id="events" aria-labelledby="events-title">
-      <div class="container">
-        <div class="section__head reveal">
-          <p class="eyebrow" data-i18n="ev.eyebrow">Мероприятия · цена за 1 день</p>
-          <h2 id="events-title" data-i18n="ev.title">«Исторические» пакеты</h2>
-          <p data-i18n="ev.text">Мы называем их историческими, потому что снимаем событие так, чтобы оно вошло в историю вашей компании. Гости пересматривают ролик, делятся им в соцсетях, а вы используете кадры ещё год: в рекламе, на сайте, в приглашении на следующее событие.</p>
-        </div>
+    <!-- ============ 5. ЦЕНЫ ============ -->
+    <section class="scene" id="pricing" aria-labelledby="pricing-title">
+      <div class="wrap">
+        <p class="scene__label reveal"><span class="scene__num">SC 04</span><span data-i18n="v2.nav.pricing">Цены</span><span class="scene__tc">00:03:47:22</span></p>
+        <h2 class="scene__title reveal" id="pricing-title" data-i18n="v2.price.title">Сколько это стоит</h2>
+        <p class="scene__lead reveal" data-i18n="v2.price.lead2">Цены в сумах. Точную смету считаем после брифа.</p>
 
-        <ul class="ev-points reveal">
-          <li data-i18n-html="ev.pt1"><b>до 8</b>операторов на площадке</li>
-          <li data-i18n-html="ev.pt2"><b>24–48 ч</b>первые ролики после события</li>
-          <li data-i18n-html="ev.pt3"><b>200+</b>фото в фотоотчёте</li>
-          <li data-i18n-html="ev.pt4"><b>4K</b>аэросъёмка с лицензией</li>
+        <!-- «от …»: цены берутся из plans.js (минимальная цена в категории), см. v2.js -->
+        <ul class="from-grid">
+          <li class="reveal"><button type="button" class="from" data-from="foto" data-service="photo"><span class="from__idx">01</span><span class="from__label" data-i18n="v2.tab.photo">Фото</span><span class="from__val" data-from-val></span><span class="from__go"><span data-i18n="v2.from.go">Рассчитать</span> <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span></button></li>
+          <li class="reveal"><button type="button" class="from" data-from="video" data-service="reels"><span class="from__idx">02</span><span class="from__label" data-i18n="v2.from.video">Видео для соцсетей</span><span class="from__val" data-from-val></span><span class="from__go"><span data-i18n="v2.from.go">Рассчитать</span> <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span></button></li>
+          <li class="reveal"><button type="button" class="from" data-from="smm" data-service="smm"><span class="from__idx">03</span><span class="from__label">SMM</span><span class="from__val" data-from-val></span><span class="from__go"><span data-i18n="v2.from.go">Рассчитать</span> <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span></button></li>
+          <li class="reveal"><button type="button" class="from" data-from="ev" data-service="event"><span class="from__idx">04</span><span class="from__label" data-i18n="nav.events">Мероприятия</span><span class="from__val" data-from-val></span><span class="from__go"><span data-i18n="v2.from.go">Рассчитать</span> <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span></button></li>
         </ul>
 
-        <div class="grid grid--2 ev-grid">
-          <article class="card plan plan--hot reveal" data-plan="ev-blockbuster">
-            <span class="badge" data-i18n="badge.max">Максимум</span>
-            <h3 class="plan__name" data-i18n="pkg.bb">Блокбастер</h3>
-            <div class="plan__price" data-money="170.7">170,7 млн</div>
-            <p class="plan__note" data-i18n="ev.bbNote">От 250 гостей · прямой эфир · до 8 камер</p>
-            <ul class="dia-list">
-              <li data-i18n="ev.bb1">Видео- и фото-приглашение</li>
-              <li data-i18n="ev.bb2">LED-заставки до 10</li>
-              <li data-i18n="ev.bb3">Welcome-фотосессия</li>
-              <li data-i18n="ev.bb4">Прямой эфир и запись всего события</li>
-              <li data-i18n="ev.bb5">Аэросъёмка с лицензией</li>
-              <li data-i18n="ev.bb6">Отчётный ролик 2–5 мин</li>
-              <li data-i18n="ev.bb7">10 вертикальных роликов</li>
-              <li data-i18n="ev.bb8">Фотоотчёт 200+ и исходники</li>
-            </ul>
-            <button type="button" class="plan__more" data-open-plan="ev-blockbuster" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
-          </article>
-          <article class="card plan reveal" data-plan="ev-hist1">
-            <h3 class="plan__name" data-i18n="pkg.h1">Исторический 1</h3>
-            <div class="plan__price" data-money="97.7">97,7 млн</div>
-            <p class="plan__note" data-i18n="ev.h1Note">100–300 гостей · без прямого эфира</p>
-            <ul class="dia-list">
-              <li data-i18n="ev.h1_1">Приглашение</li>
-              <li data-i18n="ev.h1_2">3 оператора и 3 фотографа</li>
-              <li>GoPro</li>
-              <li data-i18n="ev.h1_4">Отчётный ролик</li>
-              <li data-i18n="ev.bb7">10 вертикальных роликов</li>
-              <li data-i18n="ev.h1_6">10 анимаций</li>
-              <li data-i18n="ev.aerial">Аэросъёмка</li>
-              <li data-i18n="ev.sources">Исходники</li>
-            </ul>
-            <button type="button" class="plan__more" data-open-plan="ev-hist1" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
-          </article>
-          <article class="card plan reveal" data-plan="ev-hist2">
-            <h3 class="plan__name" data-i18n="pkg.h2">Исторический 2</h3>
-            <div class="plan__price" data-money="57.9">57,9 млн</div>
-            <p class="plan__note" data-i18n="ev.h2Note">До 200 гостей · оптимальный</p>
-            <ul class="dia-list">
-              <li data-i18n="ev.bb6">Отчётный ролик 2–5 мин</li>
-              <li data-i18n="ev.h2_2">Адаптация для соцсетей</li>
-              <li data-i18n="ev.vert5">5 вертикальных роликов</li>
-              <li data-i18n="ev.h2_4">Фотоотчёт 200+</li>
-              <li data-i18n="ev.aerial">Аэросъёмка</li>
-              <li data-i18n="ev.h2_6">Запись звука</li>
-            </ul>
-            <button type="button" class="plan__more" data-open-plan="ev-hist2" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
-          </article>
-          <article class="card plan reveal" data-plan="ev-hist3">
-            <h3 class="plan__name" data-i18n="pkg.h3">Исторический 3</h3>
-            <div class="plan__price" data-money="27.9">27,9 млн</div>
-            <p class="plan__note" data-i18n="ev.h3Note">До 100 гостей · минимальный</p>
-            <ul class="dia-list">
-              <li data-i18n="ev.h3_1">2 оператора</li>
-              <li data-i18n="ev.h3_2">2 фотографа</li>
-              <li data-i18n="ev.h3_3">Монтаж ролика</li>
-              <li data-i18n="ev.vert5">5 вертикальных роликов</li>
-            </ul>
-            <button type="button" class="plan__more" data-open-plan="ev-hist3" data-i18n-html="plan.more">Подробнее<span class="visually-hidden"> о пакете</span> <span aria-hidden="true">→</span></button>
-          </article>
-        </div>
-
-        <div class="ev-compare reveal">
-          <h3 data-i18n="cmp.title">Сравнение пакетов</h3>
-          <div class="table-wrap" role="region" aria-labelledby="ev-table-cap" tabindex="0">
-            <table>
-              <caption id="ev-table-cap" class="visually-hidden" data-i18n="cmp.cap">Сравнение пакетов для мероприятий</caption>
-              <thead>
-                <tr><th scope="col"></th><th scope="col" data-i18n="pkg.bb">Блокбастер</th><th scope="col" data-i18n="pkg.h1s">Истор. 1</th><th scope="col" data-i18n="pkg.h2s">Истор. 2</th><th scope="col" data-i18n="pkg.h3s">Истор. 3</th></tr>
-              </thead>
-              <tbody>
-                <tr><th scope="row" data-i18n="cmp.guests">Гостей</th><td>250+</td><td>100–300</td><td data-i18n="cmp.upto200">до 200</td><td data-i18n="cmp.upto100">до 100</td></tr>
-                <tr><th scope="row" data-i18n="cmp.ops">Операторы</th><td data-i18n="cmp.upto8">до 8</td><td>3</td><td>2</td><td>2</td></tr>
-                <tr><th scope="row" data-i18n="cmp.ph">Фотографы</th><td>3</td><td>3</td><td>2</td><td>2</td></tr>
-                <tr><th scope="row" data-i18n="cmp.live">Прямой эфир</th><td class="yes">✓</td><td>—</td><td>—</td><td>—</td></tr>
-                <tr><th scope="row" data-i18n="cmp.invite">Приглашение</th><td class="yes">✓</td><td class="yes">✓</td><td>—</td><td>—</td></tr>
-                <tr><th scope="row" data-i18n="ev.aerial">Аэросъёмка</th><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td>—</td></tr>
-                <tr><th scope="row" data-i18n="cmp.vert">Вертикальные ролики</th><td>10</td><td>10</td><td>5</td><td>5</td></tr>
-                <tr><th scope="row" data-i18n="cmp.photo">Фотоотчёт</th><td>200+</td><td>✓</td><td>200+</td><td>✓</td></tr>
-                <tr><th scope="row" data-i18n="ev.sources">Исходники</th><td class="yes">✓</td><td class="yes">✓</td><td>—</td><td>—</td></tr>
-                <tr><th scope="row" data-i18n="cmp.price">Цена за день</th><td class="price" data-money="170.7">170,7 млн</td><td class="price" data-money="97.7">97,7 млн</td><td class="price" data-money="57.9">57,9 млн</td><td class="price" data-money="27.9">27,9 млн</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Калькулятор мероприятия (логика и цены — calc.js) -->
-        <section class="calc-block" id="calculator" aria-labelledby="calc-title">
+        <!-- Калькулятор (логика и цены — calc.js) -->
+        <section class="calc-block reveal" id="calculator" aria-labelledby="calc-title">
+          <span class="vf vf--tl" aria-hidden="true"></span><span class="vf vf--tr" aria-hidden="true"></span><span class="vf vf--bl" aria-hidden="true"></span><span class="vf vf--br" aria-hidden="true"></span>
           <div class="section__head">
-            <p class="eyebrow" data-i18n="calc.eyebrow">Калькулятор</p>
-            <h2 id="calc-title" data-i18n="calc.title">Посчитайте своё мероприятие</h2>
-            <p data-i18n="calc.text">Выберите масштаб и опции — сумма пересчитается сразу. Можно начать с готового пакета.</p>
-          </div>
-          <div class="calc-presets" role="group" aria-labelledby="calc-quick">
-            <span id="calc-quick" data-i18n="calc.quick">Быстрый старт:</span>
-            <button type="button" class="calc-preset" data-preset="ev-blockbuster" aria-pressed="false" data-i18n="calc.likeBb">Как Блокбастер</button>
-            <button type="button" class="calc-preset" data-preset="ev-hist1" aria-pressed="false" data-i18n="calc.likeH1">Как Исторический 1</button>
-            <button type="button" class="calc-preset" data-preset="ev-hist2" aria-pressed="false" data-i18n="calc.likeH2">Как Исторический 2</button>
-            <button type="button" class="calc-preset" data-preset="ev-hist3" aria-pressed="false" data-i18n="calc.likeH3">Как Исторический 3</button>
+            <p class="eyebrow"><span class="rec-dot" aria-hidden="true"></span> <span data-i18n="calc.eyebrow">Калькулятор</span></p>
+            <h2 id="calc-title" data-i18n="v2.calc.title">Посчитайте свой проект</h2>
+            <p data-i18n="v2.calc.text">Выберите услугу и пару параметров — покажем ориентир по бюджету.</p>
           </div>
 
           <div class="calc">
             <form class="calc__form" id="calc-form" novalidate>
-          <div class="calc-field">
-            <div class="calc-field__head"><label for="calc-guests" data-i18n="calc.guests">Количество гостей</label><output id="calc-guests-out" for="calc-guests"></output></div>
-            <input type="range" id="calc-guests" name="guests" min="50" max="1000" step="50">
-          </div>
-          <fieldset class="calc-field">
-            <legend data-i18n="calc.hours">Длительность</legend>
-            <div class="chip-group">
-              <label class="chip"><input type="radio" name="hours" value="4"><span data-i18n="calc.hUnit" data-i18n-n="4">4 ч</span></label>
-              <label class="chip"><input type="radio" name="hours" value="6"><span data-i18n="calc.hUnit" data-i18n-n="6">6 ч</span></label>
-              <label class="chip"><input type="radio" name="hours" value="8"><span data-i18n="calc.hUnit" data-i18n-n="8">8 ч</span></label>
-              <label class="chip"><input type="radio" name="hours" value="10"><span data-i18n="calc.hUnit" data-i18n-n="10">10 ч</span></label>
-              <label class="chip"><input type="radio" name="hours" value="12"><span data-i18n="calc.hUnit" data-i18n-n="12">12 ч</span></label>
-            </div>
-          </fieldset>
-          <div class="calc-field">
-            <div class="calc-field__head"><label for="calc-operators" data-i18n="calc.ops">Операторы</label><output id="calc-operators-out" for="calc-operators"></output></div>
-            <input type="range" id="calc-operators" name="operators" min="1" max="8" step="1">
-          </div>
-          <div class="calc-field">
-            <div class="calc-field__head"><label for="calc-photographers" data-i18n="calc.ph">Фотографы</label><output id="calc-photographers-out" for="calc-photographers"></output></div>
-            <input type="range" id="calc-photographers" name="photographers" min="0" max="3" step="1">
-          </div>
-          <fieldset class="calc-field">
-            <legend data-i18n="calc.options">Опции</legend>
-            <div class="calc-switches">
-              <label class="switch"><input type="checkbox" name="live"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.live">Прямой эфир</span></label>
-              <label class="switch"><input type="checkbox" name="drone"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.drone">Аэросъёмка (дрон)</span></label>
-              <label class="switch"><input type="checkbox" name="fpv"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.fpv">FPV-дрон</span></label>
-              <label class="switch"><input type="checkbox" name="gopro"><span class="switch__track" aria-hidden="true"></span><span>GoPro</span></label>
-              <label class="switch"><input type="checkbox" name="invite"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.invite">Видео-приглашение</span></label>
-              <label class="switch"><input type="checkbox" name="welcome"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.welcome">Welcome-фотосессия</span></label>
-              <label class="switch"><input type="checkbox" name="sources"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.sources">Исходники</span></label>
-            </div>
-          </fieldset>
-          <div class="calc-field">
-            <div class="calc-field__head"><label for="calc-led" data-i18n="calc.led">LED-заставки</label><output id="calc-led-out" for="calc-led"></output></div>
-            <input type="range" id="calc-led" name="led" min="0" max="10" step="1">
-          </div>
-          <div class="calc-field">
-            <div class="calc-field__head"><label for="calc-vertical" data-i18n="calc.vert">Вертикальные ролики</label><output id="calc-vertical-out" for="calc-vertical"></output></div>
-            <input type="range" id="calc-vertical" name="vertical" min="0" max="15" step="1">
-          </div>
-          <fieldset class="calc-field">
-            <legend data-i18n="calc.report">Отчётный ролик</legend>
-            <div class="chip-group">
-              <label class="chip"><input type="radio" name="report" value="none"><span data-i18n="calc.reportNone">Нет</span></label>
-              <label class="chip"><input type="radio" name="report" value="short"><span data-i18n="calc.reportShort">До 2 мин</span></label>
-              <label class="chip"><input type="radio" name="report" value="long"><span data-i18n="calc.reportLong">2–5 мин</span></label>
-            </div>
-          </fieldset>
+              <fieldset class="calc-field calc-service">
+                <legend data-i18n="v2.calc.service">Что снимаем</legend>
+                <div class="chip-group">
+                  <label class="chip"><input type="radio" name="service" value="event"><span data-i18n="w.event">Мероприятие</span></label>
+                  <label class="chip"><input type="radio" name="service" value="reels"><span data-i18n="v2.svc.reels">Reels / реклама</span></label>
+                  <label class="chip"><input type="radio" name="service" value="photo"><span data-i18n="w.photo">Фотосъёмка</span></label>
+                  <label class="chip"><input type="radio" name="service" value="smm"><span data-i18n="v2.svc.smm">SMM</span></label>
+                  <label class="chip"><input type="radio" name="service" value="live"><span data-i18n="calc.live">Прямой эфир</span></label>
+                  <label class="chip"><input type="radio" name="service" value="aerial"><span data-i18n="ev.aerial">Аэросъёмка</span></label>
+                </div>
+              </fieldset>
+
+              <!-- Мероприятие -->
+              <div class="calc-group" data-svc="event">
+                <div class="calc-presets" role="group" aria-labelledby="calc-quick">
+                  <span id="calc-quick" data-i18n="calc.quick">Быстрый старт:</span>
+                  <button type="button" class="calc-preset" data-preset="ev-blockbuster" aria-pressed="false" data-i18n="calc.likeBb">Как Блокбастер</button>
+                  <button type="button" class="calc-preset" data-preset="ev-hist1" aria-pressed="false" data-i18n="calc.likeH1">Как Исторический 1</button>
+                  <button type="button" class="calc-preset" data-preset="ev-hist2" aria-pressed="false" data-i18n="calc.likeH2">Как Исторический 2</button>
+                  <button type="button" class="calc-preset" data-preset="ev-hist3" aria-pressed="false" data-i18n="calc.likeH3">Как Исторический 3</button>
+                </div>
+                <div class="calc-field">
+                  <div class="calc-field__head"><label for="calc-guests" data-i18n="calc.guests">Количество гостей</label><output id="calc-guests-out" for="calc-guests"></output></div>
+                  <input type="range" id="calc-guests" name="guests" min="50" max="1000" step="50">
+                </div>
+                <fieldset class="calc-field">
+                  <legend data-i18n="calc.hours">Длительность</legend>
+                  <div class="chip-group">
+                    <label class="chip"><input type="radio" name="hours" value="4"><span data-i18n="calc.hUnit" data-i18n-n="4">4 ч</span></label>
+                    <label class="chip"><input type="radio" name="hours" value="6"><span data-i18n="calc.hUnit" data-i18n-n="6">6 ч</span></label>
+                    <label class="chip"><input type="radio" name="hours" value="8"><span data-i18n="calc.hUnit" data-i18n-n="8">8 ч</span></label>
+                    <label class="chip"><input type="radio" name="hours" value="10"><span data-i18n="calc.hUnit" data-i18n-n="10">10 ч</span></label>
+                    <label class="chip"><input type="radio" name="hours" value="12"><span data-i18n="calc.hUnit" data-i18n-n="12">12 ч</span></label>
+                  </div>
+                </fieldset>
+                <div class="calc-field">
+                  <div class="calc-field__head"><label for="calc-operators" data-i18n="calc.ops">Операторы</label><output id="calc-operators-out" for="calc-operators"></output></div>
+                  <input type="range" id="calc-operators" name="operators" min="1" max="8" step="1">
+                </div>
+                <div class="calc-field">
+                  <div class="calc-field__head"><label for="calc-photographers" data-i18n="calc.ph">Фотографы</label><output id="calc-photographers-out" for="calc-photographers"></output></div>
+                  <input type="range" id="calc-photographers" name="photographers" min="0" max="3" step="1">
+                </div>
+                <fieldset class="calc-field">
+                  <legend data-i18n="calc.options">Опции</legend>
+                  <div class="calc-switches">
+                    <label class="switch"><input type="checkbox" name="live"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.live">Прямой эфир</span></label>
+                    <label class="switch"><input type="checkbox" name="drone"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.drone">Аэросъёмка (дрон)</span></label>
+                    <label class="switch"><input type="checkbox" name="fpv"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.fpv">FPV-дрон</span></label>
+                    <label class="switch"><input type="checkbox" name="gopro"><span class="switch__track" aria-hidden="true"></span><span>GoPro</span></label>
+                    <label class="switch"><input type="checkbox" name="invite"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.invite">Видео-приглашение</span></label>
+                    <label class="switch"><input type="checkbox" name="welcome"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.welcome">Welcome-фотосессия</span></label>
+                    <label class="switch"><input type="checkbox" name="sources"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.sources">Исходники</span></label>
+                  </div>
+                </fieldset>
+                <div class="calc-field">
+                  <div class="calc-field__head"><label for="calc-led" data-i18n="calc.led">LED-заставки</label><output id="calc-led-out" for="calc-led"></output></div>
+                  <input type="range" id="calc-led" name="led" min="0" max="10" step="1">
+                </div>
+                <div class="calc-field">
+                  <div class="calc-field__head"><label for="calc-vertical" data-i18n="calc.vert">Вертикальные ролики</label><output id="calc-vertical-out" for="calc-vertical"></output></div>
+                  <input type="range" id="calc-vertical" name="vertical" min="0" max="15" step="1">
+                </div>
+                <fieldset class="calc-field">
+                  <legend data-i18n="calc.report">Отчётный ролик</legend>
+                  <div class="chip-group">
+                    <label class="chip"><input type="radio" name="report" value="none"><span data-i18n="calc.reportNone">Нет</span></label>
+                    <label class="chip"><input type="radio" name="report" value="short"><span data-i18n="calc.reportShort">До 2 мин</span></label>
+                    <label class="chip"><input type="radio" name="report" value="long"><span data-i18n="calc.reportLong">2–5 мин</span></label>
+                  </div>
+                </fieldset>
+              </div>
+
+              <!-- Reels / реклама -->
+              <div class="calc-group" data-svc="reels" hidden>
+                <fieldset class="calc-field">
+                  <legend data-i18n="v2.calc.format">Формат</legend>
+                  <div class="chip-group">
+                    <label class="chip"><input type="radio" name="reel_format" value="reels"><span>Reels</span></label>
+                    <label class="chip"><input type="radio" name="reel_format" value="ad"><span data-i18n="w.ad">Рекламный ролик</span></label>
+                  </div>
+                </fieldset>
+                <div class="calc-field">
+                  <div class="calc-field__head"><label for="calc-reel_count" data-i18n="v2.calc.clips">Количество роликов</label><output id="calc-reel_count-out" for="calc-reel_count"></output></div>
+                  <input type="range" id="calc-reel_count" name="reel_count" min="1" max="15" step="1">
+                </div>
+                <fieldset class="calc-field">
+                  <legend data-i18n="calc.options">Опции</legend>
+                  <div class="calc-switches">
+                    <label class="switch"><input type="checkbox" name="reel_drone"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.drone">Аэросъёмка (дрон)</span></label>
+                    <label class="switch"><input type="checkbox" name="reel_fpv"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.fpv">FPV-дрон</span></label>
+                    <label class="switch"><input type="checkbox" name="reel_sources"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.sources">Исходники</span></label>
+                  </div>
+                </fieldset>
+              </div>
+
+              <!-- Фото -->
+              <div class="calc-group" data-svc="photo" hidden>
+                <div class="calc-field">
+                  <div class="calc-field__head"><label for="calc-photo_count" data-i18n="v2.calc.photos">Количество фото</label><output id="calc-photo_count-out" for="calc-photo_count"></output></div>
+                  <input type="range" id="calc-photo_count" name="photo_count" min="10" max="100" step="10">
+                </div>
+                <fieldset class="calc-field">
+                  <legend data-i18n="calc.options">Опции</legend>
+                  <div class="calc-switches">
+                    <label class="switch"><input type="checkbox" name="photo_drone"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.drone">Аэросъёмка (дрон)</span></label>
+                    <label class="switch"><input type="checkbox" name="photo_sources"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.sources">Исходники</span></label>
+                  </div>
+                </fieldset>
+              </div>
+
+              <!-- SMM -->
+              <div class="calc-group" data-svc="smm" hidden>
+                <fieldset class="calc-field">
+                  <legend data-i18n="tbl.package">Пакет</legend>
+                  <div class="chip-group">
+                    <label class="chip"><input type="radio" name="smm_level" value="smm-start"><span>Start</span></label>
+                    <label class="chip"><input type="radio" name="smm_level" value="smm-pro"><span>Pro</span></label>
+                    <label class="chip"><input type="radio" name="smm_level" value="smm-premium"><span>Premium</span></label>
+                  </div>
+                </fieldset>
+                <fieldset class="calc-field">
+                  <legend data-i18n="v2.calc.months">Срок</legend>
+                  <div class="chip-group">
+                    <label class="chip"><input type="radio" name="smm_months" value="1"><span data-i18n="v2.calc.mo" data-i18n-n="1">1 мес</span></label>
+                    <label class="chip"><input type="radio" name="smm_months" value="3"><span data-i18n="v2.calc.mo" data-i18n-n="3">3 мес</span></label>
+                    <label class="chip"><input type="radio" name="smm_months" value="6"><span data-i18n="v2.calc.mo" data-i18n-n="6">6 мес</span></label>
+                    <label class="chip"><input type="radio" name="smm_months" value="12"><span data-i18n="v2.calc.mo" data-i18n-n="12">12 мес</span></label>
+                  </div>
+                </fieldset>
+                <p class="calc-hint" data-i18n="faq.a3">Да: −7% / −12% / −18% за 3 / 6 / 12 месяцев предоплаты SMM.</p>
+              </div>
+
+              <!-- Прямой эфир -->
+              <div class="calc-group" data-svc="live" hidden>
+                <fieldset class="calc-field">
+                  <legend data-i18n="calc.hours">Длительность</legend>
+                  <div class="chip-group">
+                    <label class="chip"><input type="radio" name="live_hours" value="2"><span data-i18n="calc.hUnit" data-i18n-n="2">2 ч</span></label>
+                    <label class="chip"><input type="radio" name="live_hours" value="4"><span data-i18n="calc.hUnit" data-i18n-n="4">4 ч</span></label>
+                    <label class="chip"><input type="radio" name="live_hours" value="6"><span data-i18n="calc.hUnit" data-i18n-n="6">6 ч</span></label>
+                    <label class="chip"><input type="radio" name="live_hours" value="8"><span data-i18n="calc.hUnit" data-i18n-n="8">8 ч</span></label>
+                  </div>
+                </fieldset>
+                <div class="calc-field">
+                  <div class="calc-field__head"><label for="calc-live_cams" data-i18n="v2.calc.cams">Камеры</label><output id="calc-live_cams-out" for="calc-live_cams"></output></div>
+                  <input type="range" id="calc-live_cams" name="live_cams" min="1" max="6" step="1">
+                </div>
+                <fieldset class="calc-field">
+                  <legend data-i18n="calc.options">Опции</legend>
+                  <div class="calc-switches">
+                    <label class="switch"><input type="checkbox" name="live_drone"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.drone">Аэросъёмка (дрон)</span></label>
+                    <label class="switch"><input type="checkbox" name="live_record"><span class="switch__track" aria-hidden="true"></span><span data-i18n="v2.calc.record">Запись и монтаж ролика</span></label>
+                  </div>
+                </fieldset>
+              </div>
+
+              <!-- Аэросъёмка -->
+              <div class="calc-group" data-svc="aerial" hidden>
+                <fieldset class="calc-field">
+                  <legend data-i18n="calc.options">Опции</legend>
+                  <div class="calc-switches">
+                    <label class="switch"><input type="checkbox" name="aer_fpv"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.fpv">FPV-дрон</span></label>
+                    <label class="switch"><input type="checkbox" name="aer_edit"><span class="switch__track" aria-hidden="true"></span><span data-i18n="v2.calc.edit">Короткий монтаж</span></label>
+                    <label class="switch"><input type="checkbox" name="aer_sources"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.sources">Исходники</span></label>
+                  </div>
+                </fieldset>
+              </div>
+
+              <!-- Срочность — для всех услуг -->
+              <div class="calc-field">
+                <label class="switch switch--wide"><input type="checkbox" name="urgent"><span class="switch__track" aria-hidden="true"></span><span data-i18n="v2.calc.urgent">Срочно — за 3–5 дней</span></label>
+              </div>
             </form>
 
             <aside class="calc__result" aria-labelledby="calc-result-title">
-              <p class="calc__label" id="calc-result-title" data-i18n="calc.resultTitle">Предварительная стоимость</p>
+              <p class="calc__label" id="calc-result-title" data-i18n="v2.calc.result">Ориентир по бюджету</p>
               <p class="calc__total" id="calc-total" aria-hidden="true"></p>
               <p class="visually-hidden" id="calc-live" aria-live="polite" aria-atomic="true"></p>
+              <p class="calc__ind" id="calc-ind-note" data-i18n="v2.calc.indNote" hidden>Для этого формата нет фиксированной цены — менеджер посчитает за пару минут.</p>
               <ul class="calc__rows" id="calc-rows"></ul>
-              <div class="calc__closest">
-                <span><span data-i18n="calc.closest">Ближе всего к пакету:</span> <b id="calc-closest-name"></b></span>
-                <button type="button" class="btn btn--ghost btn--sm" id="calc-closest-open" data-i18n="calc.openPkg">Посмотреть пакет</button>
+              <div class="calc__actions">
+                <button type="button" class="btn btn--red" data-calc-chat data-i18n="v2.calc.chat">Напишите нам — посчитаем точно</button>
+                <button type="button" class="btn btn--outline" id="calc-send" data-calc-send data-i18n="btn.brief">Заполнить бриф</button>
               </div>
-              <button type="button" class="btn btn--red calc__send" id="calc-send" data-calc-send data-i18n="calc.send">Отправить расчёт в бриф</button>
-              <p class="calc__note" data-i18n="calc.note">Предварительный расчёт. Точная смета — после брифа.</p>
+              <p class="calc__note" data-i18n="v2.calc.note">Ориентир. Точная смета — после брифа.</p>
             </aside>
 
             <!-- На телефоне: сумма закреплена снизу, пока калькулятор на экране -->
             <div class="calc__bar">
-              <span class="calc__bar-text"><small data-i18n="calc.barLabel">Итого</small> <b id="calc-bar-total" aria-hidden="true"></b></span>
-              <button type="button" class="btn btn--red btn--sm" data-calc-send data-i18n="calc.sendShort">В бриф</button>
+              <span class="calc__bar-text"><small data-i18n="v2.calc.result">Ориентир по бюджету</small> <b id="calc-bar-total" aria-hidden="true"></b></span>
+              <button type="button" class="btn btn--red btn--sm" data-calc-chat data-i18n="v2.calc.ask">Уточнить</button>
             </div>
           </div>
         </section>
-
-        <div class="ev-day reveal">
-          <h3 data-i18n="ev.dayTitle">Как проходит «Блокбастер»</h3>
-          <ol class="ev-timeline">
-            <li data-i18n-html="ev.d1"><span>За 2–3 недели</span>Бриф, сценарий дня и съёмка приглашения для гостей</li>
-            <li data-i18n-html="ev.d2"><span>За неделю</span>LED-заставки и тест трансляции прямо на площадке</li>
-            <li data-i18n-html="ev.d3"><span>День события</span>Welcome-зона, эфир, аэросъёмка и репортаж — от входа гостей до финала</li>
-            <li data-i18n-html="ev.d4"><span>Через 24–48 ч</span>Первые вертикальные ролики, пока все ещё обсуждают событие</li>
-            <li data-i18n-html="ev.d5"><span>Через 10–14 дней</span>Отчётный ролик, фотоотчёт 200+ и все исходники</li>
-          </ol>
-        </div>
 
         <div class="extras reveal">
           <h3 data-i18n="extras.title">Дополнительно оплачиваются</h3>
@@ -637,64 +488,156 @@
       </div>
     </section>
 
-    <!-- 9. Техника -->
-    <section class="section" id="gear" aria-labelledby="gear-title">
-      <div class="container">
-        <div class="section__head reveal">
-          <p class="eyebrow" data-i18n="gear.eyebrow">Техника</p>
-          <h2 id="gear-title" data-i18n="gear.title">На чём снимаем</h2>
+    <!-- ============ 6. КОМАНДА И ПРОЦЕСС ============ -->
+    <section class="scene" id="team" aria-labelledby="team-title">
+      <div class="wrap">
+        <p class="scene__label reveal"><span class="scene__num">SC 05</span><span data-i18n="nav.team">Команда</span><span class="scene__tc">00:04:58:11</span></p>
+        <div class="team__head">
+          <h2 class="scene__title reveal" id="team-title" data-i18n="team.title">Люди за кадром</h2>
+          <p class="scene__lead reveal" data-i18n="v2.team.lead">Небольшая команда, которая отвечает за результат лично.</p>
         </div>
-        <div class="grid grid--3">
-          <div class="card gear reveal"><div><h3 data-i18n="gear.drone">Дрон</h3><p data-i18n="gear.droneP">С лицензией на аэросъёмку</p></div></div>
-          <div class="card gear reveal"><div><h3 data-i18n="gear.fpv">FPV-дрон</h3><p data-i18n="gear.fpvP">Динамичные пролёты</p></div></div>
-          <div class="card gear reveal"><div><h3>GoPro</h3><p data-i18n="gear.goproP">Экшн-ракурсы</p></div></div>
-          <div class="card gear todo reveal"><div><h3 data-i18n="gear.cams">[Камеры]</h3></div></div>
-          <div class="card gear todo reveal"><div><h3 data-i18n="gear.optics">[Оптика]</h3></div></div>
-          <div class="card gear todo reveal"><div><h3 data-i18n="gear.light">[Свет]</h3></div></div>
+
+        <ul class="team" id="team-list">
+          <li class="person person--lg reveal">
+            <figure>
+              <div class="person__photo">
+                <img class="person__img" src="assets/team-georgis.jpg" alt="Georgis Georgiadi, сооснователь MUST MOVIE MEDIA" data-i18n-alt="team.alt1" width="870" height="1186" loading="lazy" decoding="async">
+                <img class="person__img person__img--bw" src="assets/team-georgis.jpg" alt="" width="870" height="1186" loading="lazy" decoding="async" aria-hidden="true">
+              </div>
+              <figcaption><span class="person__name">Georgis Georgiadi</span><span class="person__role" data-i18n="v2.role.cofounder">Сооснователь</span></figcaption>
+            </figure>
+          </li>
+          <li class="person person--lg reveal">
+            <figure>
+              <div class="person__photo">
+                <img class="person__img" src="assets/team-vladimir.jpg" alt="Vladimir Zalesskiy, сооснователь MUST MOVIE MEDIA" data-i18n-alt="team.alt2" width="822" height="1168" loading="lazy" decoding="async">
+                <img class="person__img person__img--bw" src="assets/team-vladimir.jpg" alt="" width="822" height="1168" loading="lazy" decoding="async" aria-hidden="true">
+              </div>
+              <figcaption><span class="person__name">Vladimir Zalesskiy</span><span class="person__role" data-i18n="v2.role.cofounder">Сооснователь</span></figcaption>
+            </figure>
+          </li>
+          <li class="person reveal">
+            <figure>
+              <div class="person__photo">
+                <img class="person__img" src="assets/team-aleksandr.jpg" alt="Aleksandr Veselov, сценарист (Story developer)" data-i18n-alt="team.alt3" width="882" height="1146" loading="lazy" decoding="async">
+                <img class="person__img person__img--bw" src="assets/team-aleksandr.jpg" alt="" width="882" height="1146" loading="lazy" decoding="async" aria-hidden="true">
+              </div>
+              <figcaption><span class="person__name">Aleksandr Veselov</span><span class="person__role" data-i18n="v2.role.story">Сценарист · story developer</span></figcaption>
+            </figure>
+          </li>
+          <li class="person reveal">
+            <figure>
+              <div class="person__photo">
+                <img class="person__img" src="assets/team-azamat.jpg" alt="Azamat Djavadov, фотограф" data-i18n-alt="team.alt4" width="868" height="1158" loading="lazy" decoding="async">
+                <img class="person__img person__img--bw" src="assets/team-azamat.jpg" alt="" width="868" height="1158" loading="lazy" decoding="async" aria-hidden="true">
+              </div>
+              <figcaption><span class="person__name">Azamat Djavadov</span><span class="person__role" data-i18n="v2.role.photo">Фотограф</span></figcaption>
+            </figure>
+          </li>
+          <li class="person reveal">
+            <figure>
+              <div class="person__photo">
+                <img class="person__img" src="assets/team-ibragim-photo.jpg" alt="Ibragim Kamilov, видеограф" data-i18n-alt="team.alt5" width="1160" height="1560" loading="lazy" decoding="async">
+                <img class="person__img person__img--bw" src="assets/team-ibragim-photo.jpg" alt="" width="1160" height="1560" loading="lazy" decoding="async" aria-hidden="true">
+                <span class="person__overlay-role" aria-hidden="true">Videographer</span>
+                <span class="person__overlay-sign" aria-hidden="true"><span>Ibragim</span><span>Kamilov</span></span>
+              </div>
+              <figcaption><span class="person__name">Ibragim Kamilov</span><span class="person__role" data-i18n="v2.role.video">Видеограф</span></figcaption>
+            </figure>
+          </li>
+        </ul>
+
+        <div class="process reveal">
+          <h3 class="process__title" data-i18n="proc.title">Как мы работаем</h3>
+          <ol class="process__steps">
+            <li><span class="process__num">01</span><span data-i18n="proc.1">Бриф</span></li>
+            <li><span class="process__num">02</span><span data-i18n="proc.2">Идея и смета</span></li>
+            <li><span class="process__num">03</span><span data-i18n="proc.3">Съёмка</span></li>
+            <li><span class="process__num">04</span><span data-i18n="proc.4">Монтаж и цвет</span></li>
+            <li><span class="process__num">05</span><span data-i18n="proc.5">Сдача</span></li>
+          </ol>
+        </div>
+
+        <div class="more reveal">
+          <details class="more__item">
+            <summary><span data-i18n="gear.eyebrow">Техника</span><span class="more__peek" data-i18n="v2.gear.line">Дрон с лицензией · FPV-дрон · GoPro</span></summary>
+            <ul class="more__list">
+              <li><b data-i18n="gear.drone">Дрон</b> <span data-i18n="gear.droneP">С лицензией на аэросъёмку</span></li>
+              <li><b data-i18n="gear.fpv">FPV-дрон</b> <span data-i18n="gear.fpvP">Динамичные пролёты</span></li>
+              <li><b>GoPro</b> <span data-i18n="gear.goproP">Экшн-ракурсы</span></li>
+              <li class="todo" data-i18n="gear.cams">[Камеры]</li>
+              <li class="todo" data-i18n="gear.optics">[Оптика]</li>
+              <li class="todo" data-i18n="gear.light">[Свет]</li>
+            </ul>
+          </details>
+          <details class="more__item">
+            <summary><span data-i18n="guar.title">Гарантии</span></summary>
+            <div class="more__grid">
+              <div class="todo" data-i18n-html="guar.1"><h4>Договор</h4>[Условия договора]</div>
+              <div class="todo" data-i18n-html="guar.2"><h4>Сроки сдачи</h4>[Сроки]</div>
+              <div class="todo" data-i18n-html="guar.3"><h4>Правки</h4>[Количество правок]</div>
+              <div class="todo" data-i18n-html="guar.4"><h4>Оплата</h4>[Порядок оплаты]</div>
+            </div>
+          </details>
         </div>
       </div>
     </section>
 
-    <!-- 10. Как мы работаем -->
-    <section class="section section--alt" id="process" aria-labelledby="process-title">
-      <div class="container">
-        <div class="section__head reveal">
-          <p class="eyebrow" data-i18n="proc.eyebrow">Процесс</p>
-          <h2 id="process-title" data-i18n="proc.title">Как мы работаем</h2>
-        </div>
-        <ol class="steps" style="list-style:none;padding:0;margin:0">
-          <li class="card step reveal"><span class="step__num">01</span><h3 data-i18n="proc.1">Бриф</h3></li>
-          <li class="card step reveal"><span class="step__num">02</span><h3 data-i18n="proc.2">Идея и смета</h3></li>
-          <li class="card step reveal"><span class="step__num">03</span><h3 data-i18n="proc.3">Съёмка</h3></li>
-          <li class="card step reveal"><span class="step__num">04</span><h3 data-i18n="proc.4">Монтаж и цвет</h3></li>
-          <li class="card step reveal"><span class="step__num">05</span><h3 data-i18n="proc.5">Сдача</h3></li>
-        </ol>
-        <div class="guarantees reveal">
-          <h3 data-i18n="guar.title">Гарантии</h3>
-          <div class="grid grid--4">
-            <div class="card guarantee todo" data-i18n-html="guar.1"><h4>Договор</h4>[Условия договора]</div>
-            <div class="card guarantee todo" data-i18n-html="guar.2"><h4>Сроки сдачи</h4>[Сроки]</div>
-            <div class="card guarantee todo" data-i18n-html="guar.3"><h4>Правки</h4>[Количество правок]</div>
-            <div class="card guarantee todo" data-i18n-html="guar.4"><h4>Оплата</h4>[Порядок оплаты]</div>
+    <!-- ============ 7. ОТЗЫВЫ ============ -->
+    <section class="scene" id="reviews" aria-labelledby="reviews-title">
+      <div class="wrap">
+        <p class="scene__label reveal"><span class="scene__num">SC 06</span><span data-i18n="rev.eyebrow">Отзывы</span><span class="scene__tc">00:05:36:02</span></p>
+        <h2 class="visually-hidden" id="reviews-title" data-i18n="rev.title">Что говорят клиенты</h2>
+        <!-- TODO: 3–5 реальных отзывов (текст до 250 знаков, имя, компания, по желанию фото 160×160) -->
+        <div class="quotes reveal" role="region" aria-roledescription="carousel" aria-label="Отзывы клиентов" data-i18n-aria-label="v2.rev.label">
+          <div class="quotes__track" aria-live="polite">
+            <div class="quote is-active" role="group" aria-roledescription="slide" aria-label="1 / 3">
+              <blockquote class="todo" data-i18n="rev.text">[Текст отзыва]</blockquote>
+              <p class="quote__who todo" data-i18n="rev.name">[Имя, компания]</p>
+            </div>
+            <div class="quote" role="group" aria-roledescription="slide" aria-label="2 / 3" hidden>
+              <blockquote class="todo" data-i18n="rev.text">[Текст отзыва]</blockquote>
+              <p class="quote__who todo" data-i18n="rev.name">[Имя, компания]</p>
+            </div>
+            <div class="quote" role="group" aria-roledescription="slide" aria-label="3 / 3" hidden>
+              <blockquote class="todo" data-i18n="rev.text">[Текст отзыва]</blockquote>
+              <p class="quote__who todo" data-i18n="rev.name">[Имя, компания]</p>
+            </div>
+          </div>
+          <div class="quotes__nav">
+            <button type="button" class="round" data-quote="prev" aria-label="Предыдущий отзыв" data-i18n-aria-label="v2.rev.prev"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+            <span class="quotes__count"><b data-quote-current>01</b> / <span data-quote-total>03</span></span>
+            <button type="button" class="round" data-quote="next" aria-label="Следующий отзыв" data-i18n-aria-label="v2.rev.next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Бриф прямо на сайте -->
-    <section class="section brief-section" id="brief" aria-labelledby="brief-title">
-      <div class="container brief-wrap">
-        <div class="brief-intro reveal">
-          <p class="eyebrow" data-i18n="brief.eyebrow">Бриф на съёмку</p>
-          <h2 id="brief-title" data-i18n="brief.title">Расскажите о проекте</h2>
-          <p data-i18n="brief.text">10 коротких вопросов, 3 минуты. После брифа вернёмся с идеей, сметой и сроками — без лишних созвонов.</p>
-          <ul class="dia-list">
-            <li data-i18n="brief.li1">Можно пропускать вопросы — заполните то, что знаете</li>
-            <li data-i18n="brief.li2">Ответы сохраняются в браузере, можно вернуться позже</li>
-            <li data-i18n="brief.li3">В конце — отправка в Direct или Telegram в один клик</li>
-          </ul>
-        </div>
-        <form class="brief" id="brief-form" novalidate>
+    <!-- ============ 8. БРИФ ============ -->
+    <section class="scene scene--brief" id="brief" aria-labelledby="brief-title">
+      <div class="wrap">
+        <p class="scene__label reveal"><span class="scene__num">SC 07</span><span data-i18n="nav.brief">Бриф</span><span class="scene__tc">00:06:10:00</span></p>
+        <div class="brief-layout">
+          <div class="brief-intro">
+            <h2 class="brief-title reveal" id="brief-title" data-i18n="v2.brief.title">Давайте снимем что-то сильное</h2>
+            <p class="scene__lead reveal" data-i18n="v2.brief.lead">10 вопросов, 3 минуты. Вернёмся с идеей, сметой и сроками.</p>
+            <ul class="brief-points reveal">
+              <li data-i18n="brief.li1">Можно пропускать вопросы — заполните то, что знаете</li>
+              <li data-i18n="brief.li2">Ответы сохраняются в браузере, можно вернуться позже</li>
+              <li data-i18n="brief.li3">В конце — отправка в Direct или Telegram в один клик</li>
+            </ul>
+            <div class="brief-cta reveal">
+              <a class="btn btn--red btn--lg brief-cta__main" href="#brief-form" data-brief-go data-i18n="v2.brief.go">Заполнить бриф — 3 минуты</a>
+              <button type="button" class="btn btn--outline btn--lg" data-open-chat data-i18n="v2.cta">Обсудить проект</button>
+            </div>
+            <a class="btn btn--ghost reveal" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener">
+              <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor"/></svg>
+              <span data-i18n="v2.brief.or">Или напишите нам в Direct</span>
+            </a>
+          </div>
+          <div class="brief-card reveal">
+            <span class="vf vf--tl" aria-hidden="true"></span><span class="vf vf--tr" aria-hidden="true"></span><span class="vf vf--bl" aria-hidden="true"></span><span class="vf vf--br" aria-hidden="true"></span>
+<form class="brief" id="brief-form" novalidate>
           <div class="brief__top">
             <span id="step-label" aria-live="polite">Шаг 1 из 10</span>
             <button type="button" class="link-btn" id="reset" data-i18n="brief.reset">Очистить ответы</button>
@@ -907,77 +850,12 @@
           </div>
           <p class="draft-note" data-i18n="brief.draftNote">Черновик ответов сохраняется в этом браузере автоматически.</p>
         </form>
-      </div>
-    </section>
+          </div>
+        </div>
 
-    <!-- 11. Команда -->
-    <section class="section" id="team" aria-labelledby="team-title">
-      <div class="container">
-        <div class="section__head reveal">
-          <p class="eyebrow" data-i18n="team.eyebrow">Команда</p>
-          <h2 id="team-title" data-i18n="team.title">Люди за кадром</h2>
-        </div>
-        <div class="team">
-          <figure class="member reveal">
-            <div class="member__photo"><img src="assets/team-georgis.jpg" alt="Georgis Georgiadi, сооснователь MUST MOVIE MEDIA" data-i18n-alt="team.alt1" width="870" height="1186" loading="lazy"></div>
-            <figcaption><span class="member__name">Georgis Georgiadi</span><span class="member__role">Co-founder</span></figcaption>
-          </figure>
-          <figure class="member reveal">
-            <div class="member__photo"><img src="assets/team-vladimir.jpg" alt="Vladimir Zalesskiy, сооснователь MUST MOVIE MEDIA" data-i18n-alt="team.alt2" width="822" height="1168" loading="lazy"></div>
-            <figcaption><span class="member__name">Vladimir Zalesskiy</span><span class="member__role">Co-founder</span></figcaption>
-          </figure>
-          <figure class="member reveal">
-            <div class="member__photo"><img src="assets/team-aleksandr.jpg" alt="Aleksandr Veselov, сценарист (Story developer)" data-i18n-alt="team.alt3" width="882" height="1146" loading="lazy"></div>
-            <figcaption><span class="member__name">Aleksandr Veselov</span><span class="member__role">Story developer</span></figcaption>
-          </figure>
-          <figure class="member reveal">
-            <div class="member__photo"><img src="assets/team-azamat.jpg" alt="Azamat Djavadov, фотограф" data-i18n-alt="team.alt4" width="868" height="1158" loading="lazy"></div>
-            <figcaption><span class="member__name">Azamat Djavadov</span><span class="member__role">Photographer</span></figcaption>
-          </figure>
-          <figure class="member reveal">
-            <div class="member__photo">
-              <img src="assets/team-ibragim-photo.jpg" alt="Ibragim Kamilov, видеограф" data-i18n-alt="team.alt5" width="1160" height="1560" loading="lazy">
-              <span class="member__overlay-role" aria-hidden="true">Videographer</span>
-              <span class="member__overlay-sign" aria-hidden="true"><span>Ibragim</span><span>Kamilov</span></span>
-            </div>
-            <figcaption><span class="member__name">Ibragim Kamilov</span><span class="member__role">Videographer</span></figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <!-- 12. Отзывы -->
-    <section class="section section--alt" id="reviews" aria-labelledby="reviews-title">
-      <div class="container">
-        <div class="section__head reveal">
-          <p class="eyebrow" data-i18n="rev.eyebrow">Отзывы</p>
-          <h2 id="reviews-title" data-i18n="rev.title">Что говорят клиенты</h2>
-        </div>
-        <div class="grid grid--3">
-          <figure class="card review reveal" style="margin:0">
-            <blockquote class="todo" data-i18n="rev.text">[Текст отзыва]</blockquote>
-            <figcaption><cite class="todo" style="display:inline-block;padding:2px 8px;border-radius:6px" data-i18n="rev.name">[Имя, компания]</cite></figcaption>
-          </figure>
-          <figure class="card review reveal" style="margin:0">
-            <blockquote class="todo" data-i18n="rev.text">[Текст отзыва]</blockquote>
-            <figcaption><cite class="todo" style="display:inline-block;padding:2px 8px;border-radius:6px" data-i18n="rev.name">[Имя, компания]</cite></figcaption>
-          </figure>
-          <figure class="card review reveal" style="margin:0">
-            <blockquote class="todo" data-i18n="rev.text">[Текст отзыва]</blockquote>
-            <figcaption><cite class="todo" style="display:inline-block;padding:2px 8px;border-radius:6px" data-i18n="rev.name">[Имя, компания]</cite></figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <!-- 13. FAQ -->
-    <section class="section" id="faq" aria-labelledby="faq-title">
-      <div class="container">
-        <div class="section__head reveal">
-          <p class="eyebrow">FAQ</p>
-          <h2 id="faq-title" data-i18n="faq.title">Частые вопросы</h2>
-        </div>
-        <div class="faq reveal">
+        <div class="faq-block">
+          <h2 class="faq-title reveal" id="faq-title" data-i18n="faq.title">Частые вопросы</h2>
+<div class="faq reveal">
           <details>
             <summary data-i18n="faq.q1">Сколько стоит съёмка?</summary>
             <div class="faq__answer" data-i18n="faq.a1">Фото от 4,9 млн, видео для соцсетей от 11,7 млн/мес, SMM от 16 млн/мес, мероприятия от 27,9 млн за день. Точная смета после брифа.</div>
@@ -1016,67 +894,84 @@
             <div class="faq__answer"><span class="todo" data-i18n="faq.a7">[Количество правок]</span></div>
           </details>
         </div>
-      </div>
-    </section>
-
-    <!-- 14. Финальный призыв -->
-    <section class="section" style="padding-top:0" aria-labelledby="cta-title">
-      <div class="container">
-        <div class="cta reveal">
-          <h2 id="cta-title" data-i18n="cta.title">Нужен новый уровень визуала?</h2>
-          <p data-i18n="cta.text">Наша задача — не просто показать, что вы делаете, а сделать так, чтобы ваш бренд запомнили.</p>
-          <div class="cta__actions">
-            <a class="btn btn--black" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener" data-i18n="btn.direct">Написать в Direct</a>
-            <a class="btn btn--outline" href="#brief" data-i18n="btn.brief">Заполнить бриф</a>
-          </div>
-          <a class="cta__handle" href="https://www.instagram.com/mmm_creative_production/" target="_blank" rel="noopener">@mmm_creative_production</a>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- 15. Подвал -->
+  <!-- ============ ПОДВАЛ ============ -->
   <footer class="site-footer">
-    <div class="container">
-      <span data-i18n="footer.copy">© MUST MOVIE MEDIA · Ташкент</span>
-      <a href="https://www.instagram.com/mmm_creative_production/" target="_blank" rel="noopener">Instagram @mmm_creative_production</a>
+    <div class="wrap site-footer__inner">
+      <img class="site-footer__logo" src="assets/logo-dark-bg.png" alt="MUST MOVIE MEDIA" width="720" height="559" loading="lazy" decoding="async">
+      <p class="site-footer__tag" data-i18n="v2.footer.tag">Снимаем. Создаём. Продвигаем.</p>
+      <div class="site-footer__row">
+        <a class="site-footer__ig" href="https://www.instagram.com/mmm_creative_production/" target="_blank" rel="noopener">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor"/></svg>
+          @mmm_creative_production
+        </a>
+        <a class="site-footer__ig" href="https://t.me/mmm_brief_bot" target="_blank" rel="noopener">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4.5 2.8 11.4c-.9.4-.9 1.6.1 1.9l4.5 1.4 1.7 5.3c.2.7 1.1.9 1.6.4l2.5-2.4 4.6 3.4c.6.4 1.4.1 1.6-.6L22.3 5.6c.2-.8-.6-1.4-1.3-1.1zM9.6 14.2l8.2-6.6-6.9 7.9-.3 3-1-4.3z" fill="currentColor"/></svg>
+          <span data-i18n="v2.footer.tg">Написать в Telegram</span>
+        </a>
+        <div class="lang-switch" role="group" aria-label="Язык сайта" data-i18n-aria-label="lang.aria">
+          <button type="button" data-set-lang="ru" lang="ru" aria-label="RU — Русский">RU</button>
+          <button type="button" data-set-lang="uz" lang="uz" aria-label="UZ — O'zbekcha">UZ</button>
+          <button type="button" data-set-lang="en" lang="en" aria-label="EN — English">EN</button>
+        </div>
+      </div>
+      <div class="site-footer__row site-footer__row--small">
+        <span data-i18n="footer.copy">© MUST MOVIE MEDIA · Ташкент</span>
+        <a href="#top" class="site-footer__top" data-i18n="v2.footer.top">Наверх</a>
+      </div>
     </div>
   </footer>
 
-  <!-- Окно с подробностями пакета (заполняется из plans.js) -->
-  <dialog class="plan-modal" id="plan-modal" aria-labelledby="pm-title">
-    <div class="pm">
-      <button type="button" class="pm__close" data-close aria-label="Закрыть" data-i18n-aria-label="pm.close">×</button>
-      <p class="eyebrow" id="pm-group"></p>
-      <div class="pm__head">
-        <h2 id="pm-title"></h2>
-        <div class="plan__price" id="pm-price"></div>
+  <!-- ============ ОКНА ============ -->
+  <!-- Шоурил на весь экран -->
+  <dialog class="modal modal--reel" id="reel-modal" aria-labelledby="reel-title">
+    <div class="modal__box">
+      <button type="button" class="modal__close" data-close aria-label="Закрыть" data-i18n-aria-label="pm.close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button>
+      <h2 class="visually-hidden" id="reel-title" data-i18n="showreel.eyebrow">Шоурил</h2>
+      <!-- TODO: <video controls playsinline preload="none" poster="assets/v2/reel-poster.jpg"><source src="assets/v2/showreel.mp4" type="video/mp4"></video> -->
+      <div class="modal__video frame todo"><span class="frame__vf"></span><span class="frame__rec"><span class="rec-dot"></span>REC <span data-tc-run>00:00:00:00</span></span><span class="frame__note" data-i18n="v2.reel.todo">[Шоурил 60–90 сек · mp4 1920×1080]</span></div>
+      <div class="modal__foot">
+        <p data-i18n="v2.reel.ig">Пока шоурил готовится — наши ролики в Instagram.</p>
+        <a class="btn btn--outline btn--sm" href="https://www.instagram.com/mmm_creative_production/" target="_blank" rel="noopener" data-i18n="v2.case.ig">Смотреть в Instagram</a>
       </div>
-      <p class="pm__lead" id="pm-lead"></p>
-      <div class="pm__facts" id="pm-facts"></div>
-      <div class="pm__cols">
-        <div><h3 data-i18n="pm.includes">Что входит</h3><ul class="dia-list" id="pm-includes"></ul></div>
-        <div>
-          <h3 data-i18n="pm.team">Команда</h3><ul class="dia-list" id="pm-team"></ul>
-          <h3 data-i18n="pm.gear">Техника</h3><ul class="dia-list" id="pm-gear"></ul>
-        </div>
-      </div>
-      <div class="pm__block" id="pm-timeline-wrap"><h3 data-i18n="pm.timeline">Как проходит</h3><ol class="ev-timeline" id="pm-timeline"></ol></div>
-      <div class="pm__block"><h3 data-i18n="pm.terms">Сроки и правки</h3><ul class="dia-list" id="pm-terms"></ul></div>
-      <div class="pm__block"><h3 data-i18n="pm.fit">Подходит для</h3><ul class="chips chips--sm" id="pm-fit"></ul></div>
-      <div class="pm__actions">
-        <button type="button" class="btn btn--red" id="pm-choose" data-i18n="pm.choose">Выбрать пакет и заполнить бриф</button>
-        <a class="btn btn--ghost" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener" data-i18n="pm.ask">Спросить в Direct</a>
-      </div>
-      <p class="pm__note" data-i18n="pm.note">Цены в сумах. Модели, локации, реквизит и таргет оплачиваются отдельно.</p>
     </div>
   </dialog>
 
-  <script src="analytics.js"></script>
+  <!-- Кейс -->
+  <dialog class="modal modal--case" id="case-modal" aria-labelledby="case-title">
+    <div class="modal__box">
+      <button type="button" class="modal__close" data-close aria-label="Закрыть" data-i18n-aria-label="pm.close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button>
+      <div class="modal__video frame todo"><span class="frame__vf"></span><span class="frame__rec"><span class="rec-dot"></span>REC</span><span class="frame__note" data-i18n="v2.case.video">[Видео кейса · mp4 1080p]</span></div>
+      <div class="case-body">
+        <p class="case-body__cat" id="case-cat"></p>
+        <h2 class="case-body__title todo" id="case-title" data-i18n="works.caseTitle">[Клиент · что сделали]</h2>
+        <div class="case-body__cols">
+          <div><h3 data-i18n="v2.case.task">Задача</h3><p class="todo" data-i18n="v2.case.taskTodo">[Что нужно было клиенту — 1–2 предложения]</p></div>
+          <div><h3 data-i18n="v2.case.result">Результат</h3><p class="todo" data-i18n="v2.case.resultTodo">[Что получилось: просмотры, заявки, отзыв]</p></div>
+        </div>
+        <div class="case-body__actions">
+          <a class="btn btn--outline" id="case-link" href="#" target="_blank" rel="noopener" data-i18n="v2.case.ig">Смотреть в Instagram</a>
+          <button type="button" class="btn btn--outline" data-open-chat data-close-go data-i18n="v2.cta">Обсудить проект</button>
+          <a class="btn btn--red" href="#brief" data-close-go data-i18n="btn.brief">Заполнить бриф</a>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="cursor is-hidden" aria-hidden="true"><span class="cursor__frame"></span><span class="cursor__dot"></span></div>
+
   <script src="i18n.js"></script>
   <script src="plans.js"></script>
   <script src="script.js"></script>
   <script src="calc.js"></script>
   <script src="brief.js"></script>
+  <script src="knowledge.js"></script>
+  <script src="chat.js"></script>
+  <script src="site.js"></script>
+  <script src="analytics.js"></script>
 </body>
 </html>

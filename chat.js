@@ -222,12 +222,12 @@
   if (vv) { vv.addEventListener('resize', fitViewport); vv.addEventListener('scroll', fitViewport); }
   window.addEventListener('resize', fitViewport);
 
-  // Кнопка поднимается над нижней панелью калькулятора
+  // На телефоне кнопка прячется, пока на экране калькулятор: у его панели своя кнопка «Уточнить»
   var calcBar = document.querySelector('.calc__bar');
   var calcBlock = document.getElementById('calculator');
   if (calcBar && calcBlock && 'IntersectionObserver' in window) {
     new IntersectionObserver(function (en) {
-      fab.classList.toggle('is-raised', en[0].isIntersecting);
+      fab.classList.toggle('is-tucked', en[0].isIntersecting);
     }).observe(calcBlock);
   }
 

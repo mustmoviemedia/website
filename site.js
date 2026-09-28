@@ -1,6 +1,6 @@
-// MUST MOVIE MEDIA — v2: поведение новой главной.
+// MUST MOVIE MEDIA — поведение главной страницы.
 // Бриф (brief.js), калькулятор (calc.js), бургер (script.js), чат (chat.js),
-// переводы (i18n.js) и аналитика (analytics.js) подключаются из корня без изменений.
+// переводы (i18n.js) и аналитика (analytics.js) — отдельными файлами.
 (function () {
   'use strict';
 

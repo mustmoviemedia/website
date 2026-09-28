@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
+# Старая версия и адрес предпросмотра — не для поиска (на страницах также стоит noindex)
+Disallow: /website/old/
+Disallow: /website/v2/
+Disallow: /old/
+Disallow: /v2/
 
 Sitemap: https://must-movie-media.github.io/website/sitemap.xml

@@ -1029,8 +1029,7 @@ dialog { color: var(--text); }
   position: relative; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
   border: 1.5px solid rgba(208,21,27,.9); background: #0A0A0A;
 }
-.chat-fab__ring .rec-dot { width: 10px; height: 10px; margin-top: -6px; }
-.chat-fab__rec { position: absolute; bottom: 7px; font: 600 9px/1 var(--font-head); letter-spacing: .12em; color: var(--soft); }
+.chat-fab__ring .rec-dot { width: 12px; height: 12px; box-shadow: 0 0 12px rgba(208,21,27,.8); }
 .chat-fab__badge {
   position: absolute; top: -4px; right: -4px; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px;
   display: grid; place-items: center; background: var(--red); color: #fff; font: 700 14px/1 var(--font-body);

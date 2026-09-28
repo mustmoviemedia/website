@@ -55,7 +55,7 @@
   var ICON_TG = '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4.5 2.8 11.4c-.9.4-.9 1.6.1 1.9l4.5 1.4 1.7 5.3c.2.7 1.1.9 1.6.4l2.5-2.4 4.6 3.4c.6.4 1.4.1 1.6-.6L22.3 5.6c.2-.8-.6-1.4-1.3-1.1zM9.6 14.2l8.2-6.6-6.9 7.9-.3 3-1-4.3z" fill="currentColor"/></svg>';
 
   var fab = h('button', { type: 'button', class: 'chat-fab', 'aria-haspopup': 'dialog', 'aria-controls': 'mmm-chat', 'aria-expanded': 'false' });
-  fab.innerHTML = '<span class="chat-fab__ring" aria-hidden="true"><span class="rec-dot"></span><span class="chat-fab__rec">REC</span></span><span class="chat-fab__label"></span><span class="chat-fab__badge" hidden></span>';
+  fab.innerHTML = '<span class="chat-fab__ring" aria-hidden="true"><span class="rec-dot"></span></span><span class="chat-fab__label"></span><span class="chat-fab__badge" hidden></span>';
   var fabLabel = fab.querySelector('.chat-fab__label');
   var badge = fab.querySelector('.chat-fab__badge');
 

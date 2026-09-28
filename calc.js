@@ -485,6 +485,9 @@ var MMM_CALC = (function () {
   // Старт — мероприятие с параметрами «Исторического 2»
   write(CALC_DEFAULTS);
   write(CALC_PRESETS['ev-hist2']);
+  // Ссылка из Telegram-бота: ?svc=reels#calculator — сразу нужная услуга
+  var svcParam = (location.search.match(/[?&]svc=([a-z]+)/) || [])[1];
+  if (svcParam && SERVICE_KEY[svcParam]) write({ service: svcParam });
   update(false);
 
   return api;

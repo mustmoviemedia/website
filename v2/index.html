@@ -55,7 +55,7 @@
           <a href="#team"><span class="nav__num">04</span><span data-i18n="nav.team">Команда</span></a>
           <a href="#brief"><span class="nav__num">05</span><span data-i18n="nav.brief">Бриф</span></a>
           <div class="nav__menu-foot">
-            <a class="btn btn--red" href="#brief" data-i18n="v2.cta">Обсудить проект</a>
+            <a class="btn btn--red" href="#brief" data-i18n="btn.brief">Заполнить бриф</a>
             <div class="lang-switch" role="group" aria-label="Язык сайта" data-i18n-aria-label="lang.aria">
               <button type="button" data-set-lang="ru" lang="ru" aria-label="RU — Русский">RU</button>
               <button type="button" data-set-lang="uz" lang="uz" aria-label="UZ — O'zbekcha">UZ</button>
@@ -69,7 +69,7 @@
           <button type="button" data-set-lang="uz" lang="uz" aria-label="UZ — O'zbekcha">UZ</button>
           <button type="button" data-set-lang="en" lang="en" aria-label="EN — English">EN</button>
         </div>
-        <a class="btn btn--red btn--sm nav__cta" href="#brief" data-i18n="v2.cta">Обсудить проект</a>
+        <a class="btn btn--red btn--sm nav__cta" href="#brief" data-i18n="btn.brief">Заполнить бриф</a>
         <button class="burger" type="button" aria-controls="nav-links" aria-expanded="false" aria-label="Открыть меню" data-i18n-aria-label="nav.open"><span></span></button>
       </nav>
     </div>
@@ -104,7 +104,7 @@
         </h1>
         <p class="hero__lead" data-i18n="v2.hero.lead">Видеопродакшен полного цикла: идея, съёмка, монтаж и продвижение.</p>
         <div class="hero__actions">
-          <a class="btn btn--red btn--lg" href="#brief" data-i18n="v2.cta">Обсудить проект</a>
+          <a class="btn btn--red btn--lg" href="#brief" data-i18n="btn.brief">Заполнить бриф</a>
           <button type="button" class="btn btn--outline btn--lg" data-open-reel>
             <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>
             <span data-i18n="v2.hero.reel">Смотреть шоурил</span>
@@ -254,177 +254,229 @@
       </div>
     </section>
 
-    <!-- ============ 5. ПАКЕТЫ И ЦЕНЫ ============ -->
+    <!-- ============ 5. ЦЕНЫ ============ -->
     <section class="scene" id="pricing" aria-labelledby="pricing-title">
       <div class="wrap">
         <p class="scene__label reveal"><span class="scene__num">SC 04</span><span data-i18n="v2.nav.pricing">Цены</span><span class="scene__tc">00:03:47:22</span></p>
-        <h2 class="scene__title reveal" id="pricing-title" data-i18n="pricing.title">Пакеты и стоимость</h2>
-        <p class="scene__lead reveal" data-i18n="v2.price.lead">Прозрачные пакеты. Точная смета — после брифа.</p>
+        <h2 class="scene__title reveal" id="pricing-title" data-i18n="v2.price.title">Сколько это стоит</h2>
+        <p class="scene__lead reveal" data-i18n="v2.price.lead2">Цены в сумах. Точную смету считаем после брифа.</p>
 
-        <div class="tabs reveal" role="tablist" aria-label="Категории пакетов" data-i18n-aria-label="v2.price.tabs">
-          <button type="button" class="tab" role="tab" id="tab-smm" aria-controls="panel-smm" aria-selected="true">SMM</button>
-          <button type="button" class="tab" role="tab" id="tab-foto" aria-controls="panel-foto" aria-selected="false" tabindex="-1" data-i18n="v2.tab.photo">Фото</button>
-          <button type="button" class="tab" role="tab" id="tab-video" aria-controls="panel-video" aria-selected="false" tabindex="-1" data-i18n="v2.tab.video">Видео</button>
-          <button type="button" class="tab" role="tab" id="tab-ev" aria-controls="panel-ev" aria-selected="false" tabindex="-1" data-i18n="nav.events">Мероприятия</button>
-        </div>
+        <!-- «от …»: цены берутся из plans.js (минимальная цена в категории), см. v2.js -->
+        <ul class="from-grid">
+          <li class="reveal"><button type="button" class="from" data-from="foto" data-service="photo"><span class="from__idx">01</span><span class="from__label" data-i18n="v2.tab.photo">Фото</span><span class="from__val" data-from-val></span><span class="from__go"><span data-i18n="v2.from.go">Рассчитать</span> <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span></button></li>
+          <li class="reveal"><button type="button" class="from" data-from="video" data-service="reels"><span class="from__idx">02</span><span class="from__label" data-i18n="v2.from.video">Видео для соцсетей</span><span class="from__val" data-from-val></span><span class="from__go"><span data-i18n="v2.from.go">Рассчитать</span> <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span></button></li>
+          <li class="reveal"><button type="button" class="from" data-from="smm" data-service="smm"><span class="from__idx">03</span><span class="from__label">SMM</span><span class="from__val" data-from-val></span><span class="from__go"><span data-i18n="v2.from.go">Рассчитать</span> <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span></button></li>
+          <li class="reveal"><button type="button" class="from" data-from="ev" data-service="event"><span class="from__idx">04</span><span class="from__label" data-i18n="nav.events">Мероприятия</span><span class="from__val" data-from-val></span><span class="from__go"><span data-i18n="v2.from.go">Рассчитать</span> <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span></button></li>
+        </ul>
 
-        <div class="panel" role="tabpanel" id="panel-smm" aria-labelledby="tab-smm">
-          <p class="panel__sub"><span data-i18n="grp.smm">SMM · фото + видео</span> · <span data-i18n="grp.monthly">Ежемесячно</span></p>
-          <div class="plans" data-plans="smm-start,smm-pro,smm-premium"></div>
-<h4 class="visually-hidden" data-i18n="disc.aria">Скидки за предоплату</h4>
-          <ul class="discount-row" aria-label="Скидки за предоплату" data-i18n-aria-label="disc.aria">
-            <li data-i18n-html="disc.3"><b>−7%</b> за 3 месяца</li>
-            <li data-i18n-html="disc.6"><b>−12%</b> за 6 месяцев</li>
-            <li data-i18n-html="disc.12"><b>−18%</b> за 12 месяцев</li>
-          </ul>
-          <div class="table-wrap" role="region" aria-labelledby="smm-table-cap" tabindex="0">
-            <table>
-              <caption id="smm-table-cap" class="visually-hidden" data-i18n="tbl.smmCap">Стоимость SMM при предоплате, млн сум</caption>
-              <thead>
-                <tr><th scope="col" data-i18n="tbl.package">Пакет</th><th scope="col" data-i18n="tbl.3m">3 мес</th><th scope="col" data-i18n="tbl.6m">6 мес</th><th scope="col" data-i18n="tbl.12m">12 мес</th></tr>
-              </thead>
-              <tbody>
-                <tr><th scope="row">Start</th><td data-num="44.6">44,6</td><td data-num="84.5">84,5</td><td data-num="157.3">157,3</td></tr>
-                <tr class="is-hot"><th scope="row">Pro</th><td data-num="66.0">66,0</td><td data-num="124.9">124,9</td><td data-num="232.8">232,8</td></tr>
-                <tr><th scope="row">Premium</th><td data-num="99.7">99,7</td><td data-num="188.8">188,8</td><td data-num="351.8">351,8</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="table-caption" data-i18n="tbl.note">Итог с учётом скидки за предоплату, млн сум.</p>
-        </div>
-
-        <div class="panel" role="tabpanel" id="panel-foto" aria-labelledby="tab-foto" hidden>
-          <p class="panel__sub" data-i18n="grp.foto">Только фото</p>
-          <div class="plans" data-plans="foto-start,foto-pro,foto-custom"></div>
-        </div>
-
-        <div class="panel" role="tabpanel" id="panel-video" aria-labelledby="tab-video" hidden>
-          <p class="panel__sub"><span data-i18n="grp.video">Только видео</span> · <span data-i18n="grp.monthly">Ежемесячно</span></p>
-          <div class="plans" data-plans="video-start,video-pro,video-premium"></div>
-        </div>
-
-        <div class="panel" role="tabpanel" id="panel-ev" aria-labelledby="tab-ev" hidden>
-          <p class="panel__sub"><span data-i18n="ev.eyebrow">Мероприятия · цена за 1 день</span></p>
-          <ul class="ev-points">
-            <li data-i18n-html="ev.pt1"><b>до 8</b>операторов на площадке</li>
-            <li data-i18n-html="ev.pt2"><b>24–48 ч</b>первые ролики после события</li>
-            <li data-i18n-html="ev.pt3"><b>200+</b>фото в фотоотчёте</li>
-            <li data-i18n-html="ev.pt4"><b>4K</b>аэросъёмка с лицензией</li>
-          </ul>
-          <div class="plans plans--4" data-plans="ev-blockbuster,ev-hist1,ev-hist2,ev-hist3"></div>
-<div class="ev-compare">
-          <h3 data-i18n="cmp.title">Сравнение пакетов</h3>
-          <div class="table-wrap" role="region" aria-labelledby="ev-table-cap" tabindex="0">
-            <table>
-              <caption id="ev-table-cap" class="visually-hidden" data-i18n="cmp.cap">Сравнение пакетов для мероприятий</caption>
-              <thead>
-                <tr><th scope="col"></th><th scope="col" data-i18n="pkg.bb">Блокбастер</th><th scope="col" data-i18n="pkg.h1s">Истор. 1</th><th scope="col" data-i18n="pkg.h2s">Истор. 2</th><th scope="col" data-i18n="pkg.h3s">Истор. 3</th></tr>
-              </thead>
-              <tbody>
-                <tr><th scope="row" data-i18n="cmp.guests">Гостей</th><td>250+</td><td>100–300</td><td data-i18n="cmp.upto200">до 200</td><td data-i18n="cmp.upto100">до 100</td></tr>
-                <tr><th scope="row" data-i18n="cmp.ops">Операторы</th><td data-i18n="cmp.upto8">до 8</td><td>3</td><td>2</td><td>2</td></tr>
-                <tr><th scope="row" data-i18n="cmp.ph">Фотографы</th><td>3</td><td>3</td><td>2</td><td>2</td></tr>
-                <tr><th scope="row" data-i18n="cmp.live">Прямой эфир</th><td class="yes">✓</td><td>—</td><td>—</td><td>—</td></tr>
-                <tr><th scope="row" data-i18n="cmp.invite">Приглашение</th><td class="yes">✓</td><td class="yes">✓</td><td>—</td><td>—</td></tr>
-                <tr><th scope="row" data-i18n="ev.aerial">Аэросъёмка</th><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td>—</td></tr>
-                <tr><th scope="row" data-i18n="cmp.vert">Вертикальные ролики</th><td>10</td><td>10</td><td>5</td><td>5</td></tr>
-                <tr><th scope="row" data-i18n="cmp.photo">Фотоотчёт</th><td>200+</td><td>✓</td><td>200+</td><td>✓</td></tr>
-                <tr><th scope="row" data-i18n="ev.sources">Исходники</th><td class="yes">✓</td><td class="yes">✓</td><td>—</td><td>—</td></tr>
-                <tr><th scope="row" data-i18n="cmp.price">Цена за день</th><td class="price" data-money="170.7">170,7 млн</td><td class="price" data-money="97.7">97,7 млн</td><td class="price" data-money="57.9">57,9 млн</td><td class="price" data-money="27.9">27,9 млн</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-<!-- Калькулятор мероприятия (логика и цены — calc.js) -->
-        <section class="calc-block" id="calculator" aria-labelledby="calc-title">
+        <!-- Калькулятор (логика и цены — calc.js) -->
+        <section class="calc-block reveal" id="calculator" aria-labelledby="calc-title">
+          <span class="vf vf--tl" aria-hidden="true"></span><span class="vf vf--tr" aria-hidden="true"></span><span class="vf vf--bl" aria-hidden="true"></span><span class="vf vf--br" aria-hidden="true"></span>
           <div class="section__head">
-            <p class="eyebrow" data-i18n="calc.eyebrow">Калькулятор</p>
-            <h2 id="calc-title" data-i18n="calc.title">Посчитайте своё мероприятие</h2>
-            <p data-i18n="calc.text">Выберите масштаб и опции — сумма пересчитается сразу. Можно начать с готового пакета.</p>
-          </div>
-          <div class="calc-presets" role="group" aria-labelledby="calc-quick">
-            <span id="calc-quick" data-i18n="calc.quick">Быстрый старт:</span>
-            <button type="button" class="calc-preset" data-preset="ev-blockbuster" aria-pressed="false" data-i18n="calc.likeBb">Как Блокбастер</button>
-            <button type="button" class="calc-preset" data-preset="ev-hist1" aria-pressed="false" data-i18n="calc.likeH1">Как Исторический 1</button>
-            <button type="button" class="calc-preset" data-preset="ev-hist2" aria-pressed="false" data-i18n="calc.likeH2">Как Исторический 2</button>
-            <button type="button" class="calc-preset" data-preset="ev-hist3" aria-pressed="false" data-i18n="calc.likeH3">Как Исторический 3</button>
+            <p class="eyebrow"><span class="rec-dot" aria-hidden="true"></span> <span data-i18n="calc.eyebrow">Калькулятор</span></p>
+            <h2 id="calc-title" data-i18n="v2.calc.title">Посчитайте свой проект</h2>
+            <p data-i18n="v2.calc.text">Выберите услугу и пару параметров — покажем ориентир по бюджету.</p>
           </div>
 
           <div class="calc">
             <form class="calc__form" id="calc-form" novalidate>
-          <div class="calc-field">
-            <div class="calc-field__head"><label for="calc-guests" data-i18n="calc.guests">Количество гостей</label><output id="calc-guests-out" for="calc-guests"></output></div>
-            <input type="range" id="calc-guests" name="guests" min="50" max="1000" step="50">
-          </div>
-          <fieldset class="calc-field">
-            <legend data-i18n="calc.hours">Длительность</legend>
-            <div class="chip-group">
-              <label class="chip"><input type="radio" name="hours" value="4"><span data-i18n="calc.hUnit" data-i18n-n="4">4 ч</span></label>
-              <label class="chip"><input type="radio" name="hours" value="6"><span data-i18n="calc.hUnit" data-i18n-n="6">6 ч</span></label>
-              <label class="chip"><input type="radio" name="hours" value="8"><span data-i18n="calc.hUnit" data-i18n-n="8">8 ч</span></label>
-              <label class="chip"><input type="radio" name="hours" value="10"><span data-i18n="calc.hUnit" data-i18n-n="10">10 ч</span></label>
-              <label class="chip"><input type="radio" name="hours" value="12"><span data-i18n="calc.hUnit" data-i18n-n="12">12 ч</span></label>
-            </div>
-          </fieldset>
-          <div class="calc-field">
-            <div class="calc-field__head"><label for="calc-operators" data-i18n="calc.ops">Операторы</label><output id="calc-operators-out" for="calc-operators"></output></div>
-            <input type="range" id="calc-operators" name="operators" min="1" max="8" step="1">
-          </div>
-          <div class="calc-field">
-            <div class="calc-field__head"><label for="calc-photographers" data-i18n="calc.ph">Фотографы</label><output id="calc-photographers-out" for="calc-photographers"></output></div>
-            <input type="range" id="calc-photographers" name="photographers" min="0" max="3" step="1">
-          </div>
-          <fieldset class="calc-field">
-            <legend data-i18n="calc.options">Опции</legend>
-            <div class="calc-switches">
-              <label class="switch"><input type="checkbox" name="live"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.live">Прямой эфир</span></label>
-              <label class="switch"><input type="checkbox" name="drone"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.drone">Аэросъёмка (дрон)</span></label>
-              <label class="switch"><input type="checkbox" name="fpv"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.fpv">FPV-дрон</span></label>
-              <label class="switch"><input type="checkbox" name="gopro"><span class="switch__track" aria-hidden="true"></span><span>GoPro</span></label>
-              <label class="switch"><input type="checkbox" name="invite"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.invite">Видео-приглашение</span></label>
-              <label class="switch"><input type="checkbox" name="welcome"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.welcome">Welcome-фотосессия</span></label>
-              <label class="switch"><input type="checkbox" name="sources"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.sources">Исходники</span></label>
-            </div>
-          </fieldset>
-          <div class="calc-field">
-            <div class="calc-field__head"><label for="calc-led" data-i18n="calc.led">LED-заставки</label><output id="calc-led-out" for="calc-led"></output></div>
-            <input type="range" id="calc-led" name="led" min="0" max="10" step="1">
-          </div>
-          <div class="calc-field">
-            <div class="calc-field__head"><label for="calc-vertical" data-i18n="calc.vert">Вертикальные ролики</label><output id="calc-vertical-out" for="calc-vertical"></output></div>
-            <input type="range" id="calc-vertical" name="vertical" min="0" max="15" step="1">
-          </div>
-          <fieldset class="calc-field">
-            <legend data-i18n="calc.report">Отчётный ролик</legend>
-            <div class="chip-group">
-              <label class="chip"><input type="radio" name="report" value="none"><span data-i18n="calc.reportNone">Нет</span></label>
-              <label class="chip"><input type="radio" name="report" value="short"><span data-i18n="calc.reportShort">До 2 мин</span></label>
-              <label class="chip"><input type="radio" name="report" value="long"><span data-i18n="calc.reportLong">2–5 мин</span></label>
-            </div>
-          </fieldset>
+              <fieldset class="calc-field calc-service">
+                <legend data-i18n="v2.calc.service">Что снимаем</legend>
+                <div class="chip-group">
+                  <label class="chip"><input type="radio" name="service" value="event"><span data-i18n="w.event">Мероприятие</span></label>
+                  <label class="chip"><input type="radio" name="service" value="reels"><span data-i18n="v2.svc.reels">Reels / реклама</span></label>
+                  <label class="chip"><input type="radio" name="service" value="photo"><span data-i18n="w.photo">Фотосъёмка</span></label>
+                  <label class="chip"><input type="radio" name="service" value="smm"><span data-i18n="v2.svc.smm">SMM</span></label>
+                  <label class="chip"><input type="radio" name="service" value="live"><span data-i18n="calc.live">Прямой эфир</span></label>
+                  <label class="chip"><input type="radio" name="service" value="aerial"><span data-i18n="ev.aerial">Аэросъёмка</span></label>
+                </div>
+              </fieldset>
+
+              <!-- Мероприятие -->
+              <div class="calc-group" data-svc="event">
+                <div class="calc-presets" role="group" aria-labelledby="calc-quick">
+                  <span id="calc-quick" data-i18n="calc.quick">Быстрый старт:</span>
+                  <button type="button" class="calc-preset" data-preset="ev-blockbuster" aria-pressed="false" data-i18n="calc.likeBb">Как Блокбастер</button>
+                  <button type="button" class="calc-preset" data-preset="ev-hist1" aria-pressed="false" data-i18n="calc.likeH1">Как Исторический 1</button>
+                  <button type="button" class="calc-preset" data-preset="ev-hist2" aria-pressed="false" data-i18n="calc.likeH2">Как Исторический 2</button>
+                  <button type="button" class="calc-preset" data-preset="ev-hist3" aria-pressed="false" data-i18n="calc.likeH3">Как Исторический 3</button>
+                </div>
+                <div class="calc-field">
+                  <div class="calc-field__head"><label for="calc-guests" data-i18n="calc.guests">Количество гостей</label><output id="calc-guests-out" for="calc-guests"></output></div>
+                  <input type="range" id="calc-guests" name="guests" min="50" max="1000" step="50">
+                </div>
+                <fieldset class="calc-field">
+                  <legend data-i18n="calc.hours">Длительность</legend>
+                  <div class="chip-group">
+                    <label class="chip"><input type="radio" name="hours" value="4"><span data-i18n="calc.hUnit" data-i18n-n="4">4 ч</span></label>
+                    <label class="chip"><input type="radio" name="hours" value="6"><span data-i18n="calc.hUnit" data-i18n-n="6">6 ч</span></label>
+                    <label class="chip"><input type="radio" name="hours" value="8"><span data-i18n="calc.hUnit" data-i18n-n="8">8 ч</span></label>
+                    <label class="chip"><input type="radio" name="hours" value="10"><span data-i18n="calc.hUnit" data-i18n-n="10">10 ч</span></label>
+                    <label class="chip"><input type="radio" name="hours" value="12"><span data-i18n="calc.hUnit" data-i18n-n="12">12 ч</span></label>
+                  </div>
+                </fieldset>
+                <div class="calc-field">
+                  <div class="calc-field__head"><label for="calc-operators" data-i18n="calc.ops">Операторы</label><output id="calc-operators-out" for="calc-operators"></output></div>
+                  <input type="range" id="calc-operators" name="operators" min="1" max="8" step="1">
+                </div>
+                <div class="calc-field">
+                  <div class="calc-field__head"><label for="calc-photographers" data-i18n="calc.ph">Фотографы</label><output id="calc-photographers-out" for="calc-photographers"></output></div>
+                  <input type="range" id="calc-photographers" name="photographers" min="0" max="3" step="1">
+                </div>
+                <fieldset class="calc-field">
+                  <legend data-i18n="calc.options">Опции</legend>
+                  <div class="calc-switches">
+                    <label class="switch"><input type="checkbox" name="live"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.live">Прямой эфир</span></label>
+                    <label class="switch"><input type="checkbox" name="drone"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.drone">Аэросъёмка (дрон)</span></label>
+                    <label class="switch"><input type="checkbox" name="fpv"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.fpv">FPV-дрон</span></label>
+                    <label class="switch"><input type="checkbox" name="gopro"><span class="switch__track" aria-hidden="true"></span><span>GoPro</span></label>
+                    <label class="switch"><input type="checkbox" name="invite"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.invite">Видео-приглашение</span></label>
+                    <label class="switch"><input type="checkbox" name="welcome"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.welcome">Welcome-фотосессия</span></label>
+                    <label class="switch"><input type="checkbox" name="sources"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.sources">Исходники</span></label>
+                  </div>
+                </fieldset>
+                <div class="calc-field">
+                  <div class="calc-field__head"><label for="calc-led" data-i18n="calc.led">LED-заставки</label><output id="calc-led-out" for="calc-led"></output></div>
+                  <input type="range" id="calc-led" name="led" min="0" max="10" step="1">
+                </div>
+                <div class="calc-field">
+                  <div class="calc-field__head"><label for="calc-vertical" data-i18n="calc.vert">Вертикальные ролики</label><output id="calc-vertical-out" for="calc-vertical"></output></div>
+                  <input type="range" id="calc-vertical" name="vertical" min="0" max="15" step="1">
+                </div>
+                <fieldset class="calc-field">
+                  <legend data-i18n="calc.report">Отчётный ролик</legend>
+                  <div class="chip-group">
+                    <label class="chip"><input type="radio" name="report" value="none"><span data-i18n="calc.reportNone">Нет</span></label>
+                    <label class="chip"><input type="radio" name="report" value="short"><span data-i18n="calc.reportShort">До 2 мин</span></label>
+                    <label class="chip"><input type="radio" name="report" value="long"><span data-i18n="calc.reportLong">2–5 мин</span></label>
+                  </div>
+                </fieldset>
+              </div>
+
+              <!-- Reels / реклама -->
+              <div class="calc-group" data-svc="reels" hidden>
+                <fieldset class="calc-field">
+                  <legend data-i18n="v2.calc.format">Формат</legend>
+                  <div class="chip-group">
+                    <label class="chip"><input type="radio" name="reel_format" value="reels"><span>Reels</span></label>
+                    <label class="chip"><input type="radio" name="reel_format" value="ad"><span data-i18n="w.ad">Рекламный ролик</span></label>
+                  </div>
+                </fieldset>
+                <div class="calc-field">
+                  <div class="calc-field__head"><label for="calc-reel_count" data-i18n="v2.calc.clips">Количество роликов</label><output id="calc-reel_count-out" for="calc-reel_count"></output></div>
+                  <input type="range" id="calc-reel_count" name="reel_count" min="1" max="15" step="1">
+                </div>
+                <fieldset class="calc-field">
+                  <legend data-i18n="calc.options">Опции</legend>
+                  <div class="calc-switches">
+                    <label class="switch"><input type="checkbox" name="reel_drone"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.drone">Аэросъёмка (дрон)</span></label>
+                    <label class="switch"><input type="checkbox" name="reel_fpv"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.fpv">FPV-дрон</span></label>
+                    <label class="switch"><input type="checkbox" name="reel_sources"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.sources">Исходники</span></label>
+                  </div>
+                </fieldset>
+              </div>
+
+              <!-- Фото -->
+              <div class="calc-group" data-svc="photo" hidden>
+                <div class="calc-field">
+                  <div class="calc-field__head"><label for="calc-photo_count" data-i18n="v2.calc.photos">Количество фото</label><output id="calc-photo_count-out" for="calc-photo_count"></output></div>
+                  <input type="range" id="calc-photo_count" name="photo_count" min="10" max="100" step="10">
+                </div>
+                <fieldset class="calc-field">
+                  <legend data-i18n="calc.options">Опции</legend>
+                  <div class="calc-switches">
+                    <label class="switch"><input type="checkbox" name="photo_drone"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.drone">Аэросъёмка (дрон)</span></label>
+                    <label class="switch"><input type="checkbox" name="photo_sources"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.sources">Исходники</span></label>
+                  </div>
+                </fieldset>
+              </div>
+
+              <!-- SMM -->
+              <div class="calc-group" data-svc="smm" hidden>
+                <fieldset class="calc-field">
+                  <legend data-i18n="tbl.package">Пакет</legend>
+                  <div class="chip-group">
+                    <label class="chip"><input type="radio" name="smm_level" value="smm-start"><span>Start</span></label>
+                    <label class="chip"><input type="radio" name="smm_level" value="smm-pro"><span>Pro</span></label>
+                    <label class="chip"><input type="radio" name="smm_level" value="smm-premium"><span>Premium</span></label>
+                  </div>
+                </fieldset>
+                <fieldset class="calc-field">
+                  <legend data-i18n="v2.calc.months">Срок</legend>
+                  <div class="chip-group">
+                    <label class="chip"><input type="radio" name="smm_months" value="1"><span data-i18n="v2.calc.mo" data-i18n-n="1">1 мес</span></label>
+                    <label class="chip"><input type="radio" name="smm_months" value="3"><span data-i18n="v2.calc.mo" data-i18n-n="3">3 мес</span></label>
+                    <label class="chip"><input type="radio" name="smm_months" value="6"><span data-i18n="v2.calc.mo" data-i18n-n="6">6 мес</span></label>
+                    <label class="chip"><input type="radio" name="smm_months" value="12"><span data-i18n="v2.calc.mo" data-i18n-n="12">12 мес</span></label>
+                  </div>
+                </fieldset>
+                <p class="calc-hint" data-i18n="faq.a3">Да: −7% / −12% / −18% за 3 / 6 / 12 месяцев предоплаты SMM.</p>
+              </div>
+
+              <!-- Прямой эфир -->
+              <div class="calc-group" data-svc="live" hidden>
+                <fieldset class="calc-field">
+                  <legend data-i18n="calc.hours">Длительность</legend>
+                  <div class="chip-group">
+                    <label class="chip"><input type="radio" name="live_hours" value="2"><span data-i18n="calc.hUnit" data-i18n-n="2">2 ч</span></label>
+                    <label class="chip"><input type="radio" name="live_hours" value="4"><span data-i18n="calc.hUnit" data-i18n-n="4">4 ч</span></label>
+                    <label class="chip"><input type="radio" name="live_hours" value="6"><span data-i18n="calc.hUnit" data-i18n-n="6">6 ч</span></label>
+                    <label class="chip"><input type="radio" name="live_hours" value="8"><span data-i18n="calc.hUnit" data-i18n-n="8">8 ч</span></label>
+                  </div>
+                </fieldset>
+                <div class="calc-field">
+                  <div class="calc-field__head"><label for="calc-live_cams" data-i18n="v2.calc.cams">Камеры</label><output id="calc-live_cams-out" for="calc-live_cams"></output></div>
+                  <input type="range" id="calc-live_cams" name="live_cams" min="1" max="6" step="1">
+                </div>
+                <fieldset class="calc-field">
+                  <legend data-i18n="calc.options">Опции</legend>
+                  <div class="calc-switches">
+                    <label class="switch"><input type="checkbox" name="live_drone"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.drone">Аэросъёмка (дрон)</span></label>
+                    <label class="switch"><input type="checkbox" name="live_record"><span class="switch__track" aria-hidden="true"></span><span data-i18n="v2.calc.record">Запись и монтаж ролика</span></label>
+                  </div>
+                </fieldset>
+              </div>
+
+              <!-- Аэросъёмка -->
+              <div class="calc-group" data-svc="aerial" hidden>
+                <fieldset class="calc-field">
+                  <legend data-i18n="calc.options">Опции</legend>
+                  <div class="calc-switches">
+                    <label class="switch"><input type="checkbox" name="aer_fpv"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.fpv">FPV-дрон</span></label>
+                    <label class="switch"><input type="checkbox" name="aer_edit"><span class="switch__track" aria-hidden="true"></span><span data-i18n="v2.calc.edit">Короткий монтаж</span></label>
+                    <label class="switch"><input type="checkbox" name="aer_sources"><span class="switch__track" aria-hidden="true"></span><span data-i18n="calc.sources">Исходники</span></label>
+                  </div>
+                </fieldset>
+              </div>
+
+              <!-- Срочность — для всех услуг -->
+              <div class="calc-field">
+                <label class="switch switch--wide"><input type="checkbox" name="urgent"><span class="switch__track" aria-hidden="true"></span><span data-i18n="v2.calc.urgent">Срочно — за 3–5 дней</span></label>
+              </div>
             </form>
 
             <aside class="calc__result" aria-labelledby="calc-result-title">
-              <p class="calc__label" id="calc-result-title" data-i18n="calc.resultTitle">Предварительная стоимость</p>
+              <p class="calc__label" id="calc-result-title" data-i18n="v2.calc.result">Ориентир по бюджету</p>
               <p class="calc__total" id="calc-total" aria-hidden="true"></p>
               <p class="visually-hidden" id="calc-live" aria-live="polite" aria-atomic="true"></p>
+              <p class="calc__ind" id="calc-ind-note" data-i18n="v2.calc.indNote" hidden>Для этого формата нет фиксированной цены — менеджер посчитает за пару минут.</p>
               <ul class="calc__rows" id="calc-rows"></ul>
-              <div class="calc__closest">
-                <span><span data-i18n="calc.closest">Ближе всего к пакету:</span> <b id="calc-closest-name"></b></span>
-                <button type="button" class="btn btn--ghost btn--sm" id="calc-closest-open" data-i18n="calc.openPkg">Посмотреть пакет</button>
+              <div class="calc__actions">
+                <button type="button" class="btn btn--red" data-calc-chat data-i18n="v2.calc.chat">Напишите нам — посчитаем точно</button>
+                <button type="button" class="btn btn--outline" id="calc-send" data-calc-send data-i18n="btn.brief">Заполнить бриф</button>
               </div>
-              <button type="button" class="btn btn--red calc__send" id="calc-send" data-calc-send data-i18n="calc.send">Отправить расчёт в бриф</button>
-              <p class="calc__note" data-i18n="calc.note">Предварительный расчёт. Точная смета — после брифа.</p>
+              <p class="calc__note" data-i18n="v2.calc.note">Ориентир. Точная смета — после брифа.</p>
             </aside>
 
             <!-- На телефоне: сумма закреплена снизу, пока калькулятор на экране -->
             <div class="calc__bar">
-              <span class="calc__bar-text"><small data-i18n="calc.barLabel">Итого</small> <b id="calc-bar-total" aria-hidden="true"></b></span>
-              <button type="button" class="btn btn--red btn--sm" data-calc-send data-i18n="calc.sendShort">В бриф</button>
+              <span class="calc__bar-text"><small data-i18n="v2.calc.result">Ориентир по бюджету</small> <b id="calc-bar-total" aria-hidden="true"></b></span>
+              <button type="button" class="btn btn--red btn--sm" data-calc-chat data-i18n="v2.calc.ask">Уточнить</button>
             </div>
           </div>
         </section>
-<div class="extras">
+
+        <div class="extras reveal">
           <h3 data-i18n="extras.title">Дополнительно оплачиваются</h3>
           <ul class="chips">
             <li data-i18n="extras.1">Модели и блогеры</li>
@@ -434,7 +486,6 @@
             <li data-i18n="extras.5">Транспорт за пределами зоны</li>
             <li data-i18n="extras.6">Таргет и рекламный бюджет</li>
           </ul>
-        </div>
         </div>
       </div>
     </section>
@@ -577,7 +628,11 @@
               <li data-i18n="brief.li2">Ответы сохраняются в браузере, можно вернуться позже</li>
               <li data-i18n="brief.li3">В конце — отправка в Direct или Telegram в один клик</li>
             </ul>
-            <a class="btn btn--outline reveal" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener">
+            <div class="brief-cta reveal">
+              <a class="btn btn--red btn--lg brief-cta__main" href="#brief-form" data-brief-go data-i18n="v2.brief.go">Заполнить бриф — 3 минуты</a>
+              <button type="button" class="btn btn--outline btn--lg" data-open-chat data-i18n="v2.cta">Обсудить проект</button>
+            </div>
+            <a class="btn btn--ghost reveal" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener">
               <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor"/></svg>
               <span data-i18n="v2.brief.or">Или напишите нам в Direct</span>
             </a>
@@ -898,38 +953,10 @@
         </div>
         <div class="case-body__actions">
           <a class="btn btn--outline" id="case-link" href="#" target="_blank" rel="noopener" data-i18n="v2.case.ig">Смотреть в Instagram</a>
-          <a class="btn btn--red" href="#brief" data-close-go data-i18n="v2.cta">Обсудить проект</a>
+          <button type="button" class="btn btn--outline" data-open-chat data-close-go data-i18n="v2.cta">Обсудить проект</button>
+          <a class="btn btn--red" href="#brief" data-close-go data-i18n="btn.brief">Заполнить бриф</a>
         </div>
       </div>
-    </div>
-  </dialog>
-
-<!-- Окно с подробностями пакета (заполняется из plans.js) -->
-  <dialog class="plan-modal" id="plan-modal" aria-labelledby="pm-title">
-    <div class="pm">
-      <button type="button" class="pm__close" data-close aria-label="Закрыть" data-i18n-aria-label="pm.close">×</button>
-      <p class="eyebrow" id="pm-group"></p>
-      <div class="pm__head">
-        <h2 id="pm-title"></h2>
-        <div class="plan__price" id="pm-price"></div>
-      </div>
-      <p class="pm__lead" id="pm-lead"></p>
-      <div class="pm__facts" id="pm-facts"></div>
-      <div class="pm__cols">
-        <div><h3 data-i18n="pm.includes">Что входит</h3><ul class="dia-list" id="pm-includes"></ul></div>
-        <div>
-          <h3 data-i18n="pm.team">Команда</h3><ul class="dia-list" id="pm-team"></ul>
-          <h3 data-i18n="pm.gear">Техника</h3><ul class="dia-list" id="pm-gear"></ul>
-        </div>
-      </div>
-      <div class="pm__block" id="pm-timeline-wrap"><h3 data-i18n="pm.timeline">Как проходит</h3><ol class="ev-timeline" id="pm-timeline"></ol></div>
-      <div class="pm__block"><h3 data-i18n="pm.terms">Сроки и правки</h3><ul class="dia-list" id="pm-terms"></ul></div>
-      <div class="pm__block"><h3 data-i18n="pm.fit">Подходит для</h3><ul class="chips chips--sm" id="pm-fit"></ul></div>
-      <div class="pm__actions">
-        <button type="button" class="btn btn--red" id="pm-choose" data-i18n="pm.choose">Выбрать пакет и заполнить бриф</button>
-        <a class="btn btn--ghost" href="https://ig.me/m/mmm_creative_production" target="_blank" rel="noopener" data-i18n="pm.ask">Спросить в Direct</a>
-      </div>
-      <p class="pm__note" data-i18n="pm.note">Цены в сумах. Модели, локации, реквизит и таргет оплачиваются отдельно.</p>
     </div>
   </dialog>
 

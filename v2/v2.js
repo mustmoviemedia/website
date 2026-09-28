@@ -1,5 +1,5 @@
 // MUST MOVIE MEDIA — v2: поведение новой главной.
-// Бриф (brief.js), калькулятор (calc.js), окно пакета и бургер (script.js),
+// Бриф (brief.js), калькулятор (calc.js), бургер (script.js), чат (chat.js),
 // переводы (i18n.js) и аналитика (analytics.js) подключаются из корня без изменений.
 (function () {
   'use strict';
@@ -77,101 +77,56 @@
     });
   }
 
-  // ---------- Пакеты: карточки из plans.js ----------
-  var KIND = { smm: 'SMM на месяц', foto: 'Фотосъёмка', video: 'Reels', ev: 'Мероприятие' };
-  function el(tag, cls, text) {
-    var e = document.createElement(tag);
-    if (cls) e.className = cls;
-    if (text != null) e.textContent = text;
-    return e;
-  }
-  function renderPlans() {
-    var all = window.MMM_PLANS || {};
-    var plans = all[i18n.lang()] || all.ru || {};
-    $$('[data-plans]').forEach(function (box) {
-      box.innerHTML = '';
-      box.getAttribute('data-plans').split(',').forEach(function (id, n) {
-        var p = plans[id];
-        if (!p) return;
-        var card = el('article', 'pcard' + (p.hot ? ' is-hot' : ''));
-        card.setAttribute('data-plan', id);
-
-        var top = el('div', 'pcard__top');
-        top.appendChild(el('span', 'pcard__idx', (n < 9 ? '0' : '') + (n + 1)));
-        if (p.hot) top.appendChild(el('span', 'pcard__badge', t(id.indexOf('ev-') === 0 ? 'badge.max' : 'badge.popular')));
-        card.appendChild(top);
-
-        card.appendChild(el('h3', 'pcard__name', p.name));
-        var price = el('p', 'pcard__price');
-        if (p.price == null) price.textContent = p.priceText;
-        else price.innerHTML = i18n.moneyHtml(p.price, p.per);
-        card.appendChild(price);
-        card.appendChild(el('p', 'pcard__lead', p.lead));
-
-        var facts = el('ul', 'pcard__facts');
-        (p.facts || []).slice(0, 3).forEach(function (f) {
-          var li = el('li');
-          li.appendChild(el('span', null, f[0]));
-          li.appendChild(el('b', null, f[1]));
-          facts.appendChild(li);
-        });
-        card.appendChild(facts);
-
-        var actions = el('div', 'pcard__actions');
-        var moreText = t('plan.more').split('<')[0].trim();
-        var more = el('button', 'btn btn--ghost plan__more', moreText);
-        more.type = 'button';
-        more.setAttribute('aria-label', moreText + ': ' + p.name);
-        actions.appendChild(more);
-        var choose = el('a', 'btn ' + (p.hot ? 'btn--red' : 'btn--outline'), t('v2.plan.choose'));
-        choose.href = '#brief';
-        choose.setAttribute('data-choose', id);
-        choose.setAttribute('aria-label', t('v2.plan.choose') + ': ' + p.name);
-        actions.appendChild(choose);
-        card.appendChild(actions);
-        box.appendChild(card);
-      });
+  // ---------- Цены «от …»: минимальная цена категории из plans.js ----------
+  var fromBtns = $$('[data-from]');
+  function renderFrom() {
+    if (!window.MMM_CALC || !window.MMM_CALC.minPrice) return;
+    fromBtns.forEach(function (b) {
+      var p = window.MMM_CALC.minPrice(b.getAttribute('data-from'));
+      var out = $('[data-from-val]', b);
+      if (!p || !out) return;
+      // «/ день» для мероприятий, «/ мес» — для помесячных услуг
+      var per = b.getAttribute('data-from') === 'ev' ? ' ' + t('v2.from.day') : (p.per ? ' ' + t('v2.from.mo') : '');
+      out.innerHTML = t('v2.from.tpl', { v: '<b>' + i18n.num(p.price, 1) + '</b> ' + t('unit.total') }) + '<small>' + per + '</small>';
     });
   }
-  renderPlans();
-  i18n.onChange(renderPlans);
+  renderFrom();
+  i18n.onChange(renderFrom);
+  // Клик по ячейке — выбираем услугу в калькуляторе и листаем к нему
+  fromBtns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (window.MMM_CALC && window.MMM_CALC.setService) window.MMM_CALC.setService(b.getAttribute('data-service'));
+      var calc = $('#calculator');
+      if (!calc) return;
+      var hh = header ? header.offsetHeight : 0;
+      window.scrollTo({ top: calc.getBoundingClientRect().top + window.pageYOffset - hh - 8, behavior: reduce ? 'auto' : 'smooth' });
+      var checked = $('#calc-form input[name="service"]:checked');
+      if (checked) setTimeout(function () { checked.focus({ preventScroll: true }); }, reduce ? 0 : 500);
+    });
+  });
 
-  // «Выбрать» — подставляем пакет в бриф (карточку при этом не открываем: script.js игнорирует клики по ссылкам)
+  // «Заполнить бриф — 3 минуты» — сразу к первому вопросу
+  $$('[data-brief-go]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var form = $('#brief-form');
+      if (!form) return;
+      e.preventDefault();
+      var hh = header ? header.offsetHeight : 0;
+      window.scrollTo({ top: form.getBoundingClientRect().top + window.pageYOffset - hh - 12, behavior: reduce ? 'auto' : 'smooth' });
+      setTimeout(function () {
+        var first = $('.brief-step.is-active input, .brief-step.is-active textarea', form) || $('.brief-step.is-active h3', form);
+        if (first) first.focus({ preventScroll: true });
+      }, reduce ? 0 : 450);
+    });
+  });
+
+  // «Обсудить проект» — открывает чат на сайте (chat.js); без чата — к брифу
   document.addEventListener('click', function (e) {
-    var a = e.target.closest('[data-choose]');
-    if (!a || !window.MMM_choosePlan) return;
+    var b = e.target.closest('[data-open-chat]');
+    if (!b) return;
     e.preventDefault();
-    var id = a.getAttribute('data-choose');
-    window.MMM_choosePlan({ type: 'plan', id: id }, KIND[id.split('-')[0]]);
-  });
-
-  // ---------- Вкладки пакетов ----------
-  var tabs = $$('.tab');
-  function selectTab(tab, focus) {
-    tabs.forEach(function (tb) {
-      var on = tb === tab;
-      tb.setAttribute('aria-selected', on ? 'true' : 'false');
-      tb.tabIndex = on ? 0 : -1;
-      document.getElementById(tb.getAttribute('aria-controls')).hidden = !on;
-    });
-    if (focus) tab.focus();
-  }
-  tabs.forEach(function (tab, i) {
-    tab.addEventListener('click', function () { selectTab(tab); });
-    tab.addEventListener('keydown', function (e) {
-      var n = null;
-      if (e.key === 'ArrowRight') n = tabs[(i + 1) % tabs.length];
-      if (e.key === 'ArrowLeft') n = tabs[(i - 1 + tabs.length) % tabs.length];
-      if (e.key === 'Home') n = tabs[0];
-      if (e.key === 'End') n = tabs[tabs.length - 1];
-      if (n) { e.preventDefault(); selectTab(n, true); }
-    });
-  });
-  // Из калькулятора «Посмотреть пакет» и ссылки на #calculator — открываем нужную вкладку
-  if (location.hash === '#calculator') selectTab($('#tab-ev'));
-  document.addEventListener('click', function (e) {
-    var a = e.target.closest('a[href="#calculator"]');
-    if (a) selectTab($('#tab-ev'));
+    if (window.MMM_openChat) window.MMM_openChat();
+    else location.hash = '#brief';
   });
 
   // ---------- Модальные окна: общие правила ----------
@@ -296,7 +251,7 @@
       dot.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0)';
       cur.classList.remove('is-hidden');
       var target = e.target;
-      cur.classList.toggle('is-hover', !!target.closest('a, button, summary, label, .pcard, .case, [role="tab"]'));
+      cur.classList.toggle('is-hover', !!target.closest('a, button, summary, label, .case'));
       cur.classList.toggle('is-text', !!target.closest('input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), textarea'));
       if (!running) { running = true; requestAnimationFrame(loop); }
     }, { passive: true });

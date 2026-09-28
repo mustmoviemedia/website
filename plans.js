@@ -2,20 +2,21 @@
 // Структура: MMM_PLANS[язык][id пакета]. Языки: ru, uz, en.
 // Цены и флаги (hot — выделенный красный пакет) общие для всех языков — они в META ниже.
 // Цифры по часам, срокам и правкам — рабочие значения, поправьте под ваши реальные условия.
-window.MMM_PLANS = (function () {
+var MMM_PLANS = (function () {
   'use strict';
 
-  // price — в млн сум, per: true — цена за месяц
+  // price — в млн сум, per: true — цена за месяц.
+  // reels / photos — сколько роликов или фото входит (нужно калькулятору и боту)
   var META = {
-    'smm-start': { price: 16.0, per: true },
-    'smm-pro': { price: 23.4, per: true, hot: true },
-    'smm-premium': { price: 35.8, per: true },
-    'foto-start': { price: 4.9 },
-    'foto-pro': { price: 7.8, hot: true },
+    'smm-start': { price: 16.0, per: true, reels: 4, photos: 30 },
+    'smm-pro': { price: 23.4, per: true, hot: true, reels: 6, photos: 50 },
+    'smm-premium': { price: 35.8, per: true, reels: 9, photos: 70 },
+    'foto-start': { price: 4.9, photos: 30 },
+    'foto-pro': { price: 7.8, hot: true, photos: 50 },
     'foto-custom': { price: null },
-    'video-start': { price: 11.7, per: true },
-    'video-pro': { price: 17.6, per: true, hot: true },
-    'video-premium': { price: 26.0, per: true },
+    'video-start': { price: 11.7, per: true, reels: 4 },
+    'video-pro': { price: 17.6, per: true, hot: true, reels: 6 },
+    'video-premium': { price: 26.0, per: true, reels: 9 },
     'ev-blockbuster': { price: 170.7, hot: true },
     'ev-hist1': { price: 97.7 },
     'ev-hist2': { price: 57.9 },
@@ -467,8 +468,14 @@ window.MMM_PLANS = (function () {
       lang[id].price = m.price;
       lang[id].per = !!m.per;
       lang[id].hot = !!m.hot;
+      if (m.reels) lang[id].reels = m.reels;
+      if (m.photos) lang[id].photos = m.photos;
     });
   });
 
   return { ru: ru, uz: uz, en: en };
 })();
+
+// Браузер: window.MMM_PLANS. Node и Cloudflare Worker (бот): require / import.
+if (typeof window !== 'undefined') window.MMM_PLANS = MMM_PLANS;
+if (typeof module !== 'undefined' && module.exports) module.exports = MMM_PLANS;

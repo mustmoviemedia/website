@@ -97,9 +97,9 @@ var MMM_KB = (function () {
       q: { ru: 'С кем работали?', uz: 'Kim bilan ishlagansiz?', en: 'Who have you worked with?' },
       keys: ['работали', 'клиент', 'кейс', 'портфолио', 'пример', 'отзыв', 'mijoz', 'keys', 'portfolio', 'misol', 'client', 'case', 'example', 'work'],
       a: {
-        ru: 'Кейсы для сайта сейчас собираем. Наши работы — в Instagram @mmm_creative_production, а менеджер пришлёт примеры именно под вашу задачу.',
-        uz: 'Sayt uchun keyslarni hozir yig\'yapmiz. Ishlarimiz — Instagram\'da @mmm_creative_production, menejer esa aynan sizning vazifangizga mos misollarni yuboradi.',
-        en: 'We\'re putting the case studies together for the site. Our work is on Instagram @mmm_creative_production, and a manager will send examples that match your task.'
+        ru: 'Снимаем для брендов, бизнеса и частных мероприятий — от Reels и рекламы до ивентов на 250+ гостей с прямым эфиром. Кейсы для сайта сейчас собираем, а свежие работы — в Instagram @mmm_creative_production. Менеджер пришлёт примеры именно под вашу задачу.',
+        uz: 'Brendlar, biznes va xususiy tadbirlar uchun suratga olamiz — Reels va reklamadan tortib, jonli efirli 250+ mehmonli tadbirlargacha. Sayt uchun keyslarni hozir yig\'yapmiz, yangi ishlarimiz — Instagram\'da @mmm_creative_production. Menejer aynan sizning vazifangizga mos misollarni yuboradi.',
+        en: 'We film for brands, businesses and private events — from Reels and ads to 250+ guest events with a live stream. We\'re putting the case studies together for the site; our latest work is on Instagram @mmm_creative_production. A manager will send examples that match your task.'
       },
       act: ['ig', 'manager'] },
 
@@ -118,9 +118,9 @@ var MMM_KB = (function () {
       q: { ru: 'Выезжаете за город?', uz: 'Shahar tashqarisiga chiqasizmi?', en: 'Do you travel outside the city?' },
       keys: ['выезд', 'выезжа', 'за город', 'регион', 'област', 'другой город', 'самарканд', 'бухар', 'транспорт', 'viloyat', 'shahar tashqari', 'safar', 'travel', 'outside', 'region', 'another city', 'trip'],
       a: {
-        ru: 'Да, снимаем и на выезде. Транспорт за пределами зоны оплачивается отдельно — посчитаем его в смете. Напишите, куда нужно ехать.',
-        uz: 'Ha, safarda ham suratga olamiz. Hududdan tashqariga transport alohida to\'lanadi — uni smetaga qo\'shamiz. Qayerga borish kerakligini yozing.',
-        en: 'Yes, we film on location too. Transport outside the zone is charged separately — we\'ll include it in the estimate. Tell us where you need us.'
+        ru: 'Да. По Ташкенту выезжаем без доплаты, за город и в другие регионы Узбекистана — тоже: транспорт (и проживание, если съёмка на несколько дней) посчитаем отдельно в смете. Напишите, куда и когда нужно ехать.',
+        uz: 'Ha. Toshkent bo\'ylab qo\'shimcha to\'lovsiz boramiz, shahar tashqarisiga va O\'zbekistonning boshqa viloyatlariga ham: transport (va bir necha kunlik suratga olishda yashash) smetada alohida hisoblanadi. Qayerga va qachon borish kerakligini yozing.',
+        en: 'Yes. Anywhere in Tashkent at no extra charge, and we also travel out of town and to other regions of Uzbekistan: transport (and accommodation for multi-day shoots) is listed separately in the estimate. Tell us where and when.'
       },
       act: ['manager', 'brief'] },
 
@@ -234,6 +234,57 @@ var MMM_KB = (function () {
         en: 'Of course, I\'ll bring in a manager.'
       },
       act: ['manager'] },
+
+    // Примерные ответы (добавлены 28.09) — уточнить у команды и поправить при необходимости.
+    { id: 'script',
+      q: { ru: 'Поможете с идеей и сценарием?', uz: 'G\'oya va ssenariyda yordam berasizmi?', en: 'Can you help with the idea and script?' },
+      keys: ['сценар', 'иде', 'концепц', 'креатив', 'придума', 'сюжет', 'ssenariy', 'g\'oya', 'kontseps', 'script', 'idea', 'concept', 'creative', 'story'],
+      a: {
+        ru: 'Да, это наша сильная сторона: в команде свой сценарист (Story developer). Придумаем концепцию, напишем сценарий и раскадровку — ролики строятся на истории, а не на случайных кадрах.',
+        uz: 'Ha, bu bizning kuchli tomonimiz: jamoada o\'z ssenaristimiz (Story developer) bor. Konsepsiyani o\'ylab topamiz, ssenariy va raskadrovka yozamiz — roliklar tasodifiy kadrlarga emas, hikoyaga quriladi.',
+        en: 'Yes, that\'s our strength: we have our own story developer. We\'ll come up with the concept, write the script and storyboard — our videos are built on a story, not on random shots.'
+      },
+      act: ['brief', 'manager'] },
+
+    { id: 'event_team',
+      q: { ru: 'Сколько операторов и фото на мероприятии?', uz: 'Tadbirda nechta operator va foto?', en: 'How many camera operators and photos at an event?' },
+      keys: ['сколько оператор', 'сколько фото', 'сколько человек', 'масштаб', 'крупн', 'гостей', 'nechta operator', 'mehmon', 'how many', 'guests', 'crew'],
+      a: {
+        ru: 'Команду подбираем под масштаб: на небольшом событии — 2 оператора и 2 фотографа, на крупном — до 8 операторов, 3 фотографов и режиссёр трансляции. С большого мероприятия — 200+ обработанных фото, вертикальные ролики и отчётный фильм.',
+        uz: 'Jamoani ko\'lamga qarab tanlaymiz: kichik tadbirda — 2 operator va 2 fotograf, katta tadbirda — 8 tagacha operator, 3 fotograf va efir rejissyori. Katta tadbirdan — 200+ ishlov berilgan foto, vertikal roliklar va hisobot filmi.',
+        en: 'We size the crew to the event: a small one gets 2 camera operators and 2 photographers, a large one up to 8 operators, 3 photographers and a live-stream director. From a big event you get 200+ edited photos, vertical clips and a recap film.'
+      },
+      act: ['calc:event', 'brief'] },
+
+    { id: 'urgent',
+      q: { ru: 'Можно срочно?', uz: 'Shoshilinch mumkinmi?', en: 'Can you do it urgently?' },
+      keys: ['срочн', 'быстрее', 'завтра', 'сегодня', 'горит', 'asap', 'shoshilinch', 'tez', 'ertaga', 'bugun', 'urgent', 'rush', 'tomorrow', 'today'],
+      a: {
+        ru: 'Постараемся. Если дата свободна, выезжаем даже в короткий срок, а с мероприятия отдаём первые вертикальные ролики за 24–48 часов. Ускоренная сдача монтажа — с наценкой, её видно в калькуляторе. Напишите дату — проверим прямо сейчас.',
+        uz: 'Harakat qilamiz. Sana bo\'sh bo\'lsa, qisqa muddatda ham chiqamiz, tadbirdan birinchi vertikal roliklarni 24–48 soatda beramiz. Tezlashtirilgan montaj — qo\'shimcha to\'lov bilan, uni kalkulyatorda ko\'rasiz. Sanani yozing — hozir tekshiramiz.',
+        en: 'We\'ll do our best. If the date is free we can come at short notice, and from an event you get the first vertical clips within 24–48 hours. Rush editing has a surcharge — you\'ll see it in the calculator. Tell us the date and we\'ll check right away.'
+      },
+      act: ['date', 'manager'] },
+
+    { id: 'sources',
+      q: { ru: 'Отдаёте исходники?', uz: 'Iskhodniklarni berasizmi?', en: 'Do you hand over raw footage?' },
+      keys: ['исходн', 'сырые', 'raw', 'все файлы', 'все кадры', 'без обработ', 'iskhodnik', 'xom', 'barcha fayl', 'source', 'footage', 'raw files'],
+      a: {
+        ru: 'Да, передача всех исходников — отдельная опция, она есть в калькуляторе. В готовые пакеты входят обработанные фото и смонтированные ролики.',
+        uz: 'Ha, barcha iskhodniklarni topshirish — alohida opsiya, u kalkulyatorda bor. Tayyor paketlarga ishlov berilgan foto va montaj qilingan roliklar kiradi.',
+        en: 'Yes, handing over all the raw files is a separate option — you\'ll find it in the calculator. Packages include edited photos and finished videos.'
+      },
+      act: ['calc:event', 'manager'] },
+
+    { id: 'languages',
+      q: { ru: 'На каком языке работаете?', uz: 'Qaysi tilda ishlaysiz?', en: 'What languages do you work in?' },
+      keys: ['язык', 'узбекск', 'английск', 'русск', 'til', 'o\'zbek', 'ingliz', 'rus', 'language', 'english', 'uzbek', 'russian'],
+      a: {
+        ru: 'Общаемся и снимаем на русском, узбекском и английском — подписи и субтитры тоже делаем на этих языках.',
+        uz: 'Rus, o\'zbek va ingliz tillarida muloqot qilamiz va suratga olamiz — yozuvlar va subtitrlarni ham shu tillarda tayyorlaymiz.',
+        en: 'We work and film in Russian, Uzbek and English — captions and subtitles too.'
+      },
+      act: ['brief'] },
 
     { id: 'hello',
       q: { ru: 'Здравствуйте', uz: 'Assalomu alaykum', en: 'Hello' },

@@ -281,7 +281,7 @@ var MMM_KB = (function () {
     fab: { ru: 'Спросить', uz: 'So\'rash', en: 'Ask' },
     send: { ru: 'Отправить', uz: 'Yuborish', en: 'Send' },
     close: { ru: 'Закрыть чат', uz: 'Chatni yopish', en: 'Close chat' },
-    open: { ru: 'Открыть чат с MUST MOVIE MEDIA', uz: 'MUST MOVIE MEDIA bilan chatni ochish', en: 'Open chat with MUST MOVIE MEDIA' },
+    open: { ru: 'чат с MUST MOVIE MEDIA', uz: 'MUST MOVIE MEDIA bilan chat', en: 'chat with MUST MOVIE MEDIA' },
     unread: { ru: 'новых сообщений: {n}', uz: 'yangi xabarlar: {n}', en: 'new messages: {n}' },
     you: { ru: 'Вы', uz: 'Siz', en: 'You' },
     assistant: { ru: 'Помощник', uz: 'Yordamchi', en: 'Assistant' },

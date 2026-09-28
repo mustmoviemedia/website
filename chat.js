@@ -94,7 +94,7 @@
 
   function paintStatic() {
     fabLabel.textContent = T('fab');
-    fab.setAttribute('aria-label', T('open') + (state.unread ? ' — ' + T('unread', { n: state.unread }) : ''));
+    fab.setAttribute('aria-label', T('fab') + ' — ' + T('open') + (state.unread ? ' — ' + T('unread', { n: state.unread }) : ''));
     closeBtn.setAttribute('aria-label', T('close'));
     sendBtn.setAttribute('aria-label', T('send'));
     input.placeholder = T('placeholder');
@@ -427,7 +427,7 @@
     badge.hidden = !state.unread;
     badge.textContent = state.unread > 9 ? '9+' : String(state.unread);
     fab.classList.toggle('has-unread', !!state.unread);
-    fab.setAttribute('aria-label', T('open') + (state.unread ? ' — ' + T('unread', { n: state.unread }) : ''));
+    fab.setAttribute('aria-label', T('fab') + ' — ' + T('open') + (state.unread ? ' — ' + T('unread', { n: state.unread }) : ''));
   }
 
   // ---------- Для других скриптов ----------

@@ -515,7 +515,8 @@ window.MMM_I18N = (function () {
       "v2.row.crewD": "{n} × {h} ч",
       "v2.row.urgent": "Срочность",
       "v2.d.cams": "камер: {n}",
-      "v2.brief.go": "Заполнить бриф — 3 минуты"
+      "v2.brief.go": "Заполнить бриф — 3 минуты",
+      "v2.footer.tg": "Написать в Telegram"
     },
 
     uz: {
@@ -1017,7 +1018,8 @@ window.MMM_I18N = (function () {
       "v2.row.crewD": "{n} × {h} soat",
       "v2.row.urgent": "Shoshilinchlik",
       "v2.d.cams": "kameralar: {n}",
-      "v2.brief.go": "Brifni to'ldirish — 3 daqiqa"
+      "v2.brief.go": "Brifni to'ldirish — 3 daqiqa",
+      "v2.footer.tg": "Telegram'da yozish"
     },
 
     en: {
@@ -1519,7 +1521,8 @@ window.MMM_I18N = (function () {
       "v2.row.crewD": "{n} × {h} h",
       "v2.row.urgent": "Rush",
       "v2.d.cams": "cameras: {n}",
-      "v2.brief.go": "Fill in the brief — 3 minutes"
+      "v2.brief.go": "Fill in the brief — 3 minutes",
+      "v2.footer.tg": "Message on Telegram"
     }
   };
 

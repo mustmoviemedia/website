@@ -5,6 +5,8 @@ name = "mmm-brief"
 main = "worker.js"
 compatibility_date = "2025-09-01"
 workers_dev = true
+# CHAT_ID задан в панели Cloudflare как переменная — не стирать её при деплое
+keep_vars = true
 
 # Хранилище диалогов: Durable Object с SQLite (доступно и на бесплатном плане)
 [[durable_objects.bindings]]

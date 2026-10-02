@@ -8,19 +8,19 @@ var MMM_PLANS = (function () {
   // price — в млн сум, per: true — цена за месяц.
   // reels / photos — сколько роликов или фото входит (нужно калькулятору и боту)
   var META = {
-    'smm-start': { price: 16.0, per: true, reels: 4, photos: 30 },
-    'smm-pro': { price: 23.4, per: true, hot: true, reels: 6, photos: 50 },
-    'smm-premium': { price: 35.8, per: true, reels: 9, photos: 70 },
-    'foto-start': { price: 4.9, photos: 30 },
-    'foto-pro': { price: 7.8, hot: true, photos: 50 },
+    'smm-start': { price: 18.0, per: true, reels: 4, photos: 30 },
+    'smm-pro': { price: 26.0, per: true, hot: true, reels: 6, photos: 50 },
+    'smm-premium': { price: 39.5, per: true, reels: 9, photos: 70 },
+    'foto-start': { price: 5.5, photos: 30 },
+    'foto-pro': { price: 9.0, hot: true, photos: 50 },
     'foto-custom': { price: null },
-    'video-start': { price: 11.7, per: true, reels: 4 },
-    'video-pro': { price: 17.6, per: true, hot: true, reels: 6 },
-    'video-premium': { price: 26.0, per: true, reels: 9 },
-    'ev-blockbuster': { price: 170.7, hot: true },
-    'ev-hist1': { price: 97.7 },
-    'ev-hist2': { price: 57.9 },
-    'ev-hist3': { price: 27.9 }
+    'video-start': { price: 13.0, per: true, reels: 4 },
+    'video-pro': { price: 19.5, per: true, hot: true, reels: 6 },
+    'video-premium': { price: 29.0, per: true, reels: 9 },
+    'ev-blockbuster': { price: 188.0, hot: true },
+    'ev-hist1': { price: 107.5 },
+    'ev-hist2': { price: 64.0 },
+    'ev-hist3': { price: 31.0 }
   };
 
   /* ======================== RU ======================== */

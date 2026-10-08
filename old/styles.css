@@ -1186,3 +1186,18 @@ legend { font-weight: 700; margin-bottom: 12px; padding: 0; }
 
 /* Последний шаг брифа: кнопка «Отправить» не должна уезжать под длинный список ответов */
 @media (max-width: 600px) { .summary { max-height: 240px; } }
+
+/* ---------- ЗАЩИТА КОНТЕНТА (protect.js) ---------- */
+/* Текст не выделяется, кроме полей ввода, брифа, чата и элементов с data-copy-ok */
+html.is-protected body { -webkit-user-select: none; user-select: none; }
+html.is-protected :is(input, textarea, select, [contenteditable="true"], [data-copy-ok], .brief, #mmm-chat) { -webkit-user-select: text; user-select: text; }
+html.is-protected :is(.brief, #mmm-chat) :is(button, .chip span, .switch) { -webkit-user-select: none; user-select: none; }
+/* Картинки и видео: без перетаскивания и меню «Сохранить» по долгому нажатию на телефоне */
+img, video, picture, svg { -webkit-user-drag: none; user-drag: none; -webkit-touch-callout: none; }
+.hero__media, .case__media, .cell__media, .person, .frame { -webkit-touch-callout: none; }
+/* Печать страницы целиком отключена — вместо неё короткая подпись */
+@media print {
+  body > * { display: none !important; }
+  body::before { content: "© MUST MOVIE MEDIA · must-movie-media.github.io/website — материалы сайта защищены авторским правом"; display: block; padding: 40px; color: #000; font: 16px/1.5 sans-serif; }
+  body::after { display: none !important; }
+}

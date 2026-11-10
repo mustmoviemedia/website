@@ -1,0 +1,22 @@
+# Робот-проверка: на каждый Pull Request и каждое изменение в main проверяет,
+# что в файлах сайта нет ошибок (запятые, кавычки, переводы, цены, база знаний чата).
+name: Проверка сайта
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Проверить файлы
+        run: node scripts/check.js

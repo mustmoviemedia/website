@@ -18,7 +18,8 @@ import KB from '../knowledge.js';
 import { TEMPLATES, BUTTON_TEMPLATES, fillTemplate } from './templates.js';
 
 const ALLOWED_ORIGINS = [
-  'https://must-movie-media.github.io',
+  'https://mustmoviemedia.github.io',
+  'https://must-movie-media.github.io', // старый адрес, до переезда организации
   // добавьте свой домен, когда подключите, например: 'https://mmm.uz'
 ];
 
@@ -304,7 +305,7 @@ export class ChatHub {
     try { map = JSON.parse(this.env.MANAGERS || '{}'); } catch (e) { map = {}; }
     return map[String(from && from.id)] || clip([from && from.first_name, from && from.last_name].filter(Boolean).join(' '), 40) || 'MUST MOVIE MEDIA';
   }
-  siteUrl() { return (this.env.SITE_URL || 'https://must-movie-media.github.io/website/').replace(/#.*$/, ''); }
+  siteUrl() { return (this.env.SITE_URL || 'https://mustmoviemedia.github.io/website/').replace(/#.*$/, ''); }
 
   // ---------- Маршруты ----------
   async fetch(request) {

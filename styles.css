@@ -1119,6 +1119,6 @@ img, video, picture, svg { -webkit-user-drag: none; user-drag: none; -webkit-tou
 /* Печать страницы целиком отключена — вместо неё короткая подпись */
 @media print {
   body > * { display: none !important; }
-  body::before { content: "© MUST MOVIE MEDIA · must-movie-media.github.io/website — материалы сайта защищены авторским правом"; display: block; padding: 40px; color: #000; font: 16px/1.5 sans-serif; }
+  body::before { content: "© MUST MOVIE MEDIA · mustmoviemedia.github.io/website — материалы сайта защищены авторским правом"; display: block; padding: 40px; color: #000; font: 16px/1.5 sans-serif; }
   body::after { display: none !important; }
 }

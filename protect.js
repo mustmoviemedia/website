@@ -9,7 +9,7 @@
 (function () {
   'use strict';
 
-  var SITE = 'https://must-movie-media.github.io/website/';
+  var SITE = 'https://mustmoviemedia.github.io/website/';
   // Где выделять и копировать можно: поля, бриф, чат, FAQ не трогаем ради удобства клиентов
   var ALLOW = 'input, textarea, select, [contenteditable="true"], [data-copy-ok], .brief, #mmm-chat';
   var MEDIA = 'img, video, picture, svg, canvas, .frame, .hero__media, .case__media, .cell__media, .person, .reel-card';

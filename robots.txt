@@ -23,4 +23,4 @@ Disallow: /website/v2/
 Disallow: /old/
 Disallow: /v2/
 
-Sitemap: https://must-movie-media.github.io/website/sitemap.xml
+Sitemap: https://mustmoviemedia.github.io/website/sitemap.xml

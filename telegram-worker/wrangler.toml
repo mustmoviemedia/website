@@ -22,6 +22,6 @@ new_sqlite_classes = ["ChatHub"]
 # Узнать свой id: написать боту @userinfobot. Без записи используется имя из профиля Telegram.
 MANAGERS = '{}'
 # Адрес сайта — для ссылок на бриф и калькулятор в сообщениях бота
-SITE_URL = "https://must-movie-media.github.io/website/"
+SITE_URL = "https://mustmoviemedia.github.io/website/"
 # Дополнительные адреса сайта через запятую (например, свой домен). Для локальной проверки — http://127.0.0.1:8765
 EXTRA_ORIGINS = ""

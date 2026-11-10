@@ -2,15 +2,15 @@
 
 Памятка для команды. Программы ставить не нужно: всё делается на github.com в браузере.
 
-Сайт: https://must-movie-media.github.io/website/
+Сайт: https://mustmoviemedia.github.io/website/
 
 ---
 
 ## 1. Доступ
 
 1. Зарегистрируйтесь на github.com (бесплатно) и пришлите свой ник владельцу сайта.
-2. Примите приглашение в организацию `must-movie-media`. Оно придёт на почту.
-3. Откройте репозиторий: https://github.com/must-movie-media/website
+2. Примите приглашение в организацию `mustmoviemedia`. Оно придёт на почту.
+3. Откройте репозиторий: https://github.com/mustmoviemedia/website
 
 ## 2. Как внести правку
 

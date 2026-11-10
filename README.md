@@ -60,6 +60,8 @@
 
 ## Публикация
 
+**Сейчас:** сайт — https://mustmoviemedia.github.io/website/, репозиторий — https://github.com/mustmoviemedia/website (публичный). Бот обновляется из этого же репозитория через Cloudflare.
+
 **GitHub Pages:** Settings → Pages → Source: *Deploy from a branch* → ветка `main`, папка `/ (root)` → Save. Сайт появится по адресу `https://<аккаунт>.github.io/<репозиторий>/`.
 
 **Netlify:** Add new site → Import from GitHub → выбрать репозиторий. Build command — пусто, Publish directory — `/`.

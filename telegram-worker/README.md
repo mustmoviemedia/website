@@ -79,10 +79,6 @@ npx wrangler@4 dev --var TG_API:http://127.0.0.1:8790 --var EXTRA_ORIGINS:http:/
 
 `TG_API` направляет запросы к Telegram на локальную заглушку, поэтому в настоящую группу ничего не уходит. Сайт на `http://127.0.0.1:8765` подключается к локальному воркеру строкой `window.MMM_CHAT_API = 'http://127.0.0.1:8787'` перед `chat.js`.
 
-## Пока Worker не обновлён
-
-Бриф работает, как раньше. Чат на сайте отвечает из базы знаний, а «Позвать менеджера» предлагает написать в Telegram или Direct.
-
 ## Автодеплой
 
-Worker связан с GitHub (Cloudflare Workers Builds): каждый пуш в `main` сам собирает и выкладывает бота (`npx wrangler deploy` из папки `telegram-worker`). Вручную деплоить не нужно.
+Worker связан с репозиторием `mustmoviemedia/website` (Cloudflare Workers Builds, папка `telegram-worker`): каждое изменение в `main` само собирает и выкладывает бота (`npx wrangler deploy` из папки `telegram-worker`). Вручную деплоить не нужно.

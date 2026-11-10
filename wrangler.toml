@@ -1,0 +1,30 @@
+# MUST MOVIE MEDIA — Worker «mmm-brief»: бриф + чат на сайте + бот для менеджеров.
+# Этот файл в корне нужен, чтобы Cloudflare собирал бота, даже если в настройках сборки
+# не указана папка telegram-worker (сборка из корня репозитория). Держите его одинаковым
+# с telegram-worker/wrangler.toml — отличается только путь main.
+# Деплой: npx wrangler deploy (из корня) или cd telegram-worker && npx wrangler deploy
+# Секреты (не в этом файле!): npx wrangler secret put BOT_TOKEN / CHAT_ID / WEBHOOK_SECRET
+name = "mmm-brief"
+main = "telegram-worker/worker.js"
+compatibility_date = "2025-09-01"
+workers_dev = true
+# CHAT_ID задан в панели Cloudflare как переменная — не стирать её при деплое
+keep_vars = true
+
+# Хранилище диалогов: Durable Object с SQLite (доступно и на бесплатном плане)
+[[durable_objects.bindings]]
+name = "CHAT"
+class_name = "ChatHub"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["ChatHub"]
+
+[vars]
+# Имена менеджеров по Telegram user id: '{"123456789": "Георгис", "987654321": "Владимир"}'
+# Узнать свой id: написать боту @userinfobot. Без записи используется имя из профиля Telegram.
+MANAGERS = '{}'
+# Адрес сайта — для ссылок на бриф и калькулятор в сообщениях бота
+SITE_URL = "https://mustmoviemedia.github.io/website/"
+# Дополнительные адреса сайта через запятую (например, свой домен). Для локальной проверки — http://127.0.0.1:8765
+EXTRA_ORIGINS = ""

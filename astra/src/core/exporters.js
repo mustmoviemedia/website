@@ -27,7 +27,7 @@ export async function exportGLB(root, name) {
   });
   try {
     const exporter = new GLTFExporter();
-    const result = await exporter.parseAsync(root, { binary: true, onlyVisible: true, maxTextureSize: 2048 });
+    const result = await exporter.parseAsync(root, { binary: true, onlyVisible: true, maxTextureSize: 1024 });
     const blob = new Blob([result], { type: 'model/gltf-binary' });
     download(blob, `${name}.glb`);
     return { size: blob.size };

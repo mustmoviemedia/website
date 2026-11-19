@@ -62,11 +62,11 @@ export function createMaterials(dn, { interiorEnv = 0.4 } = {}) {
     normalScale: new THREE.Vector2(0.8, 0.8),
     roughnessMap: rep(panel.roughnessMap, [panel.metersU, panel.metersV]),
   });
-  M.compositeIn = M.composite.clone();
-  M.compositeIn.name = 'composite-interior';
-  M.compositeIn.envMapIntensity = interiorEnv;
-  M.compositeIn.normalScale = new THREE.Vector2(0.45, 0.45);
-  M.compositeIn.color = new THREE.Color('#F4F5F5');
+  const inPanel = T.interiorPanelTextures({ size: 1024 });
+  M.compositeIn = std({
+    name: 'composite-interior', color: '#F6F7F7', roughness: 0.48, metalness: 0, envMapIntensity: interiorEnv,
+    map: rep(inPanel.map, inPanel.meters), normalMap: rep(inPanel.normalMap, inPanel.meters), normalScale: new THREE.Vector2(0.7, 0.7),
+  });
   M.white = std({ name: 'white-smooth', color: '#EEF1F4', roughness: 0.42 });
   M.whiteIn = std({ name: 'white-interior', color: '#EEF1F4', roughness: 0.42, envMapIntensity: interiorEnv });
   M.alu = std({ name: 'aluminium', color: '#C9CED6', metalness: 1, roughness: 0.3 });
@@ -92,7 +92,7 @@ export function createMaterials(dn, { interiorEnv = 0.4 } = {}) {
   M.mars = std({ name: 'mars', color: BRAND.mars, roughness: 0.75 });
   M.deep = std({ name: 'deep-blue', color: BRAND.deep, roughness: 0.4, metalness: 0.2 });
   M.rubber = std({ name: 'rubber', color: '#2A2F36', roughness: 0.92 });
-  M.person = std({ name: 'scale-figure', color: '#B7BFC9', roughness: 0.85 });
+  M.person = std({ name: 'people', color: '#FFFFFF', vertexColors: true, roughness: 0.78 });
   M.screenOff = std({ name: 'screen-glass', color: '#06090F', roughness: 0.12, metalness: 0.3 });
   M.steel = std({ name: 'steel', color: '#A7ADB4', metalness: 1, roughness: 0.22, envMapIntensity: interiorEnv * 2 });
 

@@ -1,95 +1,145 @@
-// Neutral scale figures (architectural-model style) for a sense of size. 1 unit = 1 m.
+// People for scale (1 unit = 1 m): jointed figures with clothing, shoes and hair in a muted
+// palette. Colours are vertex colours, so every figure in a scene merges into one draw call.
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
-import { capsuleBetween } from './geometry.js';
+import { rng } from './noise.js';
 
 const V = (x, y, z) => new THREE.Vector3(x, y, z);
-const cache = new Map();
+const UP = V(0, 1, 0);
 
-function torso() {
-  const pts = [[0, 0.0], [0.14, 0.02], [0.155, 0.12], [0.145, 0.24], [0.185, 0.42], [0.195, 0.48], [0.13, 0.54], [0.05, 0.57], [0, 0.575]]
-    .map(([r, y]) => new THREE.Vector2(r, y));
-  const g = new THREE.LatheGeometry(pts, 12);
-  g.scale(1, 1, 0.62);
-  return g;
-}
+const PALETTE = {
+  skin: ['#E7C2A4', '#D3A27F', '#B07D5B', '#8A5E42', '#F0D2BC'],
+  top: ['#DDE3EA', '#13223A', '#B4482A', '#8A97A8', '#2B3440', '#ECE6DA', '#5B6B82', '#C9A43A', '#3E5E8C', '#6E7F6A', '#F4F4F2'],
+  bottom: ['#2B3440', '#1B2230', '#4A5260', '#8C7F6B', '#3A4048', '#C9CFD6', '#253049'],
+  shoes: ['#1A1E24', '#EDEDED', '#4A3A2E', '#2B3440'],
+  hair: ['#17120E', '#3A2A1E', '#6B4A30', '#B89A72', '#2A2A2A'],
+};
 
-function clean(g) {
-  const n = g.index ? g.toNonIndexed() : g;
-  for (const k of Object.keys(n.attributes)) if (!['position', 'normal', 'uv'].includes(k)) n.deleteAttribute(k);
+function colored(g, hex) {
+  const n = g; // keep the index: far fewer vertices than a non-indexed copy
+  for (const k of Object.keys(n.attributes)) if (!['position', 'normal'].includes(k)) n.deleteAttribute(k);
+  const c = new THREE.Color(hex);
+  const count = n.attributes.position.count;
+  const col = new Float32Array(count * 3);
+  for (let i = 0; i < count; i++) { col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b; }
+  n.setAttribute('color', new THREE.BufferAttribute(col, 3));
+  n.setAttribute('uv', new THREE.BufferAttribute(new Float32Array(count * 2), 2));
   return n;
 }
 
-// pose: 'stand' | 'walk' | 'sit' | 'barsit' | 'lean'
-export function personGeometry(pose = 'stand', height = 1.75) {
-  const key = pose + height.toFixed(2);
-  if (cache.has(key)) return cache.get(key);
-  const k = height / 1.75;
-  const parts = [];
-  let hip = 0.95, sh = 1.43, lean = 0;
-  const seat = pose === 'sit' ? 0.46 : pose === 'barsit' ? 0.76 : 0;
-  if (seat) hip = seat + 0.08;
-  if (seat) sh = hip + 0.48;
-  // torso
-  const t = torso();
-  t.translate(0, hip - 0.02, 0);
-  if (pose === 'lean') { t.rotateX(0.05); lean = 0.03; }
-  parts.push(t);
-  // head + neck
-  const head = new THREE.SphereGeometry(0.105, 12, 10);
-  head.scale(0.92, 1.08, 1);
-  head.translate(0, sh + 0.2, lean);
-  parts.push(head);
-  parts.push(capsuleBetween(V(0, sh + 0.05, 0), V(0, sh + 0.12, lean), 0.045, 2, 6));
-  // legs
-  for (const side of [-1, 1]) {
-    const hx = side * 0.09;
-    if (seat) {
-      const knee = V(hx * 1.1, hip, 0.44);
-      const foot = pose === 'barsit' ? V(hx * 1.1, hip - 0.42, 0.52) : V(hx * 1.1, 0.06, 0.5);
-      parts.push(capsuleBetween(V(hx, hip, 0.02), knee, 0.075, 2, 8));
-      parts.push(capsuleBetween(knee, foot, 0.06, 2, 8));
-      parts.push(capsuleBetween(foot, V(foot.x, foot.y - 0.02, foot.z + 0.13), 0.045, 2, 6));
-    } else {
-      const swing = pose === 'walk' ? side * 0.32 : pose === 'lean' && side > 0 ? 0.12 : 0;
-      const foot = V(hx * 1.05, 0.06, Math.sin(swing) * 0.85);
-      const knee = V(hx, 0.5, Math.sin(swing) * 0.42 + (pose === 'walk' && side < 0 ? 0.04 : 0));
-      parts.push(capsuleBetween(V(hx, hip, 0), knee, 0.075, 2, 8));
-      parts.push(capsuleBetween(knee, foot, 0.06, 2, 8));
-      parts.push(capsuleBetween(foot, V(foot.x, 0.05, foot.z + 0.14), 0.045, 2, 6));
-    }
-  }
-  // arms
-  for (const side of [-1, 1]) {
-    const s0 = V(side * 0.2, sh - 0.04, 0);
-    let elbow, hand;
-    if (seat) {
-      elbow = V(side * 0.24, sh - 0.3, 0.12);
-      hand = V(side * 0.16, sh - 0.42, 0.38);
-    } else if (pose === 'walk') {
-      const sw = -side * 0.35;
-      elbow = V(side * 0.23, sh - 0.3, Math.sin(sw) * 0.3);
-      hand = V(side * 0.24, sh - 0.58, Math.sin(sw) * 0.55);
-    } else if (pose === 'lean' && side > 0) {
-      elbow = V(0.26, sh - 0.25, 0.18);
-      hand = V(0.12, sh - 0.12, 0.32);
-    } else {
-      elbow = V(side * 0.24, sh - 0.3, 0.02);
-      hand = V(side * 0.25, sh - 0.6, 0.05);
-    }
-    parts.push(capsuleBetween(s0, elbow, 0.05, 2, 6));
-    parts.push(capsuleBetween(elbow, hand, 0.042, 2, 6));
-  }
-  const g = mergeGeometries(parts.map(clean), false);
-  parts.forEach((p) => p.dispose());
-  g.scale(k, k, k);
-  g.computeBoundingSphere();
-  cache.set(key, g);
+// tapered limb between two points
+function limb(a, b, r0, r1, seg = 10) {
+  const d = V().subVectors(b, a);
+  const len = d.length();
+  const g = new THREE.CylinderGeometry(r1, r0, len, seg, 1, true);
+  g.translate(0, len / 2, 0);
+  g.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(UP, d.normalize()));
+  g.translate(a.x, a.y, a.z);
+  return g;
+}
+function ball(p, r, sx = 1, sy = 1, sz = 1, seg = 12) {
+  const g = new THREE.SphereGeometry(r, seg, Math.max(6, seg - 4));
+  g.scale(sx, sy, sz);
+  g.translate(p.x, p.y, p.z);
+  return g;
+}
+function lathe(points, y, sz = 0.62, seg = 16) {
+  const g = new THREE.LatheGeometry(points.map(([r, h]) => new THREE.Vector2(r, h)), seg);
+  g.scale(1, 1, sz);
+  g.translate(0, y, 0);
   return g;
 }
 
-export function addPerson(parent, material, { x = 0, z = 0, y = 0, rot = 0, pose = 'stand', h = 1.75 } = {}) {
-  const m = new THREE.Mesh(personGeometry(pose, h), material);
+/**
+ * pose: 'stand' | 'walk' | 'sit' | 'barsit' | 'lean'
+ * seed: picks clothing, skin, hair and build
+ */
+export function personGeometry(pose = 'stand', height = 1.75, seed = 1) {
+  const r = rng(Math.floor(seed * 9973) + 17);
+  const pick = (a) => a[Math.floor(r() * a.length)];
+  const skin = pick(PALETTE.skin), top = pick(PALETTE.top), bottom = pick(PALETTE.bottom);
+  const shoes = pick(PALETTE.shoes), hair = pick(PALETTE.hair);
+  const longHair = r() < 0.4, shortSleeve = r() < 0.35, dress = longHair && r() < 0.3;
+  const build = 0.92 + r() * 0.16; // shoulder width factor
+  const parts = [];
+  const add = (g, c) => parts.push(colored(g, c));
+
+  const seat = pose === 'sit' ? 0.46 : pose === 'barsit' ? 0.76 : 0;
+  const hip = seat ? seat + 0.09 : 0.94;
+  const sh = hip + 0.49; // shoulder height
+  const lean = pose === 'lean' ? 0.04 : 0;
+
+  // pelvis + chest
+  add(lathe([[0, 0], [0.135, 0.01], [0.15, 0.08], [0.145, 0.15], [0.0, 0.16]], hip - 0.06, 0.66), dress ? top : bottom);
+  add(lathe([[0, 0], [0.14, 0.0], [0.135, 0.1], [0.15 * build, 0.24], [0.18 * build, 0.36], [0.175 * build, 0.42], [0.12, 0.47], [0.05, 0.5], [0, 0.505]], hip + 0.06, 0.6), top);
+  if (dress) add(lathe([[0.15, 0], [0.2, -0.28], [0.21, -0.42], [0, -0.42]], hip + 0.06, 0.72), top);
+  // neck + head + hair
+  add(limb(V(0, sh + 0.02, lean), V(0, sh + 0.12, lean), 0.05, 0.045, 10), skin);
+  const hc = V(0, sh + 0.215, lean + 0.01);
+  add(ball(hc, 0.1, 0.86, 1.08, 0.98, 16), skin);
+  add(ball(V(0, hc.y - 0.06, hc.z + 0.03), 0.06, 1.05, 0.8, 1.0, 10), skin); // jaw
+  const capG = new THREE.SphereGeometry(0.106, 16, 8, 0, Math.PI * 2, 0, Math.PI * 0.52);
+  capG.scale(0.9, 1.08, 1.02); capG.rotateX(-0.25); capG.translate(hc.x, hc.y + 0.008, hc.z - 0.008);
+  if (r() < 0.9) add(capG, hair); else capG.dispose();
+  if (longHair) add(ball(V(0, hc.y - 0.07, hc.z - 0.06), 0.085, 1.15, 1.5, 0.7, 12), hair);
+
+  // legs
+  for (const side of [-1, 1]) {
+    const hx = side * 0.085;
+    const hipJ = V(hx, hip, 0);
+    let knee, ankle, toeDir;
+    if (seat) {
+      knee = V(hx * 1.12, hip + 0.01, 0.44);
+      ankle = pose === 'barsit' ? V(hx * 1.12, hip - 0.4, 0.5) : V(hx * 1.12, 0.09, 0.5);
+      toeDir = V(0, -0.15, 1);
+    } else {
+      const swing = pose === 'walk' ? side * 0.3 : pose === 'lean' && side > 0 ? 0.14 : 0;
+      knee = V(hx, 0.5, Math.sin(swing) * 0.42 + (pose === 'walk' && side < 0 ? 0.04 : 0));
+      ankle = V(hx * 1.04, 0.09, Math.sin(swing) * 0.82);
+      toeDir = V(0, 0, 1);
+    }
+    add(ball(hipJ, 0.078, 1, 1, 1, 10), dress ? skin : bottom);
+    add(limb(hipJ, knee, 0.078, 0.058), dress ? skin : bottom);
+    add(ball(knee, 0.058, 1, 1, 1, 10), dress ? skin : bottom);
+    add(limb(knee, ankle, 0.056, 0.042), dress ? skin : bottom);
+    // shoe: flattened capsule from heel to toe
+    const shoe = new THREE.CapsuleGeometry(0.045, 0.15, 3, 10);
+    shoe.rotateX(Math.PI / 2); shoe.scale(1, 0.75, 1);
+    const q = new THREE.Quaternion().setFromUnitVectors(V(0, 0, 1), toeDir.normalize());
+    shoe.applyQuaternion(q);
+    shoe.translate(ankle.x, ankle.y - 0.045, ankle.z + 0.07);
+    add(shoe, shoes);
+  }
+  // arms
+  for (const side of [-1, 1]) {
+    const s0 = V(side * 0.19 * build, sh - 0.05, lean * 0.5);
+    let elbow, wrist;
+    if (seat) { elbow = V(side * 0.23 * build, sh - 0.3, 0.1); wrist = V(side * 0.15, sh - 0.4, 0.36); }
+    else if (pose === 'walk') { const sw = -side * 0.35; elbow = V(side * 0.22 * build, sh - 0.3, Math.sin(sw) * 0.28); wrist = V(side * 0.23, sh - 0.56, Math.sin(sw) * 0.52); }
+    else if (pose === 'lean' && side > 0) { elbow = V(0.25, sh - 0.27, 0.16); wrist = V(0.12, sh - 0.1, 0.3); }
+    else { elbow = V(side * 0.235 * build, sh - 0.3, 0.02); wrist = V(side * 0.245, sh - 0.57, 0.06); }
+    add(ball(s0, 0.058, 1, 1, 1, 10), top);
+    add(limb(s0, elbow, 0.052, 0.044), top);
+    add(ball(elbow, 0.044, 1, 1, 1, 8), shortSleeve ? skin : top);
+    add(limb(elbow, wrist, 0.042, 0.033), shortSleeve ? skin : top);
+    const hd = V().subVectors(wrist, elbow).normalize();
+    const hand = new THREE.SphereGeometry(0.042, 10, 8);
+    hand.scale(0.62, 1.25, 0.42);
+    hand.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(UP, hd.clone().negate()));
+    hand.translate(wrist.x + hd.x * 0.045, wrist.y + hd.y * 0.045, wrist.z + hd.z * 0.045);
+    add(hand, skin);
+  }
+  const g = mergeGeometries(parts, false);
+  parts.forEach((p) => p.dispose());
+  const k = height / 1.75;
+  g.scale(k, k, k);
+  g.computeBoundingSphere();
+  return g;
+}
+
+let counter = 0;
+export function addPerson(parent, material, { x = 0, z = 0, y = 0, rot = 0, pose = 'stand', h = 1.75, seed } = {}) {
+  const m = new THREE.Mesh(personGeometry(pose, h, seed ?? (x * 13.1 + z * 7.7 + ++counter * 0.618)), material);
   m.position.set(x, y, z);
   m.rotation.y = rot;
   m.castShadow = true;
@@ -99,4 +149,4 @@ export function addPerson(parent, material, { x = 0, z = 0, y = 0, rot = 0, pose
   return m;
 }
 
-export function clearPeopleCache() { cache.forEach((g) => g.dispose()); cache.clear(); }
+export function clearPeopleCache() { counter = 0; }

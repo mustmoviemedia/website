@@ -332,6 +332,7 @@ export function mergeStatic(root) {
     while (p && p !== root) { if (p.userData.dynamic || p.userData.noMerge) skip = true; p = p.parent; }
     if (skip) return;
     if (Array.isArray(o.material)) return;
+    if (!o.material || !o.material.isMaterial) { console.warn('mergeStatic: mesh without a valid material skipped', o); return; }
     const layer = o.userData.layer || '';
     const key = `${o.material.uuid}|${o.castShadow ? 1 : 0}${o.receiveShadow ? 1 : 0}|${layer}|${o.renderOrder}`;
     if (!groups.has(key)) groups.set(key, []);

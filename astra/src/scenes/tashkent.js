@@ -14,6 +14,7 @@ import { addPerson, clearPeopleCache } from '../core/people.js';
 import { rng } from '../core/noise.js';
 import * as P from './props.js';
 import * as X from './fixtures.js';
+import * as CITY from './city.js';
 import { ZONES, FOUNDING_CREW } from '../config.js';
 
 // ---- module geometry (metres) ----
@@ -75,12 +76,7 @@ export async function buildTashkent({ renderer, quality, progress = () => {} }) 
   const curbMat = new THREE.MeshStandardMaterial({ name: 'curb', color: '#B9B3A8', roughness: 0.8 });
   const stoneMat = new THREE.MeshStandardMaterial({ name: 'stone', color: '#D3CABA', roughness: 0.75 });
   const paintMat = new THREE.MeshStandardMaterial({ name: 'road-paint', color: '#E9E6DE', roughness: 0.7, polygonOffset: true, polygonOffsetFactor: -1 });
-  const facade = T.facadeTextures({ cols: 9, rows: 5, bayW: 2.2, floorH: 3.2 });
-  const facadeMat = new THREE.MeshStandardMaterial({ name: 'facade', map: facade.map, emissiveMap: facade.emissiveMap, emissive: '#FFFFFF', roughness: 0.8 });
-  dn.prop(facadeMat, 'emissiveIntensity', 0, 1.25);
-  const shop = T.shopfrontTexture();
-  const shopMat = new THREE.MeshStandardMaterial({ name: 'shopfront', map: shop.map, emissiveMap: shop.emissiveMap, emissive: '#FFFFFF', roughness: 0.35, metalness: 0.2 });
-  dn.prop(shopMat, 'emissiveIntensity', 0.08, 0.55);
+  const facadeStone = new THREE.MeshStandardMaterial({ name: 'facade-stone', map: CITY.stoneTexture('#D6CDBD', 3), roughness: 0.82 });
   const groundMat = new THREE.MeshStandardMaterial({ name: 'ground', color: '#5E625F', roughness: 0.95 });
 
   // ================= MODULE FACADE =================
@@ -222,11 +218,9 @@ export async function buildTashkent({ renderer, quality, progress = () => {} }) 
   // fascia band above the module
   box(bld, BW * 2, 0.62, 0.38, stoneMat, 0, 4.6, -0.14).userData.layer = 'roof';
   // upper floors facade
-  const facadeMap = facade.map.clone(); facadeMap.repeat.set(2, 1); facadeMap.needsUpdate = true;
-  const facadeEm = facade.emissiveMap.clone(); facadeEm.repeat.set(2, 1); facadeEm.needsUpdate = true;
-  facadeMat.map = facadeMap; facadeMat.emissiveMap = facadeEm;
-  place(bld, new THREE.PlaneGeometry(BW * 2, 16), facadeMat, { p: [0, 4.9 + 8, 0.0], name: 'facade_upper' }).userData.layer = 'roof';
-  const body = box(bld, BW * 2, 16.6, 16, stoneMat, 0, 4.9 + 8.3, -8.02);
+  // upper floors: real window openings with reveals, frames and sills; some windows lit at night
+  bld.add(CITY.windowFacade(M, dn, { x0: -BW, x1: BW, y0: 4.9, rows: 5, floorH: 3.2, bayW: 2.2, z: 0, wallMat: facadeStone, seed: 21, litRatio: 0.38, layer: 'roof' }));
+  const body = box(bld, BW * 2, 16.6, 16, stoneMat, 0, 4.9 + 8.3, -8.34);
   body.userData.layer = 'roof';
   box(bld, BW * 2 + 0.4, 0.7, 0.5, stoneMat, 0, 21.25, -0.1).userData.layer = 'roof';
   // rooftop HVAC: condensing units + duct (visible from high orbit)
@@ -237,18 +231,16 @@ export async function buildTashkent({ renderer, quality, progress = () => {} }) 
   const rv = X.roofVent(M, 0.3); rv.position.set(-4.4, 21.5, -10); rv.traverse((o) => { o.userData.layer = 'roof'; }); bld.add(rv);
   // vertical fins every two bays
   for (let i = -9; i <= 9; i += 2) box(bld, 0.22, 16, 0.32, stoneMat, i * 2.2, 12.9, 0.12).userData.layer = 'roof';
-  // ground floor neighbours (shopfronts)
-  const shopMap = shop.map.clone(); shopMap.repeat.set(1, 1);
+  // ground floor neighbours: shopfronts with lit interiors and signage
   for (const sx of [-1, 1]) {
     const x0 = sx * HX, x1 = sx * BW;
     const w = Math.abs(x1 - x0);
-    const g = new THREE.PlaneGeometry(w, 4.3);
-    if (sx < 0) { const uv = g.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setX(i, uv.getX(i) * 0.98); }
-    place(bld, g, shopMat, { p: [(x0 + x1) / 2, 2.15, -0.02] });
+    const a = Math.min(sx * (HX + 0.55), sx * (BW - 0.5)), b = Math.max(sx * (HX + 0.55), sx * (BW - 0.5));
+    bld.add(CITY.shopfronts(M, dn, { x0: a, x1: b, z: 0, seed: sx > 0 ? 5 : 9 }));
     box(bld, 0.5, 4.3, 0.4, stoneMat, sx * (HX + 0.3), 2.15, -0.1);
     box(bld, 0.6, 4.3, 0.45, stoneMat, sx * (BW - 0.2), 2.15, -0.1);
     // ground-floor body behind the shops
-    box(bld, w, 4.3, 15.8, stoneMat, (x0 + x1) / 2, 2.15, -8.2);
+    box(bld, w, 4.3, 13.7, stoneMat, (x0 + x1) / 2, 2.15, -9.25);
   }
   // hall shell inside the building (walls/ceiling)
   progress(0.4);
@@ -518,7 +510,7 @@ export async function buildTashkent({ renderer, quality, progress = () => {} }) 
   scene.add(wcLight);
   // rest of the ground floor behind the hall (closed volume)
   box(bld, 4.9, 4.3, 3.9, stoneMat, -2.55, 2.15, -8.3);
-  box(bld, 2 * HX + 0.3, 4.3, 5.7, 0, 2.15, -13.2);
+  box(bld, 2 * HX + 0.3, 4.3, 5.7, stoneMat, 0, 2.15, -13.2);
   // collisions
   col.seg(0, WZ0, 0, WZB).seg(HX, BACK, HX, WZB).seg(0, WZB, HX, WZB).seg(2.65, WZF, 2.65, WZB);
   col.seg(0, WZF, 0.3, WZF).seg(1.2, WZF, 3.4, WZF).seg(4.2, WZF, HX, WZF);
@@ -609,7 +601,7 @@ export async function buildTashkent({ renderer, quality, progress = () => {} }) 
   // cars
   const carColors = [M.white, M.graphite, M.lunar, M.deep];
   for (const [x, z, ry, c] of [[-14, ROAD[0] + 1.6, 0, 0], [24, ROAD[0] + 1.6, 0, 1], [-30, ROAD[1] - 1.8, Math.PI, 2], [6, ROAD[1] - 5.2, Math.PI, 3]]) {
-    const car = makeCar(M, carColors[c]); car.position.set(x, -0.15, z); car.rotation.y = ry; st.add(car);
+    const car = CITY.makeCar(M, carColors[c]); car.position.set(x, -0.15, z); car.rotation.y = ry; st.add(car);
     col.box(x - 2.3, x + 2.3, z - 1.0, z + 1.0);
   }
   // neighbour buildings + Tashkent City skyline
@@ -792,23 +784,6 @@ function bench(M) {
   return g;
 }
 
-function makeCar(M, paint) {
-  const g = new THREE.Group();
-  const glass = M.screenOff;
-  place(g, roundedBox(4.4, 0.62, 1.78, 0.22), paint, { p: [0, 0.58, 0] });
-  place(g, roundedBox(2.4, 0.5, 1.56, 0.25), glass, { p: [-0.2, 1.1, 0] });
-  place(g, roundedBox(2.2, 0.06, 1.5, 0.2), paint, { p: [-0.2, 1.36, 0] });
-  for (const x of [-1.35, 1.35]) for (const zz of [-0.78, 0.78]) {
-    place(g, new THREE.CylinderGeometry(0.34, 0.34, 0.24, 18), M.rubber, { p: [x, 0.34, zz], r: [Math.PI / 2, 0, 0] });
-    place(g, new THREE.CylinderGeometry(0.2, 0.2, 0.25, 12), M.alu, { p: [x, 0.34, zz], r: [Math.PI / 2, 0, 0], cast: false });
-  }
-  for (const zz of [-0.6, 0.6]) {
-    place(g, new THREE.BoxGeometry(0.04, 0.08, 0.32), M.ledWhite, { p: [2.2, 0.72, zz], cast: false });
-    place(g, new THREE.BoxGeometry(0.04, 0.07, 0.36), M.ledRed, { p: [-2.2, 0.75, zz], cast: false });
-  }
-  return g;
-}
-
 function neighbours(parent, M, stoneMat, dn) {
   const defs = [
     { x0: -62, x1: -40.5, h: 18, tint: '#B8B2A6' },
@@ -817,16 +792,17 @@ function neighbours(parent, M, stoneMat, dn) {
     { x0: 41.5, x1: 62, h: 15, tint: '#CDC4B4' },
   ];
   for (const [i, d] of defs.entries()) {
-    const w = d.x1 - d.x0;
-    const ft = T.facadeTextures({ cols: 9, rows: 5, bayW: 2.2, floorH: 3.2, stone: d.tint, seed: 100 + i * 7, litRatio: 0.3 });
-    ft.map.repeat.set(w / 19.8, (d.h - 4.4) / 16);
-    ft.emissiveMap.repeat.set(w / 19.8, (d.h - 4.4) / 16);
-    const fm = new THREE.MeshStandardMaterial({ name: 'facade-' + i, map: ft.map, emissiveMap: ft.emissiveMap, emissive: '#fff', roughness: 0.8 });
-    dn.prop(fm, 'emissiveIntensity', 0, 1.2);
-    place(parent, new THREE.PlaneGeometry(w, d.h - 4.4), fm, { p: [(d.x0 + d.x1) / 2, 4.4 + (d.h - 4.4) / 2, -0.4] });
-    box(parent, w, d.h, 16, stoneMat, (d.x0 + d.x1) / 2, d.h / 2, -8.45);
-    const sm = new THREE.MeshStandardMaterial({ name: 'shops-' + i, color: '#1D232B', roughness: 0.3, metalness: 0.3 });
-    place(parent, new THREE.PlaneGeometry(w - 1, 3.6), sm, { p: [(d.x0 + d.x1) / 2, 1.9, -0.39] });
+    const w = d.x1 - d.x0, cx = (d.x0 + d.x1) / 2;
+    const rows = Math.floor((d.h - 4.6) / 3.2);
+    const top = 4.6 + rows * 3.2;
+    const wm = new THREE.MeshStandardMaterial({ name: 'facade-stone-' + i, map: CITY.stoneTexture(d.tint, 40 + i), roughness: 0.82 });
+    parent.add(CITY.windowFacade(M, dn, { x0: d.x0, x1: d.x1, y0: 4.6, rows, floorH: 3.2, bayW: i % 2 ? 2.4 : 2.1, z: -0.4, wallMat: wm, seed: 100 + i * 7, litRatio: 0.3, winW: i % 2 ? 1.5 : 1.2, winH: i === 2 ? 2.2 : 1.8, sillH: i === 2 ? 0.5 : 0.75 }));
+    const tbox = (bw, bh, bd, x, y, z) => { const g = new THREE.BoxGeometry(bw, bh, bd); boxUV(g); return place(parent, g, wm, { p: [x, y, z] }); };
+    tbox(w, d.h - top + 0.05, 0.3, cx, top + (d.h - top) / 2, -0.55);
+    tbox(w, 0.55, 0.5, cx, 4.3, -0.4);
+    box(parent, w, d.h - 4.3, 16, stoneMat, cx, 4.3 + (d.h - 4.3) / 2, -8.7);
+    box(parent, w, 4.3, 13.5, stoneMat, cx, 2.15, -9.9);
+    parent.add(CITY.shopfronts(M, dn, { x0: d.x0 + 0.3, x1: d.x1 - 0.3, z: -0.4, seed: 30 + i * 3 }));
   }
 }
 
@@ -837,13 +813,14 @@ function skyline(parent, dn) {
     [-120, 190, 30, 30, 120], [-70, 160, 26, 26, 96], [-25, 210, 34, 34, 150], [25, 175, 28, 28, 110],
     [70, 200, 30, 30, 132], [115, 165, 24, 24, 80], [-160, 230, 30, 30, 70], [160, 240, 30, 30, 88], [0, 260, 40, 40, 62],
   ];
+  // one shared material for the whole skyline; tiling is baked into each tower's UVs
+  const m = new THREE.MeshStandardMaterial({ name: 'tower', map: tex.map, emissiveMap: tex.emissiveMap, emissive: '#fff', roughness: 0.25, metalness: 0.6 });
+  dn.prop(m, 'emissiveIntensity', 0, 1.4);
   for (const [x, z, w, d, h] of defs) {
-    const m = new THREE.MeshStandardMaterial({ name: 'tower', map: tex.map.clone(), emissiveMap: tex.emissiveMap.clone(), emissive: '#fff', roughness: 0.25, metalness: 0.6 });
-    m.map.repeat.set(w / 24, h / 48); m.emissiveMap.repeat.set(w / 24, h / 48);
-    m.map.needsUpdate = m.emissiveMap.needsUpdate = true;
-    dn.prop(m, 'emissiveIntensity', 0, 1.4);
     const round = r() < 0.25;
     const geo = round ? new THREE.CylinderGeometry(w / 2, w / 2, h, 24) : new THREE.BoxGeometry(w, h, d);
+    const uv = geo.attributes.uv;
+    for (let k = 0; k < uv.count; k++) uv.setXY(k, uv.getX(k) * (round ? (Math.PI * w) / 24 : w / 24), uv.getY(k) * (h / 48));
     place(parent, geo, m, { p: [x, h / 2, z], r: [0, r() * 0.6, 0], cast: false, receive: false });
   }
 }

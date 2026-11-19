@@ -135,6 +135,37 @@ export function panelTextures({ size = 512, seed = 3 } = {}) {
   };
 }
 
+// Interior wall panels (ISS rack look): large 1.2 × 0.8 m panels with soft recessed seams,
+// corner fasteners and a faint satin variation. Texture covers 2.4 × 2.4 m.
+export function interiorPanelTextures({ size = 1024, seed = 13 } = {}) {
+  const w = size, h = size;
+  const n = createNoise2D(seed);
+  const r = rng(seed);
+  const ppm = w / 2.4;
+  const tints = Array.from({ length: 12 }, () => 0.965 + r() * 0.035);
+  const PW = 1.2, PH = 0.8;
+  const { canvas, hf } = pixelTexture(w, h, (x, y, o) => {
+    const mx = x / ppm, my = y / ppm;
+    const ix = Math.floor(mx / PW), iy = Math.floor(my / PH);
+    const fx = mx - ix * PW, fy = my - iy * PH;
+    const ex = Math.min(fx, PW - fx) * ppm, ey = Math.min(fy, PH - fy) * ppm;
+    const e = Math.min(ex, ey);
+    let hgt = 0.62, shade = tints[(ix * 5 + iy * 7) % 12];
+    const sw = ppm * 0.012;
+    if (e < sw) { const f = e / sw; hgt = 0.2 + 0.42 * f * f; shade *= 0.8 + 0.2 * f; }
+    else if (e < sw * 2.2) { hgt = 0.62 + 0.05 * (1 - (e - sw) / (sw * 1.2)); }
+    // fasteners near panel corners
+    const cx = Math.min(fx, PW - fx), cy = Math.min(fy, PH - fy);
+    const dd = Math.hypot(cx - 0.05, cy - 0.05) * ppm;
+    if (dd < ppm * 0.009) { hgt = 0.7; shade *= 0.9; }
+    const g = n(x * 0.006, y * 0.006) * 0.012 + n(x * 0.2, y * 0.2) * 0.004;
+    const v = 238 * (shade + g);
+    o[0] = v; o[1] = v + 1; o[2] = v + 3;
+    o[3] = hgt + g * 2;
+  });
+  return { map: toTexture(canvas), normalMap: toTexture(normalCanvasFromHeight(hf, w, h, 2.4), { srgb: false }), meters: 2.4 };
+}
+
 // Triangular panel texture for the geodesic dome: seams at triangle edges (uv: (0,0),(1,0),(0.5,1))
 export function triPanelTextures(size = 256) {
   const w = size, h = size;

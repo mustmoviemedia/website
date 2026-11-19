@@ -690,6 +690,18 @@ export async function buildAstroCity({ renderer, quality, progress = () => {} })
   gate.position.set(gx, gy(gx, gz) - 0.2, gz); env.add(gate);
   // rocks
   env.add(rocks(M, gy, edgeZ, quality));
+  // tyre tracks along the graded road (decal ribbon following the terrain)
+  fx.add(tyreTracks(terrainFn, gy));
+  // LED bollards along the approach + light pools
+  const bollardPool = lightPoolMaterial(dn, '#FFB46B', 0, 0.45);
+  for (const z of [19.0, 21.6, 24.2, 26.8]) for (const sx of [-1, 1]) {
+    const x = terrainFn.roadX(z) + sx * 2.3, y = gy(x, z);
+    place(env, new THREE.CylinderGeometry(0.075, 0.09, 0.72, 14), M.aluDark, { p: [x, y + 0.36, z] });
+    place(env, new THREE.CylinderGeometry(0.078, 0.078, 0.08, 14), M.ledWarm, { p: [x, y + 0.66, z], cast: false });
+    place(env, new THREE.CylinderGeometry(0.09, 0.09, 0.02, 14), M.aluDark, { p: [x, y + 0.72, z] });
+    place(fx, new THREE.PlaneGeometry(2.4, 2.4), bollardPool, { p: [x, y + 0.03, z], r: [-Math.PI / 2, 0, 0], cast: false, receive: false });
+    col.circle(x, z, 0.12);
+  }
   progress(0.8);
 
   // ================= PEOPLE =================
@@ -844,6 +856,44 @@ export async function buildAstroCity({ renderer, quality, progress = () => {} })
 }
 
 // ---------------- helpers ----------------
+function tyreTracks(terrainFn, gy) {
+  const c = T.makeCanvas(128, 512), ctx = c.getContext('2d');
+  ctx.clearRect(0, 0, 128, 512);
+  for (const cx of [26, 102]) {
+    const g = ctx.createLinearGradient(cx - 14, 0, cx + 14, 0);
+    g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(0.3, 'rgba(255,255,255,0.75)'); g.addColorStop(0.7, 'rgba(255,255,255,0.75)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = g; ctx.fillRect(cx - 14, 0, 28, 512);
+    ctx.fillStyle = 'rgba(0,0,0,0.55)';
+    for (let y = 0; y < 512; y += 12) ctx.fillRect(cx - 10, y, 20, 4); // tread
+  }
+  const tex = T.toTexture(c, { srgb: false });
+  const mat = new THREE.MeshStandardMaterial({ name: 'tyre-tracks', color: '#5A3324', alphaMap: tex, transparent: true, opacity: 0.55, depthWrite: false, roughness: 1, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+  const pos = [], uv = [], idx = [];
+  const W = 1.1;
+  let n = 0;
+  for (let z = 17.2; z <= 170; z += 1.5) {
+    const x = terrainFn.roadX(z);
+    const dx = (terrainFn.roadX(z + 0.5) - terrainFn.roadX(z - 0.5));
+    const nx = 1 / Math.hypot(1, dx), nz = -dx * nx;
+    for (const sd of [-1, 1]) {
+      const px = x + sd * W * nx, pz = z + sd * W * nz;
+      pos.push(px, gy(px, pz) + 0.02, pz);
+      uv.push(sd < 0 ? 0 : 1, (z - 17.2) / 6);
+    }
+    if (n > 0) { const b = n * 2; idx.push(b - 2, b, b - 1, b - 1, b, b + 1); }
+    n++;
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+  g.setIndex(idx);
+  g.computeVertexNormals();
+  const m = new THREE.Mesh(g, mat);
+  m.name = 'tyre_tracks';
+  m.receiveShadow = true;
+  return m;
+}
+
 function mergeList(list) {
   const pos = [], nor = [], uv = [], idx = [];
   let off = 0;

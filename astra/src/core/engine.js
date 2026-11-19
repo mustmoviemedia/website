@@ -4,6 +4,7 @@ import {
   EffectComposer, RenderPass, EffectPass, BloomEffect, ToneMappingEffect, ToneMappingMode,
   VignetteEffect, SMAAEffect, SMAAPreset, BrightnessContrastEffect,
 } from 'postprocessing';
+import { N8AOPostPass } from 'n8ao';
 import { setMaxAnisotropy } from './textures.js';
 
 export function detectQuality() {
@@ -20,9 +21,9 @@ export function detectQuality() {
   if (forced === 'low' || forced === 'mid' || forced === 'high') tier = forced;
   const dpr = window.devicePixelRatio || 1;
   const Q = {
-    high: { maxDpr: Math.min(dpr, 2), minDpr: 0.85, shadow: 2048, msaa: 4, smaa: false, bloomScale: 0.5, foliage: 1 },
-    mid: { maxDpr: Math.min(dpr, 1.6), minDpr: 0.8, shadow: 1024, msaa: 0, smaa: true, bloomScale: 0.4, foliage: 0.7 },
-    low: { maxDpr: Math.min(dpr, 1.25), minDpr: 0.65, shadow: 1024, msaa: 0, smaa: false, bloomScale: 0.35, foliage: 0.5 },
+    high: { maxDpr: Math.min(dpr, 2), minDpr: 0.85, shadow: 2048, msaa: 4, smaa: false, bloomScale: 0.5, foliage: 1, ao: 'Medium' },
+    mid: { maxDpr: Math.min(dpr, 1.6), minDpr: 0.8, shadow: 1024, msaa: 0, smaa: true, bloomScale: 0.4, foliage: 0.7, ao: 'Performance' },
+    low: { maxDpr: Math.min(dpr, 1.25), minDpr: 0.65, shadow: 1024, msaa: 0, smaa: false, bloomScale: 0.35, foliage: 0.5, ao: null },
   }[tier];
   return { tier, mobile, touch, ...Q };
 }
@@ -55,6 +56,23 @@ export class Engine {
     this.tone = new ToneMappingEffect({ mode: ToneMappingMode.AGX });
     this.vignette = new VignetteEffect({ darkness: 0.42, offset: 0.32 });
     this.grade = new BrightnessContrastEffect({ brightness: 0.0, contrast: 0.06 });
+    // ambient occlusion (soft contact shading in corners and under furniture), half resolution
+    if (quality.ao && new URLSearchParams(location.search).get('ao') !== '0') {
+      this.ao = new N8AOPostPass(new THREE.Scene(), this.camera, 512, 512);
+      this.ao.configuration.transparencyAware = false;
+      this.ao.configuration.gammaCorrection = false;
+      this.ao.configuration.halfRes = true;
+      this.ao.configuration.aoRadius = 0.85;
+      this.ao.configuration.distanceFalloff = 1.0;
+      this.ao.configuration.intensity = 2.4;
+      this.ao.setQualityMode(quality.ao);
+      // n8ao 2.0.1 overrides RenderTarget.texture with the textures array, which three r187 no
+      // longer accepts (crash in setupRenderTarget). Restore the base getter — the same change
+      // n8ao made upstream in 2.1.0.
+      const mrt = this.ao.depthDownsampleTarget;
+      if (mrt) { const proto = Object.getPrototypeOf(mrt); const d = Object.getOwnPropertyDescriptor(proto, 'texture'); if (d && d.get) delete proto.texture; }
+      composer.addPass(this.ao);
+    }
     const effects = [this.bloom, this.tone, this.grade, this.vignette];
     composer.addPass(new EffectPass(this.camera, ...effects));
     if (quality.smaa) composer.addPass(new EffectPass(this.camera, new SMAAEffect({ preset: SMAAPreset.MEDIUM })));
@@ -81,6 +99,7 @@ export class Engine {
     this.scene = scene;
     this.renderPass.mainScene = scene;
     this.renderPass.scene = scene;
+    if (this.ao) this.ao.scene = scene;
     this.composer.passes.forEach((p) => { if (p.mainScene !== undefined) p.mainScene = scene; });
     this.renderer.shadowMap.needsUpdate = true;
   }

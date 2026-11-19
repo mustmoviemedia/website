@@ -13,6 +13,7 @@ import { Colliders } from '../core/controls.js';
 import { addPerson, clearPeopleCache } from '../core/people.js';
 import { createNoise2D, fbm, ridged, rng, smoothstep, clamp } from '../core/noise.js';
 import * as P from './props.js';
+import * as X from './fixtures.js';
 import { ZONES } from '../config.js';
 
 const DR = 5.65; // dome radius (Ø 11.3 m)
@@ -20,6 +21,7 @@ const DRUM_H = 2.6;
 const CORR_W = 2.2, CORR_H = 2.5, CORR_Z0 = 5.3, CORR_Z1 = 17.5;
 const TER = { x0: -6.6, x1: 6.6, z0: -12.6, z1: -4.2 };
 const CIRC = Math.PI * 2 * DR;
+const SM_Z = 12.0; // service module (restrooms) axis
 
 const SKY = {
   sunDir: new THREE.Vector3(0.34, 0.12, -0.93),
@@ -368,6 +370,11 @@ export async function buildAstroCity({ renderer, quality, progress = () => {} })
   // central back bar + column
   place(bar, new THREE.CylinderGeometry(0.7, 0.72, 0.92, 48), M.graphiteIn, { p: [0, 0.46, 0] });
   place(bar, new THREE.CylinderGeometry(0.74, 0.74, 0.04, 48), M.steel, { p: [0, 0.94, 0] });
+  const isink = X.counterSink(M, 0.34, 0.28); isink.position.set(Math.sin(3.15) * 0.46, 0.96, Math.cos(3.15) * 0.46); isink.rotation.y = 3.15; bar.add(isink);
+  for (const deg of [150, 210]) {
+    const a = (deg * Math.PI) / 180;
+    const fd = X.fridgeTall(M, { w: 0.6, h: 0.86, d: 0.04, doors: 1 }); fd.position.set(Math.sin(a) * 1.13, 0, Math.cos(a) * 1.13); fd.rotation.y = a + Math.PI; bar.add(fd);
+  }
   for (const a of [0.0, 2.1, 4.2]) {
     const cm = P.coffeeMachine(M);
     cm.scale.setScalar(0.85);
@@ -458,10 +465,27 @@ export async function buildAstroCity({ renderer, quality, progress = () => {} })
   ml.position.set(Math.sin(mA) * 5.5, 2.15, Math.cos(mA) * 5.5); ml.rotation.y = mA + Math.PI; mg.add(ml);
   col.circle(Math.sin(mA) * 5.12, Math.cos(mA) * 5.12, 0.85);
 
+  // ---- tall glass beverage fridge by the wall ----
+  const bfA = -(40 * Math.PI) / 180;
+  const bf = X.glassFridge(M, { w: 0.72, h: 1.95, d: 0.62, shelves: 4, label: true });
+  bf.position.set(Math.sin(bfA) * (DR - 0.36), 0, Math.cos(bfA) * (DR - 0.36)); bf.rotation.y = bfA + Math.PI; inn.add(bf);
+  col.circle(bf.position.x, bf.position.z, 0.5);
+  // ---- ventilation: long-throw jet nozzles under the ring beam, exit sign at the terrace door ----
+  for (const deg of [30, 70, 110, 250, 290, 330]) {
+    const a = (deg * Math.PI) / 180;
+    const nz = X.jetNozzle(M); nz.position.set(Math.sin(a) * (DR - 0.22), DRUM_H - 0.22, Math.cos(a) * (DR - 0.22)); nz.rotation.set(0.28, a + Math.PI, 0, 'YXZ'); inn.add(nz);
+  }
+  const ex2 = X.exitSign(M, dn); ex2.position.set(0, DRUM_H - 0.12, -DR + 0.16); inn.add(ex2);
+  const clock = X.missionClock(M, dn, { w: 0.9, h: 0.225, place: 'USTYURT' }); clock.position.set(0, 2.5, -0.85); td.add(clock);
+  const ahu = X.hvacUnit(M, { w: 2.2, h: 1.25, d: 1.2, fans: 2, label: 'AHU · DOME' });
+  ahu.position.set(-7.9, 0, 1.5); ahu.rotation.y = -Math.PI / 2; world.add(ahu);
+  world.add(X.duct(M, V(-7.3, 0.8, 1.5), V(-5.35, 0.8, 1.5), 0.42));
+  world.add(X.duct(M, V(-7.3, 0.8, 0.6), V(-5.55, 0.8, 0.6), 0.3));
+  col.box(-8.6, -7.2, 0.3, 2.7);
+
   // interior lights
   const lc = new THREE.PointLight('#FFC690', 16, 14, 2); lc.position.set(0, 4.4, 0);
   const le = new THREE.PointLight('#FFE0BC', 7, 9, 2); le.position.set(0, 2.9, 3.4);
-  if (quality.pointShadows) { lc.castShadow = true; lc.shadow.mapSize.set(512, 512); lc.shadow.bias = -0.002; lc.shadow.radius = 4; lc.shadow.camera.near = 0.3; }
   scene.add(lc, le);
   dn.prop(lc, 'intensity', 14, 18);
   dn.prop(le, 'intensity', 6, 8);
@@ -483,6 +507,7 @@ export async function buildAstroCity({ renderer, quality, progress = () => {} })
     tile: (i, j) => {
       const c = (csE[i] + csE[i + 1]) / 2;
       const isP = cports.some((p) => Math.abs(p - c) < 0.01);
+      if (isP && Math.abs(c - SM_Z) < 0.01 && (j === 3 || j === 4)) return 'empty'; // door to the service module
       return isP && (j === 1 || j === 3) ? { hole: 0.3 } : 'solid';
     },
   });
@@ -492,6 +517,7 @@ export async function buildAstroCity({ renderer, quality, progress = () => {} })
   for (const sx of [-1, 1]) {
     place(cor, new THREE.BoxGeometry(0.16, 0.16, CORR_Z1 - CORR_Z0), M.aluDark, { p: [sx * (CORR_W / 2 + 0.06), 0.08, (CORR_Z0 + CORR_Z1) / 2] });
     for (const z of cports) {
+      if (sx > 0 && Math.abs(z - SM_Z) < 0.01) continue;
       const a = profileAt(smp, sx < 0 ? 1.5 : L - 1.5);
       const fr = P.portholeFrame(M, 0.3, { flange: 0.1, depth: 0.08 });
       fr.position.set(a.a, a.b, z); fr.rotation.y = sx * Math.PI / 2; cor.add(fr);
@@ -524,8 +550,71 @@ export async function buildAstroCity({ renderer, quality, progress = () => {} })
   }
   const entryLight = new THREE.PointLight('#FFC58A', 0, 10, 2); entryLight.position.set(0, 2.6, CORR_Z1 + 1.2);
   scene.add(entryLight); dn.prop(entryLight, 'intensity', 0, 6);
-  col.seg(-CORR_W / 2 + 0.05, DR - 0.6, -CORR_W / 2 + 0.05, CORR_Z1 + 0.25).seg(CORR_W / 2 - 0.05, DR - 0.6, CORR_W / 2 - 0.05, CORR_Z1 + 0.25);
-  col.seg(-CORR_W / 2 - 0.2, DR, -CORR_W / 2 - 0.2, CORR_Z1 + 0.25).seg(CORR_W / 2 + 0.2, DR, CORR_W / 2 + 0.2, CORR_Z1 + 0.25);
+  col.seg(-CORR_W / 2 + 0.05, DR - 0.6, -CORR_W / 2 + 0.05, CORR_Z1 + 0.25);
+  col.seg(CORR_W / 2 - 0.05, DR - 0.6, CORR_W / 2 - 0.05, SM_Z - 0.45).seg(CORR_W / 2 - 0.05, SM_Z + 0.45, CORR_W / 2 - 0.05, CORR_Z1 + 0.25);
+  col.seg(-CORR_W / 2 - 0.2, DR, -CORR_W / 2 - 0.2, CORR_Z1 + 0.25);
+  col.seg(CORR_W / 2 + 0.2, DR, CORR_W / 2 + 0.2, SM_Z - 1.1).seg(CORR_W / 2 + 0.2, SM_Z + 1.1, CORR_W / 2 + 0.2, CORR_Z1 + 0.25);
+
+  // ================= SERVICE MODULE: restrooms (side node off the corridor) =================
+  const sm = new THREE.Group(); sm.name = 'service_module_restrooms'; world.add(sm);
+  const SM_W = 2.1, SM_H = 2.35, SX0 = 0.85, SX1 = 5.35, SP = 2.45;
+  const sProf = hatchProfile(SM_W, SM_H, 0.55, 8);
+  const sSmp = profileSampler(sProf);
+  const toX = (g) => { g.rotateY(Math.PI / 2); g.translate(0, 0, SM_Z); return g; };
+  place(sm, toX(tileSurface({ sEdges: [SX0, SX1], tEdges: [0, sSmp.length], maxSeg: 0.3, map: corridorMapping(sSmp), tile: () => 'solid' })), compDS, { name: 'service_module_tube' });
+  const capS = new THREE.Shape(sProf.map(([a, b]) => new THREE.Vector2(a, b)));
+  place(sm, toX(new THREE.ShapeGeometry(capS, 8)), compDS, { p: [SX1, 0, 0] });
+  place(sm, toX(uFrame(hatchProfile(2.5, 2.62, 0.6, 10), sProf, 0.22)), compDS, { p: [1.32, 0, 0] });
+  place(sm, toX(uFrame(hatchProfile(2.28, 2.5, 0.62, 10), sProf, 0.14)), M.alu, { p: [3.4, 0, 0] });
+  place(sm, toX(uFrame(hatchProfile(2.28, 2.5, 0.62, 10), sProf, 0.14)), M.alu, { p: [SX1 - 0.07, 0, 0] });
+  const smFloor = new THREE.BoxGeometry(SX1 - 1.0, 0.1, SM_W); boxUV(smFloor);
+  place(sm, smFloor, M.floor, { p: [(1.0 + SX1) / 2, -0.04, SM_Z] });
+  for (const sz of [-1, 1]) place(sm, new THREE.BoxGeometry(SX1 - 1.3, 0.16, 0.16), M.aluDark, { p: [(1.3 + SX1) / 2, 0.08, SM_Z + sz * (SM_W / 2 + 0.06)] });
+  place(sm, new THREE.BoxGeometry(SX1 - 1.5, 0.02, 0.06), M.ledOrange, { p: [(1.5 + SX1) / 2, SM_H + 0.005, SM_Z], cast: false });
+  const smv = X.roofVent(M, 0.2); smv.position.set(4.3, SM_H - 0.05, SM_Z); sm.add(smv);
+  // door trim in the corridor wall
+  for (const z of [SM_Z - 0.45, SM_Z + 0.45]) place(sm, new THREE.BoxGeometry(0.12, 1.95, 0.05), M.alu, { p: [CORR_W / 2, 0.975, z] });
+  place(sm, new THREE.BoxGeometry(0.12, 0.05, 0.95), M.alu, { p: [CORR_W / 2 - 0.02, 1.95, SM_Z] });
+  // vestibule: two washbasins with porthole mirrors
+  const v1 = X.washbasin(M, { w: 0.58, d: 0.44 }); v1.position.set(1.85, 0, SM_Z - SM_W / 2); sm.add(v1);
+  const v2 = X.washbasin(M, { w: 0.58, d: 0.44 }); v2.position.set(1.85, 0, SM_Z + SM_W / 2); v2.rotation.y = Math.PI; sm.add(v2);
+  // partition with two WC doors
+  const pS = new THREE.Shape();
+  sProf.forEach(([a, b], i) => (i ? pS.lineTo(a, b) : pS.moveTo(a, b)));
+  for (const [a, b] of [[0.9, 0], [0.9, 1.95], [0.15, 1.95], [0.15, 0], [-0.15, 0], [-0.15, 1.95], [-0.9, 1.95], [-0.9, 0]]) pS.lineTo(a, b);
+  pS.closePath();
+  const part = new THREE.ExtrudeGeometry(pS, { depth: 0.08, bevelEnabled: false });
+  part.translate(0, 0, -0.04);
+  place(sm, toX(part), M.whiteIn, { p: [SP, 0, 0] });
+  place(sm, new THREE.BoxGeometry(SX1 - SP - 0.05, SM_H - 0.04, 0.08), M.whiteIn, { p: [(SP + SX1) / 2, (SM_H - 0.04) / 2, SM_Z] });
+  const da = X.doorLeaf(M, 0.72, 1.92); da.position.set(SP + 0.02, 0, SM_Z - 0.9); da.rotation.y = -Math.PI / 2 + 1.25; sm.add(da);
+  const db = X.doorLeaf(M, 0.72, 1.92); db.position.set(SP + 0.02, 0, SM_Z + 0.9); db.rotation.y = Math.PI / 2 - 1.25; sm.add(db);
+  const sa = X.wcSign(M, dn, { title: 'WC A', icons: ['m', 'f', 'w'] }, 0.6); sa.position.set(SP - 0.05, 2.1, SM_Z - 0.52); sa.rotation.y = -Math.PI / 2; sm.add(sa);
+  const sb = X.wcSign(M, dn, { title: 'WC B', icons: ['m', 'f'] }, 0.6); sb.position.set(SP - 0.05, 2.1, SM_Z + 0.52); sb.rotation.y = -Math.PI / 2; sm.add(sb);
+  // WC cubicles: toilets on the end cap, paper holders, exhaust valves, lights
+  for (const sz of [-1, 1]) {
+    const z = SM_Z + sz * 0.53;
+    const tl = X.toilet(M); tl.position.set(SX1 - 0.02, 0, z); tl.rotation.y = -Math.PI / 2; sm.add(tl);
+    const ph = X.paperHolder(M); ph.position.set(4.55, 0, SM_Z + sz * 0.04); ph.rotation.y = sz > 0 ? 0 : Math.PI; sm.add(ph);
+    const ev = X.exhaustValve(M, 0.08); ev.position.set(3.9, SM_H, z); sm.add(ev);
+    place(sm, new THREE.BoxGeometry(0.9, 0.012, 0.3), M.ledWhite, { p: [3.4, SM_H - 0.006, z], cast: false });
+  }
+  place(sm, new THREE.BoxGeometry(1.0, 0.012, 0.4), M.ledWhite, { p: [1.8, SM_H - 0.006, SM_Z], cast: false });
+  const ev0 = X.exhaustValve(M, 0.1); ev0.position.set(2.15, SM_H, SM_Z); sm.add(ev0);
+  // wayfinding + safety in the corridor
+  const wf = X.wcSign(M, dn, { title: 'RESTROOMS', icons: ['m', 'f', 'w'], both: true }, 0.8); wf.position.set(0.25, 2.14, SM_Z - 1.0); sm.add(wf);
+  place(sm, new THREE.BoxGeometry(0.01, 0.25, 0.01), M.alu, { p: [0.25, 2.37, SM_Z - 1.0], cast: false });
+  const ex1 = X.exitSign(M, dn); ex1.position.set(0, 2.2, 6.4); sm.add(ex1);
+  const ext = X.extinguisher(M); ext.position.set(-CORR_W / 2, 0, 6.7); ext.rotation.y = Math.PI / 2; sm.add(ext);
+  // HVAC unit for the module + duct into the end cap
+  const hu = X.hvacUnit(M, { w: 1.6, h: 1.05, d: 0.95, fans: 2, label: 'HVAC · WC' }); hu.position.set(6.45, 0, SM_Z); hu.rotation.y = Math.PI / 2; sm.add(hu);
+  sm.add(X.duct(M, V(5.97, 0.85, SM_Z), V(SX1, 0.85, SM_Z), 0.32));
+  // collisions
+  col.seg(1.1, SM_Z - SM_W / 2 + 0.03, SX1, SM_Z - SM_W / 2 + 0.03).seg(1.1, SM_Z + SM_W / 2 - 0.03, SX1, SM_Z + SM_W / 2 - 0.03).seg(SX1 - 0.02, SM_Z - 1.05, SX1 - 0.02, SM_Z + 1.05);
+  col.seg(SP, SM_Z - 1.05, SP, SM_Z - 0.9).seg(SP, SM_Z - 0.15, SP, SM_Z + 0.15).seg(SP, SM_Z + 0.9, SP, SM_Z + 1.05).seg(SP, SM_Z, SX1, SM_Z);
+  col.box(4.65, SX1, SM_Z - 0.85, SM_Z - 0.2).box(4.65, SX1, SM_Z + 0.2, SM_Z + 0.85);
+  col.box(1.55, 2.15, SM_Z - 1.05, SM_Z - 0.6).box(1.55, 2.15, SM_Z + 0.6, SM_Z + 1.05);
+  col.box(5.95, 6.95, SM_Z - 0.85, SM_Z + 0.85);
   progress(0.62);
 
   // ================= TERRACE =================
@@ -662,6 +751,8 @@ export async function buildAstroCity({ renderer, quality, progress = () => {} })
     { id: 'merch', pos: [Math.sin(mA) * 4.9, 2.0, Math.cos(mA) * 4.9], zone: 'in', ...Z.merch },
     { id: 'tourdesk', pos: [td.position.x, 1.55, td.position.z], zone: 'in', ...Z.tourdesk },
     { id: 'hall', pos: [-3.0, 1.5, -1.6], zone: 'in', ...Z.hall },
+    { id: 'restrooms', pos: [1.0, 2.2, SM_Z], zone: 'in', ...Z.restrooms },
+    { id: 'hvac', pos: [-7.9, 2.3, 1.5], zone: 'out', ...Z.hvac },
   ];
   const tour = [
     { pos: [30, 15, 44], look: [0, 3, 0], hold: 1.6, move: 3.0, title: 'STATION 02 · ASTRO CITY', text: 'Плато Устюрт, Каракалпакстан: купол у обрыва чинка.' },
@@ -685,6 +776,9 @@ export async function buildAstroCity({ renderer, quality, progress = () => {} })
       const r = (x0, z0, x1, z1, fill, stroke) => { const a = S(x0, z0), b = S(x1, z1); const x = Math.min(a[0], b[0]), y = Math.min(a[1], b[1]), w = Math.abs(b[0] - a[0]), h = Math.abs(b[1] - a[1]); if (fill) { ctx.fillStyle = fill; ctx.fillRect(x, y, w, h); } if (stroke) { ctx.strokeStyle = stroke; ctx.strokeRect(x, y, w, h); } };
       r(-CORR_W / 2, DR - 0.3, CORR_W / 2, CORR_Z1, null, 'rgba(221,227,234,0.85)');
       r(TER.x0, TER.z0, TER.x1, -DR + 0.3, 'rgba(242,194,48,0.12)', 'rgba(242,194,48,0.6)');
+      r(1.1, SM_Z - 1.05, 5.35, SM_Z + 1.05, 'rgba(111,168,255,0.16)', 'rgba(221,227,234,0.85)');
+      ctx.beginPath(); ctx.moveTo(...S(2.45, SM_Z - 1.05)); ctx.lineTo(...S(2.45, SM_Z + 1.05)); ctx.moveTo(...S(2.45, SM_Z)); ctx.lineTo(...S(5.35, SM_Z)); ctx.stroke();
+      r(-8.5, 0.9, -7.3, 2.1, 'rgba(221,227,234,0.3)', null);
       ctx.fillStyle = 'rgba(255,106,26,0.8)';
       const b = S(1.75, 0); ctx.beginPath(); ctx.arc(c[0], c[1], Math.abs(b[0] - c[0]), 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = 'rgba(5,8,15,1)'; const b2 = S(1.15, 0); ctx.beginPath(); ctx.arc(c[0], c[1], Math.abs(b2[0] - c[0]), 0, Math.PI * 2); ctx.fill();
@@ -693,7 +787,7 @@ export async function buildAstroCity({ renderer, quality, progress = () => {} })
       ctx.fillStyle = 'rgba(242,194,48,0.85)';
       for (const [x, z] of [[td.position.x, td.position.z], [Math.sin(mA) * 5.1, Math.cos(mA) * 5.1]]) { const p = S(x, z); ctx.fillRect(p[0] - 4, p[1] - 4, 8, 8); }
     },
-    labels: [['BAR', 0, 0], ['TOUR', 3.1, 3.3], ['MERCH', -4.1, 3.0], ['TERRACE', 0, -9.6], ['AIRLOCK', 0, 12]],
+    labels: [['BAR', 0, 0], ['TOUR', 3.1, 3.3], ['MERCH', -4.1, 3.0], ['TERRACE', 0, -9.6], ['AIRLOCK', 0, 8.6], ['WC', 3.9, SM_Z], ['AHU', -7.9, -0.6]],
   };
 
   const station = {
@@ -711,6 +805,7 @@ export async function buildAstroCity({ renderer, quality, progress = () => {} })
     colliders: col,
     groundAt(x, z) {
       if (Math.hypot(x, z) < DR + 1.5 || (Math.abs(x) < 1.8 && z > 0 && z < CORR_Z1 + 2.5)) return 0;
+      if (x > 0.9 && x < 5.4 && Math.abs(z - SM_Z) < 1.1) return 0;
       if (x > TER.x0 - 0.2 && x < TER.x1 + 0.2 && z > TER.z0 - 0.2 && z < TER.z1) return 0.04;
       return Math.max(H(x, z), -2);
     },
@@ -720,17 +815,19 @@ export async function buildAstroCity({ renderer, quality, progress = () => {} })
       const ez = edgeZ(p.x) + 3.5;
       if (p.z < ez && !(p.x > TER.x0 && p.x < TER.x1 && p.z > TER.z0)) p.z = ez;
     },
-    isInside(p) { return (Math.hypot(p.x, p.z) < DR - 0.1 && p.y < DRUM_H + DR) || (Math.abs(p.x) < CORR_W / 2 && p.z > DR - 0.3 && p.z < CORR_Z1 + 0.1 && p.y < CORR_H); },
+    isInside(p) { return (Math.hypot(p.x, p.z) < DR - 0.1 && p.y < DRUM_H + DR) || (Math.abs(p.x) < CORR_W / 2 && p.z > DR - 0.3 && p.z < CORR_Z1 + 0.1 && p.y < CORR_H) || (p.x > 1.0 && p.x < 5.35 && Math.abs(p.z - SM_Z) < 1.05 && p.y < 2.35); },
     hotspots, tour, plan,
     occluders: [
       { sphere: new THREE.Sphere(new THREE.Vector3(0, DRUM_H - 0.3, 0), DR - 0.15) },
       { box: new THREE.Box3(new THREE.Vector3(-DR + 0.2, 0, -DR + 0.2), new THREE.Vector3(DR - 0.2, DRUM_H, DR - 0.2)) },
       { box: new THREE.Box3(new THREE.Vector3(-1.1, 0, DR), new THREE.Vector3(1.1, CORR_H, CORR_Z1)) },
+      { box: new THREE.Box3(new THREE.Vector3(1.1, 0, SM_Z - 1.0), new THREE.Vector3(5.3, 2.3, SM_Z + 1.0)) },
     ],
     stats: { merged: stats, fx: fxStats },
     setNight: (n) => base.setNight(n),
     setCutaway(on) { domeLayer.forEach((o) => { o.visible = !on; }); renderer.shadowMap.needsUpdate = true; },
     update(dt, t, camera, mode) {
+      clock.userData.update();
       for (const d of dynamic.doors) {
         const near = Math.hypot(camera.position.x - d.at[0], camera.position.z - d.at[1]) < 3.6 || mode === 'tour';
         const target = near ? d.g.userData.openX : d.g.userData.closedX;

@@ -68,7 +68,8 @@ export function grinder(M) {
 const earthFrag = /* glsl */ `
 varying vec2 vUv;
 uniform float uTime, uSeed, uBright, uCity;
-float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+// sin-free hash: stable on mobile GPUs (sin() of large values breaks into streaks there)
+float hash(vec2 p){ vec3 p3 = fract(vec3(p.xyx) * 0.1031); p3 += dot(p3, p3.yzx + 33.33); return fract((p3.x + p3.y) * p3.z); }
 float noise(vec2 p){ vec2 i = floor(p), f = fract(p); vec2 u = f*f*(3.0-2.0*f);
   return mix(mix(hash(i), hash(i+vec2(1,0)), u.x), mix(hash(i+vec2(0,1)), hash(i+vec2(1,1)), u.x), u.y); }
 float fbm(vec2 p){ float s = 0.0, a = 0.5; for (int i = 0; i < 5; i++){ s += a*noise(p); p = p*2.03 + 7.1; a *= 0.5; } return s; }
@@ -85,13 +86,13 @@ void main(){
     float z = sqrt(max(R*R - d*d, 0.0)) / R;
     vec2 sp = (p - c) / R;
     vec2 suv = sp / (z + 0.3) * 1.6;
-    suv.x += uTime * 0.012 + uSeed * 13.0;
+    suv.x += mod(uTime * 0.012, 64.0) + uSeed * 13.0;
     float lf = fbm(suv * 1.7 + uSeed);
     float land = smoothstep(0.5, 0.56, lf);
     vec3 ocean = mix(vec3(0.01, 0.05, 0.16), vec3(0.02, 0.12, 0.3), fbm(suv * 4.0));
     vec3 landc = mix(vec3(0.16, 0.2, 0.08), vec3(0.5, 0.37, 0.22), fbm(suv * 5.0 + 3.0));
     vec3 surf = mix(ocean, landc, land);
-    float cl = smoothstep(0.48, 0.82, fbm(suv * 2.6 + vec2(uTime * 0.008, 1.3)));
+    float cl = smoothstep(0.48, 0.82, fbm(suv * 2.6 + vec2(mod(uTime * 0.008, 64.0), 1.3)));
     surf = mix(surf, vec3(0.92, 0.95, 1.0), cl * 0.9);
     float term = smoothstep(-0.15, 0.25, sp.x * 0.8 + 0.25 - uCity);
     vec3 night = vec3(1.0, 0.6, 0.25) * step(0.82, noise(suv * 40.0)) * land * 0.6 * (1.0 - cl);

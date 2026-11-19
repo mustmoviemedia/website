@@ -13,6 +13,7 @@ import { Colliders } from '../core/controls.js';
 import { addPerson, clearPeopleCache } from '../core/people.js';
 import { rng } from '../core/noise.js';
 import * as P from './props.js';
+import * as X from './fixtures.js';
 import { ZONES, FOUNDING_CREW } from '../config.js';
 
 // ---- module geometry (metres) ----
@@ -106,7 +107,15 @@ export async function buildTashkent({ renderer, quality, progress = () => {} }) 
   const capGeo = new THREE.ShapeGeometry(capShape, 40);
   capGeo.rotateY(-Math.PI / 2);
   capGeo.translate(0, CY, CZ);
-  for (const sx of [-1, 1]) place(facadeG, capGeo.clone(), shellMat, { p: [sx * HX, 0, 0] });
+  for (const sx of [-1, 1]) {
+    place(facadeG, capGeo.clone(), shellMat, { p: [sx * HX, 0, 0] });
+    // louvred ventilation grille on each end cap
+    const lv = new THREE.Group();
+    place(lv, new THREE.BoxGeometry(0.03, 0.62, 0.5), M.aluDark, {});
+    for (let i = 0; i < 7; i++) place(lv, new THREE.BoxGeometry(0.06, 0.03, 0.46), M.alu, { p: [0.02, -0.27 + i * 0.09, 0], r: [0, 0, sx * 0.5] });
+    lv.position.set(sx * (HX + 0.02), 1.35, 0.42);
+    facadeG.add(lv);
+  }
 
   // ring frames + LED
   const frames = [[-HX, 0.2, M.composite, M.ledWarm], [HX, 0.2, M.composite, M.ledWarm], [-3.075, 0.14, M.alu, null], [3.075, 0.14, M.alu, null], [-1.15, 0.14, M.composite, M.ledOrange], [1.15, 0.14, M.composite, M.ledOrange]];
@@ -220,6 +229,12 @@ export async function buildTashkent({ renderer, quality, progress = () => {} }) 
   const body = box(bld, BW * 2, 16.6, 16, stoneMat, 0, 4.9 + 8.3, -8.02);
   body.userData.layer = 'roof';
   box(bld, BW * 2 + 0.4, 0.7, 0.5, stoneMat, 0, 21.25, -0.1).userData.layer = 'roof';
+  // rooftop HVAC: condensing units + duct (visible from high orbit)
+  for (const [x, z] of [[-7, -5], [-3, -5], [6, -9]]) {
+    const u = X.hvacUnit(M, { w: 2.2, h: 1.2, d: 1.2, fans: 2, label: 'AHU' }); u.position.set(x, 21.5, z); u.traverse((o) => { o.userData.layer = 'roof'; }); bld.add(u);
+  }
+  const roofDuct = X.duct(M, V(-3, 22.4, -5.8), V(-3, 22.4, -12), 0.5); roofDuct.userData.layer = 'roof'; bld.add(roofDuct);
+  const rv = X.roofVent(M, 0.3); rv.position.set(-4.4, 21.5, -10); rv.traverse((o) => { o.userData.layer = 'roof'; }); bld.add(rv);
   // vertical fins every two bays
   for (let i = -9; i <= 9; i += 2) box(bld, 0.22, 16, 0.32, stoneMat, i * 2.2, 12.9, 0.12).userData.layer = 'roof';
   // ground floor neighbours (shopfronts)
@@ -250,7 +265,10 @@ export async function buildTashkent({ renderer, quality, progress = () => {} }) 
   place(inn, new THREE.BoxGeometry(0.05, 0.006, TUN_END + 4.25), M.ledOrange, { p: [0, 0.003, (TUN_END - 4.3) / 2 + 0.05], cast: false });
   // walls
   const wallBox = (w, h, d, x, y, z) => { const g = new THREE.BoxGeometry(w, h, d); boxUV(g); return place(inn, g, M.compositeIn, { p: [x, y, z] }); };
-  wallBox(2 * HX + 0.3, CEIL, 0.15, 0, CEIL / 2, BACK - 0.075);
+  // back wall with the door to the restroom corridor (x 1.55…2.45)
+  wallBox(1.55 + HX + 0.15, CEIL, 0.15, (-HX - 0.15 + 1.55) / 2, CEIL / 2, BACK - 0.075);
+  wallBox(HX + 0.15 - 2.45, CEIL, 0.15, (2.45 + HX + 0.15) / 2, CEIL / 2, BACK - 0.075);
+  wallBox(0.9, CEIL - 2.2, 0.15, 2.0, 2.2 + (CEIL - 2.2) / 2, BACK - 0.075);
   wallBox(0.15, CEIL, -BACK + 0.15, -HX - 0.075, CEIL / 2, BACK / 2);
   wallBox(0.15, CEIL, -BACK + 0.15, HX + 0.075, CEIL / 2, BACK / 2);
   const ceil = wallBox(2 * HX, 0.1, -BACK + 0.6, 0, CEIL + 0.05, (BACK + 0.6) / 2);
@@ -288,8 +306,13 @@ export async function buildTashkent({ renderer, quality, progress = () => {} }) 
   place(bar, new THREE.BoxGeometry(BX1 - BX0 - 0.1, 0.012, 0.02), M.ledWarm, { p: [(BX0 + BX1) / 2, 0.05, BZ + 0.33], cast: false });
   place(bar, new THREE.BoxGeometry(BX1 - BX0 - 0.2, 0.03, 0.03), M.alu, { p: [(BX0 + BX1) / 2, 0.24, BZ + 0.42] }); // foot rail
   // back bar
-  const bbGeo = new THREE.BoxGeometry(BX1 - BX0, 0.9, 0.6); boxUV(bbGeo);
-  place(bar, bbGeo, M.graphiteIn, { p: [(BX0 + BX1) / 2, 0.45, BACK + 0.3] });
+  const bbGeo = new THREE.BoxGeometry(BX1 - (BX0 + 1.3), 0.9, 0.6); boxUV(bbGeo);
+  place(bar, bbGeo, M.graphiteIn, { p: [(BX0 + 1.3 + BX1) / 2, 0.45, BACK + 0.3] });
+  for (const x of [BX0 + 0.325, BX0 + 0.975]) {
+    const fr = X.glassFridge(M, { w: 0.64, h: 0.9, d: 0.56, shelves: 2 }); fr.position.set(x, 0, BACK + 0.32); bar.add(fr);
+  }
+  const bsink = X.counterSink(M, 0.42, 0.36); bsink.position.set(0.95, 0.94, BACK + 0.36); bar.add(bsink);
+  const dc = X.dessertCase(M, 0.72); dc.position.set(-2.35, 1.09, BZ + 0.05); bar.add(dc);
   place(bar, new THREE.BoxGeometry(BX1 - BX0 + 0.04, 0.04, 0.64), M.steel, { p: [(BX0 + BX1) / 2, 0.92, BACK + 0.32] });
   const cm1 = P.coffeeMachine(M); cm1.position.set(-1.9, 0.94, BACK + 0.34); bar.add(cm1);
   const cm2 = P.coffeeMachine(M); cm2.position.set(-0.85, 0.94, BACK + 0.34); bar.add(cm2);
@@ -339,8 +362,12 @@ export async function buildTashkent({ renderer, quality, progress = () => {} }) 
   place(kit, new THREE.BoxGeometry(1.85, 0.03, 0.64), M.stoneTop, { p: [-4.05, 0.915, BACK + 0.32] });
   place(kit, new THREE.BoxGeometry(0.55, 0.008, 0.45), M.graphite, { p: [-4.45, 0.934, BACK + 0.33] });
   place(kit, roundedBox(0.7, 0.4, 0.5, 0.03), M.steel, { p: [-4.4, 2.15, BACK + 0.27] });
-  place(kit, new THREE.BoxGeometry(0.62, 2.1, 0.62), M.steel, { p: [-4.65, 1.05, -4.85] });
-  place(kit, new THREE.BoxGeometry(0.02, 0.9, 0.02), M.alu, { p: [-4.32, 1.2, -4.53] });
+  const kf = X.fridgeTall(M, { w: 0.62, h: 2.05, d: 0.62, doors: 2 }); kf.position.set(-4.67, 0, -4.86); kf.rotation.y = Math.PI / 2; kit.add(kf);
+  const ks = X.counterSink(M, 0.5, 0.38); ks.position.set(-3.6, 0.93, BACK + 0.36); kit.add(ks);
+  place(kit, new THREE.BoxGeometry(0.3, CEIL - 2.35, 0.3), M.steel, { p: [-4.4, 2.35 + (CEIL - 2.35) / 2, BACK + 0.27] });
+  const kd = X.ceilingDiffuser(M, 0.45); kd.position.set(-3.85, CEIL, -4.85); kd.traverse((o) => { o.userData.layer = 'roof'; }); kit.add(kd);
+  const kex = X.extinguisher(M); kex.position.set(-HX, 0, -4.3); kex.rotation.y = Math.PI / 2; kit.add(kex);
+  const clock = X.missionClock(M, dn, { w: 1.0, h: 0.25, place: 'TASHKENT' }); clock.position.set((-HX + KX) / 2, 3.05, KZ + 0.075); kit.add(clock);
   place(kit, new THREE.BoxGeometry(1.2, 0.04, 0.35), M.whiteIn, { p: [-3.95, 1.7, BACK + 0.18] });
   for (let i = 0; i < 4; i++) place(kit, new THREE.CylinderGeometry(0.06, 0.05, 0.08, 14), M.white, { p: [-4.35 + i * 0.25, 1.76, BACK + 0.18], cast: false });
   col.box(-HX, KX + 0.05, BACK, KZ + 0.05);
@@ -428,23 +455,86 @@ export async function buildTashkent({ renderer, quality, progress = () => {} }) 
   place(fx, new THREE.PlaneGeometry(4.8, 1.4), csm, { p: [(BX0 + BX1) / 2, 0.003, BZ + 0.1], r: [-Math.PI / 2, 0, 0], cast: false, receive: false });
   place(fx, new THREE.PlaneGeometry(2.4, 1.3), csm, { p: [3.75, 0.003, -4.95], r: [-Math.PI / 2, 0, 0], cast: false, receive: false });
 
+  // ---- ventilation in the hall: 4-way ceiling diffusers between the LED lines ----
+  for (const [x, z] of [[-1.6, -3.45], [1.6, -3.45], [-3.4, -1.75], [3.4, -1.75], [0, -1.75]]) {
+    const d = X.ceilingDiffuser(M, 0.6); d.position.set(x, CEIL, z); d.traverse((o) => { o.userData.layer = 'roof'; }); inn.add(d);
+  }
+  const ex = X.exitSign(M, dn); ex.position.set(0, 3.15, 0.5); inn.add(ex);
+  place(inn, new THREE.BoxGeometry(0.01, 0.4, 0.01), M.alu, { p: [0, 3.4, 0.5], cast: false });
+
+  // ================= RESTROOMS (behind the back wall) =================
+  const wc = new THREE.Group(); wc.name = 'zone_restrooms'; inn.add(wc);
+  const WZ0 = BACK - 0.15, WZF = -7.7, WZB = -10.15, WH = 2.8;
+  const wcFloor = T.floorTextures({ base: '#B7C0CA', seed: 19 });
+  const wcFloorMat = new THREE.MeshStandardMaterial({ name: 'floor-restroom', map: wcFloor.map, normalMap: wcFloor.normalMap, roughness: 0.35, envMapIntensity: 0.4 });
+  wcFloorMat.map.repeat.set(1 / 1.2, 1 / 1.2); wcFloorMat.normalMap.repeat.set(1 / 1.2, 1 / 1.2);
+  const wf = new THREE.BoxGeometry(5.15, 0.1, WZ0 - WZB + 0.1); boxUV(wf);
+  place(wc, wf, wcFloorMat, { p: [2.5, -0.05, (WZ0 + WZB) / 2] });
+  const wbox = (w, h, d, x, y, z, mat = M.compositeIn) => { const g = new THREE.BoxGeometry(w, h, d); boxUV(g); return place(wc, g, mat, { p: [x, y, z] }); };
+  wbox(0.1, WH, WZ0 - WZB + 0.1, -0.05, WH / 2, (WZ0 + WZB) / 2); // left end
+  wbox(0.15, WH, WZ0 - WZB + 0.1, HX + 0.075, WH / 2, (WZ0 + WZB) / 2); // right end
+  wbox(5.3, WH, 0.1, 2.5, WH / 2, WZB - 0.05); // back
+  wbox(0.1, WH, WZF - WZB, 2.65, WH / 2, (WZF + WZB) / 2); // partition WC1 | WC2
+  // front wall of the rooms with two door openings (0.3…1.2 and 3.4…4.2)
+  for (const [a, b] of [[0, 0.3], [1.2, 3.4], [4.2, HX]]) wbox(b - a, WH, 0.1, (a + b) / 2, WH / 2, WZF);
+  for (const [a, b] of [[0.3, 1.2], [3.4, 4.2]]) wbox(b - a, WH - 2.15, 0.1, (a + b) / 2, 2.15 + (WH - 2.15) / 2, WZF);
+  const wcCeil = wbox(5.15, 0.1, WZ0 - WZB + 0.1, 2.5, WH + 0.05, (WZ0 + WZB) / 2);
+  wcCeil.userData.layer = 'roof';
+  // feature walls behind the toilets
+  wbox(1.6, WH, 0.02, 1.85, WH / 2, WZB + 0.01, M.deep);
+  wbox(1.5, WH, 0.02, 4.15, WH / 2, WZB + 0.01, M.deep);
+  for (const x of [1.85, 4.15]) place(wc, new THREE.BoxGeometry(1.4, 0.012, 0.02), M.ledWarm, { p: [x, WH - 0.12, WZB + 0.03], cast: false });
+  // WC 1 — accessible
+  const t1 = X.toilet(M); t1.position.set(1.85, 0, WZB + 0.02); wc.add(t1);
+  for (const x of [1.42, 2.28]) { const gb = X.grabBar(M, 0.72); gb.position.set(x, 0, WZB + 0.02); wc.add(gb); }
+  const ph1 = X.paperHolder(M); ph1.position.set(2.6, 0, -9.55); ph1.rotation.y = -Math.PI / 2; wc.add(ph1);
+  const s1 = X.washbasin(M, { w: 0.62, d: 0.46 }); s1.position.set(0, 0, -8.85); s1.rotation.y = Math.PI / 2; wc.add(s1);
+  const hd1 = X.handDryer(M); hd1.position.set(0, 0, -9.65); hd1.rotation.y = Math.PI / 2; wc.add(hd1);
+  // WC 2
+  const t2 = X.toilet(M); t2.position.set(4.15, 0, WZB + 0.02); wc.add(t2);
+  const ph2 = X.paperHolder(M); ph2.position.set(2.7, 0, -9.55); ph2.rotation.y = Math.PI / 2; wc.add(ph2);
+  const s2 = X.washbasin(M, { w: 0.55, d: 0.42 }); s2.position.set(HX, 0, -8.8); s2.rotation.y = -Math.PI / 2; wc.add(s2);
+  const hd2 = X.handDryer(M); hd2.position.set(HX, 0, -9.6); hd2.rotation.y = -Math.PI / 2; wc.add(hd2);
+  // exhaust valves + light panels in the ceilings, corridor slot diffuser
+  for (const [x, z] of [[1.3, -9.1], [3.85, -9.1]]) {
+    const ev = X.exhaustValve(M, 0.1); ev.position.set(x, WH, z); wc.add(ev);
+    place(wc, new THREE.BoxGeometry(0.6, 0.012, 0.6), M.ledWhite, { p: [x, WH - 0.006, z + 0.75], cast: false });
+  }
+  const sd = X.slotDiffuser(M, 3.2); sd.position.set(2.6, WH, -7.0); wc.add(sd);
+  place(wc, new THREE.BoxGeometry(4.2, 0.012, 0.05), M.ledWhite, { p: [2.5, WH - 0.006, -6.75], cast: false });
+  // doors (open) and signs
+  const dHall = X.doorLeaf(M, 0.86, 2.15); dHall.position.set(2.45, 0, WZ0 - 0.03); dHall.rotation.y = Math.PI - 1.4; wc.add(dHall);
+  const d1 = X.doorLeaf(M, 0.86, 2.1); d1.position.set(0.32, 0, WZF); d1.rotation.y = 1.35; wc.add(d1);
+  const d2 = X.doorLeaf(M, 0.76, 2.1); d2.position.set(4.18, 0, WZF); d2.rotation.y = Math.PI - 1.35; wc.add(d2);
+  const sHall = X.wcSign(M, dn, { title: 'RESTROOMS', icons: ['m', 'f', 'w'] }, 0.86); sHall.position.set(2.0, 2.52, BACK + 0.02); wc.add(sHall);
+  const sw1 = X.wcSign(M, dn, { title: 'WC 01', sub: 'ACCESSIBLE', icons: ['w'] }, 0.8); sw1.position.set(0.75, 2.42, WZF + 0.066); wc.add(sw1);
+  const sw2 = X.wcSign(M, dn, { title: 'WC 02', sub: 'ALL GENDER', icons: ['m', 'f'] }, 0.8); sw2.position.set(3.8, 2.42, WZF + 0.066); wc.add(sw2);
+  for (const [x0, x1] of [[1.55, 2.45]]) {
+    place(wc, new THREE.BoxGeometry(x1 - x0 + 0.08, 0.04, 0.17), M.alu, { p: [(x0 + x1) / 2, 2.2, BACK - 0.075] });
+    for (const x of [x0, x1]) place(wc, new THREE.BoxGeometry(0.04, 2.2, 0.17), M.alu, { p: [x, 1.1, BACK - 0.075] });
+  }
+  const wex = X.extinguisher(M); wex.position.set(0.0, 0, -7.0); wex.rotation.y = Math.PI / 2; wc.add(wex);
+  const wcLight = new THREE.PointLight('#FFF1E0', 2.2, 5.5, 2); wcLight.position.set(2.5, 2.55, -8.6);
+  scene.add(wcLight);
+  // rest of the ground floor behind the hall (closed volume)
+  box(bld, 4.9, 4.3, 3.9, stoneMat, -2.55, 2.15, -8.3);
+  box(bld, 2 * HX + 0.3, 4.3, 5.7, 0, 2.15, -13.2);
+  // collisions
+  col.seg(0, WZ0, 0, WZB).seg(HX, BACK, HX, WZB).seg(0, WZB, HX, WZB).seg(2.65, WZF, 2.65, WZB);
+  col.seg(0, WZF, 0.3, WZF).seg(1.2, WZF, 3.4, WZF).seg(4.2, WZF, HX, WZF);
+  col.box(1.6, 2.1, WZB, WZB + 0.75).box(3.9, 4.4, WZB, WZB + 0.75);
+  col.box(0, 0.5, -9.2, -8.5).box(HX - 0.45, HX, -9.1, -8.5);
+
   // interior lights (always on; a bit warmer at night)
   const lightBar = new THREE.PointLight('#FFC690', 9, 9, 2);
   lightBar.position.set(-0.8, 3.1, -4.4);
   const lightHall = new THREE.PointLight('#FFE0BC', 11, 11, 2);
   lightHall.position.set(0.2, 3.25, -1.5);
-  if (quality.pointShadows) {
-    lightHall.castShadow = true;
-    lightHall.shadow.mapSize.set(512, 512);
-    lightHall.shadow.bias = -0.002;
-    lightHall.shadow.radius = 4;
-    lightHall.shadow.camera.near = 0.2;
-  }
   scene.add(lightBar, lightHall);
   dn.prop(lightBar, 'intensity', 8, 10);
   dn.prop(lightHall, 'intensity', 10, 13);
   // interior walls collisions
-  col.seg(-HX, BACK, -HX, 0.2).seg(HX, BACK, HX, 0.2).seg(-HX, BACK, HX, BACK);
+  col.seg(-HX, BACK, -HX, 0.2).seg(HX, BACK, HX, 0.2).seg(-HX, BACK, 1.55, BACK).seg(2.45, BACK, HX, BACK);
   col.seg(-DOOR_W / 2 + 0.02, 0, -DOOR_W / 2 + 0.02, TUN_END + 0.2).seg(DOOR_W / 2 - 0.02, 0, DOOR_W / 2 - 0.02, TUN_END + 0.2);
   progress(0.55);
 
@@ -580,6 +670,8 @@ export async function buildTashkent({ renderer, quality, progress = () => {} }) 
     { id: 'crew', pos: [-HX + 0.2, 2.25, -2.05], zone: 'in', ...Z.crew },
     { id: 'hall', pos: [0, 1.5, -1.6], zone: 'in', ...Z.hall },
     { id: 'earth', pos: [HX - 0.15, 1.7, -1.35], zone: 'in', ...Z.earth },
+    { id: 'restrooms', pos: [2.0, 2.95, BACK + 0.1], zone: 'in', ...Z.restrooms },
+    { id: 'hvac', pos: [HX + 0.15, 1.95, 0.45], zone: 'out', ...Z.hvac },
   ];
   const tour = [
     { pos: [-17, 7.5, 22], look: [0, 2.4, 0], hold: 1.6, move: 3.0, title: 'STATION 01 · TASHKENT', text: 'Первый этаж в центре Ташкента, напротив Tashkent City Park.' },
@@ -592,11 +684,16 @@ export async function buildTashkent({ renderer, quality, progress = () => {} }) 
     { pos: [-2.9, 2.25, -3.45], look: [0.6, 1.05, 0.4], hold: 3.2, move: 3.2, hotspot: 'hall' },
   ];
   const plan = {
-    bounds: [-6.2, 6.2, -7, 2.6],
+    bounds: [-6.2, 6.2, -10.6, 2.6],
     draw(ctx, S) {
       ctx.strokeStyle = 'rgba(221,227,234,0.85)'; ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.moveTo(...S(-HX, 0)); ctx.lineTo(...S(-HX, BACK)); ctx.lineTo(...S(HX, BACK)); ctx.lineTo(...S(HX, 0));
+      ctx.moveTo(...S(-HX, 0)); ctx.lineTo(...S(-HX, BACK)); ctx.lineTo(...S(1.55, BACK));
+      ctx.moveTo(...S(2.45, BACK)); ctx.lineTo(...S(HX, BACK)); ctx.lineTo(...S(HX, 0));
+      // restroom block
+      ctx.moveTo(...S(0, BACK - 0.15)); ctx.lineTo(...S(0, -10.15)); ctx.lineTo(...S(HX, -10.15)); ctx.lineTo(...S(HX, BACK));
+      ctx.moveTo(...S(0, -7.7)); ctx.lineTo(...S(0.3, -7.7)); ctx.moveTo(...S(1.2, -7.7)); ctx.lineTo(...S(3.4, -7.7)); ctx.moveTo(...S(4.2, -7.7)); ctx.lineTo(...S(HX, -7.7));
+      ctx.moveTo(...S(2.65, -7.7)); ctx.lineTo(...S(2.65, -10.15));
       ctx.stroke();
       // front shell bulge
       ctx.beginPath();
@@ -610,13 +707,15 @@ export async function buildTashkent({ renderer, quality, progress = () => {} }) 
       zone(2.8, -5.3, 4.7, -4.62, 'rgba(242,194,48,0.7)');
       zone(HX - 0.55, -3.9, HX, -2.3, 'rgba(242,194,48,0.45)');
       zone(-HX, -3.7, -HX + 0.12, -0.4, 'rgba(111,168,255,0.7)');
+      zone(0.05, -10.1, 2.6, -7.75, 'rgba(111,168,255,0.16)');
+      zone(2.7, -10.1, HX - 0.05, -7.75, 'rgba(111,168,255,0.16)');
       ctx.fillStyle = 'rgba(221,227,234,0.55)';
       for (const [tx, tz] of tables) { const p = S(tx, tz); ctx.beginPath(); ctx.arc(p[0], p[1], 4, 0, Math.PI * 2); ctx.fill(); }
     },
-    labels: [['BAR', -0.8, -4.65], ['KITCHEN', -4.05, -5.3], ['TOUR', 3.75, -5.75], ['MERCH', 4.1, -3.1], ['CREW', -4.4, -2.05], ['HALL', 0, -1.6], ['ENTRY', 0, 1.2]],
+    labels: [['BAR', -0.8, -4.65], ['KITCHEN', -4.05, -5.3], ['TOUR', 3.75, -5.75], ['MERCH', 4.1, -3.1], ['CREW', -4.4, -2.05], ['HALL', 0, -1.6], ['ENTRY', 0, 1.2], ['WC 1', 1.3, -9.0], ['WC 2', 3.85, -9.0]],
   };
 
-  const bounds = { x0: -60, x1: 60, z0: BACK + 0.3, z1: 64 };
+  const bounds = { x0: -60, x1: 60, z0: -10.0, z1: 64 };
   const station = {
     id: 'tashkent',
     scene, world, base, dn, M,
@@ -631,7 +730,7 @@ export async function buildTashkent({ renderer, quality, progress = () => {} }) 
     colliders: col,
     groundAt(x, z) { return z > ROAD[0] && z < ROAD[1] ? -0.15 : 0; },
     clampWalk(p) { p.x = Math.max(bounds.x0, Math.min(bounds.x1, p.x)); p.z = Math.max(bounds.z0, Math.min(bounds.z1, p.z)); if (Math.abs(p.x) > HX && p.z < 0.3) p.z = 0.3; },
-    isInside(p) { return p.x > -HX && p.x < HX && p.z > BACK && p.z < TUN_END + 0.1 && p.y < CEIL + 0.3; },
+    isInside(p) { return p.x > -HX && p.x < HX && p.z > -10.2 && p.z < TUN_END + 0.1 && p.y < CEIL + 0.3; },
     hotspots, tour, plan,
     occluders: [{ box: new THREE.Box3(new THREE.Vector3(-62, 0, -16.5), new THREE.Vector3(62, 30, -0.3)) }],
     stats: { merged: stats, fx: fxStats },
@@ -639,6 +738,7 @@ export async function buildTashkent({ renderer, quality, progress = () => {} }) 
     setCutaway(on) { roofLayer.forEach((o) => { o.visible = !on; }); renderer.shadowMap.needsUpdate = true; },
     update(dt, t, camera, mode) {
       for (const m of earthMats) m.uniforms.uTime.value = t;
+      clock.userData.update();
       // automatic doors
       const near = Math.hypot(camera.position.x, camera.position.z - TUN_END) < 3.6 || mode === 'tour';
       for (const d of dynamic.doors) {

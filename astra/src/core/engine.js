@@ -10,17 +10,19 @@ export function detectQuality() {
   const ua = navigator.userAgent || '';
   const touch = matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window;
   const small = Math.min(screen.width, screen.height) < 820;
-  const mobile = /Android|iPhone|iPad|iPod|Mobile/i.test(ua) || (touch && small);
+  // iPadOS Safari reports itself as "Macintosh": detect it by multi-touch support
+  const iPadOS = /Macintosh/.test(ua) && (navigator.maxTouchPoints || 0) > 1;
+  const mobile = /Android|iPhone|iPad|iPod|Mobile/i.test(ua) || iPadOS || (touch && small);
   const cores = navigator.hardwareConcurrency || 4;
   const params = new URLSearchParams(location.search);
   const forced = params.get('q');
-  let tier = mobile ? (cores >= 6 ? 'mid' : 'low') : 'high';
+  let tier = mobile ? (iPadOS || /iPad/.test(ua) || cores >= 6 ? 'mid' : 'low') : 'high';
   if (forced === 'low' || forced === 'mid' || forced === 'high') tier = forced;
   const dpr = window.devicePixelRatio || 1;
   const Q = {
-    high: { maxDpr: Math.min(dpr, 2), minDpr: 0.85, shadow: 2048, msaa: 4, smaa: false, bloomScale: 0.5, pointShadows: true, foliage: 1 },
-    mid: { maxDpr: Math.min(dpr, 1.6), minDpr: 0.7, shadow: 1024, msaa: 0, smaa: true, bloomScale: 0.4, pointShadows: false, foliage: 0.7 },
-    low: { maxDpr: Math.min(dpr, 1.25), minDpr: 0.6, shadow: 1024, msaa: 0, smaa: false, bloomScale: 0.35, pointShadows: false, foliage: 0.5 },
+    high: { maxDpr: Math.min(dpr, 2), minDpr: 0.85, shadow: 2048, msaa: 4, smaa: false, bloomScale: 0.5, foliage: 1 },
+    mid: { maxDpr: Math.min(dpr, 1.6), minDpr: 0.8, shadow: 1024, msaa: 0, smaa: true, bloomScale: 0.4, foliage: 0.7 },
+    low: { maxDpr: Math.min(dpr, 1.25), minDpr: 0.65, shadow: 1024, msaa: 0, smaa: false, bloomScale: 0.35, foliage: 0.5 },
   }[tier];
   return { tier, mobile, touch, ...Q };
 }

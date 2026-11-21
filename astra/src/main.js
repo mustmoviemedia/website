@@ -16,6 +16,7 @@ import { CameraRig } from './core/controls.js';
 const builders = {
   tashkent: () => import('./scenes/tashkent.js').then((m) => m.buildTashkent),
   astrocity: () => import('./scenes/astrocity.js').then((m) => m.buildAstroCity),
+  konyukhov: () => import('./scenes/konyukhov.js').then((m) => m.buildKonyukhov),
 };
 
 const quality = detectQuality();

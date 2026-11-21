@@ -49,9 +49,23 @@ const ART = {
     ${[30, 44, 58].map((x) => `<circle cx="${x}" cy="106" r="3" stroke="#DDE3EA"/>`).join('')}
     <path d="M200 116l10-12M206 108h6" stroke="#5B6B82"/>
   </svg>`,
+  konyukhov: `<svg viewBox="0 0 320 150" class="art" aria-hidden="true">
+    <path d="M10 70L70 22L110 50L160 8L230 60L262 40L310 76" stroke="#5B6B82"/>
+    <path d="M150 16L160 8L172 18M60 30L70 22L80 30" stroke="#DDE3EA"/>
+    <path d="M10 128H310" stroke="#2A3D5C"/>
+    <path d="M60 120V78Q60 66 74 66H150V120M170 120V66H246Q260 66 260 78V120" stroke="#DDE3EA" stroke-width="1.6"/>
+    <path d="M150 74H170" stroke="#5B6B82"/>
+    <path d="M86 84H140V100H86ZM180 84H234V100H180Z" stroke="#F2C230"/>
+    <path d="M84 84L72 104M142 84L154 104" stroke="#5B6B82"/>
+    <rect x="118" y="52" width="84" height="10" rx="2" fill="#13223A" stroke="#F2C230" stroke-width=".8"/>
+    ${[80, 104, 216, 240].map((x) => `<circle cx="${x}" cy="124" r="5" stroke="#5B6B82"/>`).join('')}
+    <path d="M40 134L40 112M36 116L40 108L44 116M280 134V108M276 112L280 104L284 112" stroke="#5B6B82"/>
+    <path d="M60 128H260" stroke="#FF6A1A" stroke-opacity=".7"/>
+  </svg>`,
 };
 
-const COORDS = { tashkent: '41.316° N · 69.248° E', astrocity: '≈ 43.6° N · 57.0° E' };
+const COORDS = { tashkent: '41.316° N · 69.248° E', astrocity: '≈ 43.6° N · 57.0° E', konyukhov: '≈ 55.1° N · 60.2° E' };
+const ORDER = ['tashkent', 'astrocity', 'konyukhov'];
 
 export function initUI(app) {
   const { engine, rig, quality } = app;
@@ -69,9 +83,9 @@ export function initUI(app) {
     <div class="start-main">
       <p class="kicker mono">SPACE CAFÉ NETWORK</p>
       <h1>ASTRA<br><span>STATION</span></h1>
-      <p class="lead">Интерактивная 3D-модель двух космических кофеен ASTRAHUB: городской модуль в Ташкенте и купол на плато Устюрт.</p>
+      <p class="lead">Интерактивные 3D-модели кофеен: станции ASTRA в Ташкенте и на плато Устюрт и мобильная кофейня N.KONYUKHOV на курорте «Солнечная долина».</p>
       <div class="cards">
-        ${['tashkent', 'astrocity'].map((id) => {
+        ${ORDER.map((id) => {
     const s = STATIONS[id];
     return `<article class="st-card" data-station="${id}">
             ${ART[id]}
@@ -96,8 +110,7 @@ export function initUI(app) {
   <header class="hud hud-top">
     <button class="brand" id="btn-home" type="button" title="Вернуться к выбору станции">${MARK}<span class="brand-txt"><b>ASTRA STATION</b><span class="mono" id="st-code"></span></span></button>
     <nav class="seg seg-station" id="station-switch" aria-label="Станция">
-      <button type="button" data-station="tashkent">Tashkent</button>
-      <button type="button" data-station="astrocity">ASTRO CITY</button>
+      ${ORDER.map((id) => `<button type="button" data-station="${id}"><span class="full">${STATIONS[id].tab}</span><span class="short">${STATIONS[id].short || STATIONS[id].tab}</span></button>`).join('')}
     </nav>
     <div class="top-right">
       <button class="icon-btn" id="btn-map" type="button" title="Мини-план" aria-label="Plan">${ICON.map}</button>
@@ -385,7 +398,8 @@ export function initUI(app) {
     if (!h || !st) return;
     closeZone();
     if (app.cutaway && h.zone === 'in') setCutaway(false);
-    const tk = st.tour.find((k) => k.hotspot === h.id);
+    const zv = st.zoneViews?.[h.id];
+    const tk = zv || st.tour.find((k) => k.hotspot === h.id);
     let target;
     if (tk) target = { pos: tk.pos, look: tk.look, move: 2.6, hold: 0 };
     else {
@@ -396,7 +410,7 @@ export function initUI(app) {
     }
     const inside = st.isInside(engine.camera.position);
     let keys = [target];
-    if (h.zone === 'in' && !inside) keys = [...st.doorPath, { ...target, move: 2.2 }];
+    if (h.zone === 'in' && !inside) keys = [...(zv?.path || st.doorPath), { ...target, move: 2.2 }];
     if (h.zone === 'out' && inside) keys = [...st.doorPath].reverse().map((k, i, arr) => ({ ...k, look: (arr[i + 1] || target).pos })).concat([target]);
     flyTo(keys, h.zone === 'in' ? 'walk' : 'orbit');
   }

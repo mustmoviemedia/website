@@ -166,6 +166,41 @@ export function interiorPanelTextures({ size = 1024, seed = 13 } = {}) {
   return { map: toTexture(canvas), normalMap: toTexture(normalCanvasFromHeight(hf, w, h, 2.4), { srgb: false }), meters: 2.4 };
 }
 
+// Wood planks (horizontal boards 0.14 m), warm thermowood; texture covers 2 × 2 m
+export function woodTextures({ seed = 23, base = '#9A6A42', board = 0.14 } = {}) {
+  const w = 512, ppm = w / 2;
+  const n = createNoise2D(seed), r = rng(seed);
+  const tones = Array.from({ length: 32 }, () => 0.82 + r() * 0.3);
+  const offs = Array.from({ length: 32 }, () => r() * 2);
+  const [br, bg, bb] = hexToRgb(base);
+  const { canvas, hf } = pixelTexture(w, w, (x, y, o) => {
+    const my = y / ppm, row = Math.floor(my / board);
+    const fy = (my % board) * ppm, e = Math.min(fy, board * ppm - fy);
+    const mx = x / ppm + offs[row & 31];
+    const joint = Math.min(mx % 1.0, 1.0 - (mx % 1.0)) * ppm;
+    const grain = 0.5 + 0.5 * Math.sin((mx * 38 + n(mx * 2, my * 18) * 3.5));
+    let k = tones[row & 31] * (0.9 + grain * 0.12) + n(x * 0.05, y * 0.4) * 0.05;
+    let hgt = 0.6 + grain * 0.05;
+    if (e < 2.2 || joint < 1.2) { k *= 0.55; hgt = 0.2; }
+    o[0] = br * k; o[1] = bg * k; o[2] = bb * k; o[3] = hgt;
+  });
+  return { map: toTexture(canvas), normalMap: toTexture(normalCanvasFromHeight(hf, w, w, 2.2), { srgb: false }), meters: 2 };
+}
+
+// Snow surface detail: soft wind ripples + fine grain (normal map), sparkle-free
+export function snowTextures(seed = 61) {
+  const w = 512;
+  const n = createNoise2D(seed), r = rng(seed);
+  const { canvas, hf } = pixelTexture(w, w, (x, y, o) => {
+    const a = fbm(n, x * 0.012, y * 0.03, 4);
+    const g = (r() - 0.5) * 0.06;
+    const v = 238 + a * 14 + g * 60;
+    o[0] = v; o[1] = v + 3; o[2] = v + 8;
+    o[3] = 0.5 + a * 0.35 + g;
+  });
+  return { map: toTexture(canvas), normalMap: toTexture(normalCanvasFromHeight(hf, w, w, 1.4), { srgb: false }), meters: 4 };
+}
+
 // Triangular panel texture for the geodesic dome: seams at triangle edges (uv: (0,0),(1,0),(0.5,1))
 export function triPanelTextures(size = 256) {
   const w = size, h = size;

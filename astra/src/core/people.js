@@ -54,11 +54,12 @@ function lathe(points, y, sz = 0.62, seg = 16) {
  * pose: 'stand' | 'walk' | 'sit' | 'barsit' | 'lean'
  * seed: picks clothing, skin, hair and build
  */
-export function personGeometry(pose = 'stand', height = 1.75, seed = 1) {
+export function personGeometry(pose = 'stand', height = 1.75, seed = 1, palette = null) {
   const r = rng(Math.floor(seed * 9973) + 17);
   const pick = (a) => a[Math.floor(r() * a.length)];
-  const skin = pick(PALETTE.skin), top = pick(PALETTE.top), bottom = pick(PALETTE.bottom);
-  const shoes = pick(PALETTE.shoes), hair = pick(PALETTE.hair);
+  const P = { ...PALETTE, ...(palette || {}) };
+  const skin = pick(P.skin), top = pick(P.top), bottom = pick(P.bottom);
+  const shoes = pick(P.shoes), hair = pick(P.hair);
   const longHair = r() < 0.4, shortSleeve = r() < 0.35, dress = longHair && r() < 0.3;
   const build = 0.92 + r() * 0.16; // shoulder width factor
   const parts = [];
@@ -138,8 +139,8 @@ export function personGeometry(pose = 'stand', height = 1.75, seed = 1) {
 }
 
 let counter = 0;
-export function addPerson(parent, material, { x = 0, z = 0, y = 0, rot = 0, pose = 'stand', h = 1.75, seed } = {}) {
-  const m = new THREE.Mesh(personGeometry(pose, h, seed ?? (x * 13.1 + z * 7.7 + ++counter * 0.618)), material);
+export function addPerson(parent, material, { x = 0, z = 0, y = 0, rot = 0, pose = 'stand', h = 1.75, seed, palette = null } = {}) {
+  const m = new THREE.Mesh(personGeometry(pose, h, seed ?? (x * 13.1 + z * 7.7 + ++counter * 0.618), palette), material);
   m.position.set(x, y, z);
   m.rotation.y = rot;
   m.castShadow = true;

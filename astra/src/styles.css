@@ -45,7 +45,8 @@ kbd { font-family: var(--mono); font-size: 11px; padding: 1px 6px; margin: 0 2px
 .start h1 { margin: 0; font-weight: 800; font-size: clamp(48px, 9vw, 112px); line-height: .92; letter-spacing: 0.08em; }
 .start h1 span { color: transparent; -webkit-text-stroke: 1.5px var(--lunar); }
 .lead { max-width: 620px; margin: 22px 0 36px; font-size: clamp(15px, 1.6vw, 18px); line-height: 1.55; color: var(--muted); }
-.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.seg-station .short { display: none; }
 .st-card { position: relative; border: 1px solid var(--line); border-radius: 20px; background: linear-gradient(180deg, rgba(19,34,58,.62), rgba(5,8,15,.72)); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); overflow: hidden; cursor: pointer; transition: border-color .25s, transform .25s; }
 .st-card:hover { border-color: rgba(255, 106, 26, .55); transform: translateY(-3px); }
 .st-card .art { width: 100%; height: auto; aspect-ratio: 320 / 150; padding: 18px 18px 0; fill: none; stroke-linecap: round; stroke-linejoin: round; background: linear-gradient(180deg, rgba(5,8,15,0), rgba(19,34,58,.3)); }
@@ -155,6 +156,9 @@ body.is-locked::after { content: ""; position: fixed; left: 50%; top: 50%; width
 body[data-mode="tour"] .toolbar .seg, body[data-mode="tour"] #btn-cut { opacity: .5; }
 
 /* ---------- mobile ---------- */
+@media (max-width: 1100px) {
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 @media (max-width: 860px) {
   .cards { grid-template-columns: 1fr; }
   .st-ru { min-height: 0; }
@@ -164,7 +168,9 @@ body[data-mode="tour"] .toolbar .seg, body[data-mode="tour"] #btn-cut { opacity:
   .hud-top { top: calc(8px + var(--safe-t)); left: 8px; right: 8px; gap: 6px; }
   .brand { height: 40px; padding: 0 8px; }
   .brand-txt { display: none; }
-  .seg-station button { padding: 0 10px; font-size: 12px; height: 32px; }
+  .seg-station button { padding: 0 8px; font-size: 11.5px; height: 32px; }
+  .seg-station .full { display: none; }
+  .seg-station .short { display: inline; }
   .icon-btn { width: 40px; height: 40px; }
   .toolbar { left: 8px; right: 8px; transform: none; bottom: calc(8px + var(--safe-b)); justify-content: space-between; gap: 2px; padding: 4px; border-radius: 16px; max-width: none; }
   .toolbar .seg { padding: 2px; }

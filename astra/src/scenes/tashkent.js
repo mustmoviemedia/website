@@ -15,7 +15,7 @@ import { rng } from '../core/noise.js';
 import * as P from './props.js';
 import * as X from './fixtures.js';
 import * as CITY from './city.js';
-import { ZONES, FOUNDING_CREW } from '../config.js';
+import { ZONES, FOUNDING_CREW, CREW_ROLES, ROADMAP } from '../config.js';
 
 // ---- module geometry (metres) ----
 const R = 3.0, CY = 2.1, CZ = -2.0;
@@ -371,16 +371,7 @@ export async function buildTashkent({ renderer, quality, progress = () => {} }) 
   place(td, tdGeo, M.whiteIn, { p: [3.75, 0.52, -4.95] });
   place(td, roundedBox(2.0, 0.04, 0.72, 0.06), M.stoneTop, { p: [3.75, 1.06, -4.92] });
   place(td, new THREE.BoxGeometry(1.8, 0.05, 0.012), M.orange, { p: [3.75, 0.82, -4.635] });
-  const tourTex = T.labelTexture({
-    w: 1024, h: 576, bg: '#06090F',
-    lines: [
-      { text: 'ASTRO CITY TOURS', size: 64, weight: 800, spacing: 0.12, y: 0.13, color: '#F4F6F8' },
-      { text: 'TASHKENT  ───────────  USTYURT PLATEAU', font: T.FONT_MONO, size: 30, weight: 500, y: 0.3, color: '#F2C230' },
-      { text: 'STATION 01  →  STATION 02', font: T.FONT_MONO, size: 34, weight: 500, y: 0.44, color: '#FF6A1A' },
-      { text: 'SUNSET · STARGAZING · CHINK CLIFFS', font: T.FONT_MONO, size: 28, weight: 400, y: 0.62, color: '#9AA6B6' },
-      { text: 'NEXT LAUNCH  FRI 18:00', font: T.FONT_MONO, size: 32, weight: 500, y: 0.82, color: '#DDE3EA' },
-    ],
-  });
+  const tourTex = P.roadmapTexture(ROADMAP);
   // route line on the screen
   const tourScr = P.display(M, 2.0, 1.125, screenMaterial(dn, tourTex, { day: 1.0, night: 1.3 }));
   tourScr.position.set(3.75, 2.15, BACK + 0.03); td.add(tourScr);
@@ -404,10 +395,21 @@ export async function buildTashkent({ renderer, quality, progress = () => {} }) 
     { text: 'FOUNDING CREW', size: 60, weight: 800, spacing: 0.3, y: 0.1, color: '#F2C230' },
     { text: 'ASTRA STATION · MISSION 001', font: T.FONT_MONO, size: 24, weight: 500, spacing: 0.2, y: 0.19, color: '#FF6A1A' },
   ];
-  FOUNDING_CREW.forEach((n, i) => {
-    const colI = i % 4, row = Math.floor(i / 4);
-    crewLines.push({ text: n, font: T.FONT_MONO, size: 30, weight: 500, x: 0.14 + colI * 0.24, y: 0.32 + row * 0.13, align: 'center', color: '#DDE3EA' });
-  });
+  if (FOUNDING_CREW.length) {
+    FOUNDING_CREW.forEach((n, i) => {
+      const colI = i % 4, row = Math.floor(i / 4);
+      crewLines.push({ text: n, font: T.FONT_MONO, size: 30, weight: 500, x: 0.14 + colI * 0.24, y: 0.32 + row * 0.13, align: 'center', color: '#DDE3EA' });
+    });
+  } else {
+    // no names yet: seats of the first test crew (roles only)
+    CREW_ROLES.forEach((role, i) => {
+      const colI = i % 3, row = Math.floor(i / 3), x = 0.2 + colI * 0.3, y = 0.38 + row * 0.24;
+      crewLines.push({ text: `SEAT ${String(i + 1).padStart(2, '0')}`, font: T.FONT_MONO, size: 24, weight: 500, x, y: y - 0.05, color: '#7D8A9C' });
+      crewLines.push({ text: role, size: 36, weight: 800, spacing: 0.08, x, y: y + 0.02, color: '#DDE3EA' });
+      crewLines.push({ text: 'SELECTION OPEN', font: T.FONT_MONO, size: 22, weight: 500, x, y: y + 0.09, color: '#FF6A1A' });
+    });
+    crewLines.push({ text: 'SELECTION · TRAINING · MEDICAL · FIRST TEST CREW', font: T.FONT_MONO, size: 24, weight: 500, spacing: 0.1, y: 0.9, color: '#5B6B82' });
+  }
   const crewTex = T.labelTexture({ w: 1600, h: 1000, bg: '#0A1220', lines: crewLines, border: { color: '#1E3354', width: 6 }, pad: 18 });
   const crewMat = screenMaterial(dn, crewTex, { day: 0.7, night: 0.9 });
   const cwp = place(cw, roundedBox(3.3, 2.1, 0.06, 0.04), M.graphiteIn, { p: [-HX + 0.03, 1.95, -2.05], r: [0, Math.PI / 2, 0] });

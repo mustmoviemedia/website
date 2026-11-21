@@ -1,7 +1,7 @@
 // Interface: start screen, station menu, view/time controls, hotspots, tour, mini-plan, exports.
 // All names are English; explanations are Russian.
 import * as THREE from 'three';
-import { STATIONS, PROJECT } from '../config.js';
+import { STATIONS, PROJECT, ROADMAP } from '../config.js';
 import { Hotspots } from '../core/hotspots.js';
 import { Flight } from '../core/tour.js';
 import { Minimap } from './minimap.js';
@@ -22,6 +22,8 @@ const ICON = {
   close: '<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>',
   go: '<svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg>',
   map: '<svg viewBox="0 0 24 24"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg>',
+  route: '<svg viewBox="0 0 24 24"><circle cx="5" cy="18" r="2"/><circle cx="19" cy="6" r="2"/><path d="M7 18h7a3 3 0 0 0 0-6H10a3 3 0 0 1 0-6h7"/></svg>',
+  storm: '<svg viewBox="0 0 24 24"><path d="M3 8h11a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h8"/></svg>',
 };
 
 const MARK = '<svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="32" rx="25" ry="10" fill="none" stroke="#FF6A1A" stroke-width="3.2" transform="rotate(-24 32 32)"/><circle cx="32" cy="32" r="9" fill="#DDE3EA"/><circle cx="54" cy="21" r="3.6" fill="#F2C230"/></svg>';
@@ -64,8 +66,9 @@ const ART = {
   </svg>`,
 };
 
-const COORDS = { tashkent: '41.316° N · 69.248° E', astrocity: '≈ 43.6° N · 57.0° E', konyukhov: '≈ 55.1° N · 60.2° E' };
+const COORDS = { tashkent: '41.316° N · 69.248° E', astrocity: 'USTYURT PLATEAU · KARAKALPAKSTAN', konyukhov: '≈ 55.1° N · 60.2° E' };
 const ORDER = ['tashkent', 'astrocity', 'konyukhov'];
+const STATUS_LABEL = { now: 'NOW', planned: 'PLANNED', goal: 'GOAL' };
 
 export function initUI(app) {
   const { engine, rig, quality } = app;
@@ -103,6 +106,10 @@ export function initUI(app) {
           </article>`;
   }).join('')}
       </div>
+      <section class="rm-strip" aria-label="Дорожная карта">
+        <div class="rm-head"><p class="kicker mono">ROADMAP · FROM IDEA TO THE FIRST MISSION</p><button class="btn btn-ghost" id="rm-open" type="button">Roadmap ${ICON.route}</button></div>
+        <ol class="rm-list">${ROADMAP.map((st) => `<li class="rm-item is-${st.status}" title="${st.ru}"><span class="mono">${String(st.n).padStart(2, '0')}</span><b>${st.title}</b><em class="mono">${STATUS_LABEL[st.status]}</em></li>`).join('')}</ol>
+      </section>
       <p class="start-hint">Мышь или палец — вращение, колесо или щипок — масштаб. Режим <b>Walk</b>: WASD + мышь, на телефоне — джойстик.</p>
     </div>
   </section>
@@ -114,6 +121,7 @@ export function initUI(app) {
     </nav>
     <div class="top-right">
       <button class="icon-btn" id="btn-map" type="button" title="Мини-план" aria-label="Plan">${ICON.map}</button>
+      <button class="icon-btn" id="btn-roadmap" type="button" title="Дорожная карта проекта" aria-label="Roadmap">${ICON.route}</button>
       <button class="icon-btn" id="btn-help" type="button" title="Управление" aria-label="Help">${ICON.help}</button>
     </div>
   </header>
@@ -132,6 +140,7 @@ export function initUI(app) {
     <button class="tool" id="btn-cut" type="button" title="Разрез: снять крышу и увидеть план сверху">${ICON.cut}<span>Cutaway</span></button>
     <button class="tool" id="btn-shot" type="button" title="Скриншот 3840 × 2160 (PNG)">${ICON.shot}<span>4K</span></button>
     <button class="tool" id="btn-glb" type="button" title="Экспорт модели станции в GLB">${ICON.glb}<span>GLB</span></button>
+    <button class="tool" id="btn-storm" type="button" title="Пыльная буря — сценарий первой миссии" hidden>${ICON.storm}<span>Storm</span></button>
   </nav>
 
   <aside class="hud minimap" id="minimap">
@@ -159,6 +168,16 @@ export function initUI(app) {
   <div class="hud stats mono" id="stats" hidden></div>
   <div class="busy" id="busy" hidden><div class="busy-bar"><i id="busy-bar"></i></div><span class="mono" id="busy-txt"></span></div>
 
+  <div class="help" id="roadmap" hidden>
+    <div class="help-box rm-box">
+      <button class="icon-btn help-close" id="roadmap-close" type="button" aria-label="Close">${ICON.close}</button>
+      <p class="mono kicker">ASTRAHUB · ROADMAP</p>
+      <h3>Дорожная карта</h3>
+      <p>Этапы проекта от идеи до первой миссии. Станции пока нет: всё после поиска партнёра — планы, их сроки зависят от событий.</p>
+      <ol class="rm-full">${ROADMAP.map((st) => `<li class="is-${st.status}"><span class="mono rm-n">${String(st.n).padStart(2, '0')}</span><div><b>${st.title}</b> <em class="mono">${STATUS_LABEL[st.status]}</em><p>${st.ru}</p></div></li>`).join('')}</ol>
+    </div>
+  </div>
+
   <div class="help" id="help" hidden>
     <div class="help-box">
       <button class="icon-btn help-close" id="help-close" type="button" aria-label="Close">${ICON.close}</button>
@@ -175,11 +194,14 @@ export function initUI(app) {
         <div>
           <h4>Hotspots</h4>
           <p>Оранжевые метки — зоны станции. Нажмите, чтобы прочитать описание и перейти к зоне.</p>
-          <h4>Shortcuts</h4>
-          <p class="desk"><kbd>V</kbd> Orbit/Walk · <kbd>N</kbd> Day/Night · <kbd>T</kbd> Tour · <kbd>C</kbd> Cutaway · <kbd>M</kbd> Plan · <kbd>F</kbd> FPS</p>
+          <h4 class="desk">Shortcuts</h4>
+          <p class="desk"><kbd>V</kbd> Orbit/Walk · <kbd>N</kbd> Day/Night · <kbd>T</kbd> Tour · <kbd>C</kbd> Cutaway · <kbd>M</kbd> Plan · <kbd>B</kbd> Storm · <kbd>F</kbd> FPS</p>
+          <h4>Storm</h4>
+          <p>На ASTRO CITY — пыльная буря, сценарий первой миссии: пыль в воздухе, видимость падает.</p>
           <p>Масштаб 1 : 1 — один юнит = 1 метр, силуэты людей ~1,75 м.</p>
         </div>
       </div>
+      <button class="btn btn-ghost help-rm" id="help-rm" type="button">Roadmap ${ICON.route}</button>
     </div>
   </div>`;
 
@@ -229,6 +251,8 @@ export function initUI(app) {
   });
 
   function onStation(st) {
+    $('btn-storm').hidden = !st.setStorm;
+    $('btn-storm').classList.toggle('is-on', !!st.storm);
     const meta = STATIONS[st.id];
     $('st-code').textContent = `${meta.code} · ${meta.name}`;
     $('mm-name').textContent = meta.code;
@@ -472,6 +496,21 @@ export function initUI(app) {
   $('btn-shot').addEventListener('click', doShot);
   $('btn-glb').addEventListener('click', doGLB);
   $('btn-help').addEventListener('click', () => { $('help').hidden = false; });
+  const openRoadmap = () => { $('roadmap').hidden = false; };
+  $('btn-roadmap').addEventListener('click', openRoadmap);
+  $('rm-open').addEventListener('click', openRoadmap);
+  $('help-rm').addEventListener('click', () => { $('help').hidden = true; openRoadmap(); });
+  start.querySelectorAll('.rm-item').forEach((li) => li.addEventListener('click', openRoadmap));
+  $('roadmap-close').addEventListener('click', () => { $('roadmap').hidden = true; });
+  $('roadmap').addEventListener('click', (e) => { if (e.target === $('roadmap')) $('roadmap').hidden = true; });
+  $('btn-storm').addEventListener('click', () => {
+    const st = app.station;
+    if (!st?.setStorm) return;
+    const on = !st.storm;
+    st.setStorm(on);
+    $('btn-storm').classList.toggle('is-on', on);
+    if (on) toast('Пыльная буря — сценарий первой миссии');
+  });
   $('help-close').addEventListener('click', () => { $('help').hidden = true; });
   $('help').addEventListener('click', (e) => { if (e.target === $('help')) $('help').hidden = true; });
   $('btn-map').addEventListener('click', () => { $('minimap').classList.toggle('is-off'); $('btn-map').classList.toggle('is-on', !$('minimap').classList.contains('is-off')); });
@@ -486,6 +525,7 @@ export function initUI(app) {
   $('zc-go').addEventListener('click', goZone);
   addEventListener('resize', () => minimap.layout());
   addEventListener('keydown', (e) => {
+    if (e.code === 'Escape' && !$('roadmap').hidden) { $('roadmap').hidden = true; return; }
     if (!started || e.target.tagName === 'INPUT' || e.ctrlKey || e.metaKey || e.altKey) return;
     const k = e.code;
     if (k === 'KeyV') setMode(rig.mode === 'walk' ? 'orbit' : 'walk');
@@ -494,7 +534,8 @@ export function initUI(app) {
     else if (k === 'KeyC') setCutaway(!app.cutaway);
     else if (k === 'KeyM') $('btn-map').click();
     else if (k === 'KeyF') { statsEl.hidden = !statsEl.hidden; }
-    else if (k === 'Escape') { if (flight) stopFlight(true); closeZone(); $('help').hidden = true; }
+    else if (k === 'KeyB') $('btn-storm').click();
+    else if (k === 'Escape') { if (flight) stopFlight(true); closeZone(); $('help').hidden = true; $('roadmap').hidden = true; }
   });
   if (matchMedia('(max-width: 640px)').matches) $('minimap').classList.add('is-off');
   $('btn-map').classList.toggle('is-on', !$('minimap').classList.contains('is-off'));

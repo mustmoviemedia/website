@@ -1,17 +1,32 @@
 // Content: station names (EN), zone titles (EN) and short explanations (RU).
-// Edit names of the Founding Crew here — they are drawn on the Crew Wall.
+// Publishing rules from «АСТРАХАБ — фильм по этапам» (17.11.2026): talk about the station in the
+// future tense; no site coordinates or plot area, no tour prices, no investor terms, no personal data.
 
 export const PROJECT = {
   brand: 'ASTRAHUB',
   product: 'ASTRA STATION',
 };
 
-export const FOUNDING_CREW = [
-  'A. KARIMOV', 'D. YUSUPOVA', 'T. RAKHIMOV', 'M. ALIEVA',
-  'S. NAZAROV', 'N. TOSHMATOVA', 'B. ERGASHEV', 'L. SULTANOVA',
-  'R. ISMOILOV', 'K. ABDULLAEVA', 'F. MIRZAEV', 'Z. KHAMIDOVA',
-  'O. SAIDOV', 'G. UMAROVA', 'J. KHOLMATOV', 'V. PAK',
-  'E. RASHIDOV', 'I. NURMATOVA', 'U. TURSUNOV', 'Y. KIM',
+// Founding Crew names for the Crew Wall. Leave empty until people agree to be named:
+// the wall then shows the crew seats of Mission 001 (roles only, no personal data).
+export const FOUNDING_CREW = [];
+export const CREW_ROLES = ['COMMANDER', 'FLIGHT ENGINEER', 'GEOLOGIST', 'MEDICAL OFFICER', 'SCIENTIST', 'MEDIA & COMMS'];
+
+// Project roadmap (stages of the documentary «АСТРАХАБ — фильм по этапам»).
+// status: now — in progress, planned — after the event, goal — target date.
+export const ROADMAP = [
+  { n: 0, title: 'Prologue: The Path', status: 'now', ru: 'Путь к идее: экспедиции, горы и полевая геология.' },
+  { n: 1, title: 'Idea', status: 'now', ru: 'Концепция, модель, игра-симулятор, 3D-модель и ролик «Before Mars».' },
+  { n: 2, title: 'Partner Search', status: 'now', ru: 'Подготовка к встречам и форумам, презентации проекта.' },
+  { n: 3, title: 'Site & Permits', status: 'planned', ru: 'Обследование плато Устюрт, выбор участка и согласования.' },
+  { n: 4, title: 'Engineering', status: 'planned', ru: 'Инженеры, чертежи, выбор корпуса, расчёты жизнеобеспечения.' },
+  { n: 5, title: 'Module Build', status: 'planned', ru: 'Сборка двух модулей Ø3,4 × 10 м, испытания на герметичность и воздух.' },
+  { n: 6, title: 'Delivery & Assembly', status: 'planned', ru: 'Доставка в пустыню, установка, подключение энергии и воды.' },
+  { n: 7, title: 'Systems Tests', status: 'planned', ru: 'Первые проверки систем, отказы и исправления.' },
+  { n: 8, title: 'Crew', status: 'planned', ru: 'Отбор, подготовка, медицина и тренировки первого тестового экипажа.' },
+  { n: 9, title: 'First Mission', status: 'planned', ru: '7–10 дней в станции по режиму миссии, выходы в скафандрах, возможная пыльная буря.' },
+  { n: 10, title: 'IAC 2028', status: 'goal', ru: 'Международный астронавтический конгресс, Самарканд, 9–13 октября 2028: цель — представить проект.' },
+  { n: 11, title: 'ASTRO CITY', status: 'planned', ru: 'Город для гостей и для Каракалпакстана — следующий шаг после пилота.' },
 ];
 
 export const STATIONS = {
@@ -22,7 +37,7 @@ export const STATIONS = {
     tab: 'Tashkent',
     short: 'Tashkent',
     specs: ['7 × 10 m', '~25 seats', 'Street level'],
-    ru: 'Первый этаж в центре Ташкента, рядом с Tashkent City Park. Фасад — модуль МКС, внутри прямой зал с баром, мини-кухней и тур-деском.',
+    ru: 'Проект первого этажа в центре Ташкента, рядом с Tashkent City Park. Фасад — модуль МКС, внутри прямой зал с баром, мини-кухней и тур-деском.',
   },
   astrocity: {
     id: 'astrocity',
@@ -31,7 +46,7 @@ export const STATIONS = {
     tab: 'ASTRO CITY',
     short: 'Astro',
     specs: ['Dome Ø 11.3 m', '~100 m²', '~35 seats + terrace'],
-    ru: 'Купол на плато Устюрт (Каракалпакстан) у обрыва чинка. Длинный шлюз, Island Bar в центре, терраса с телескопом.',
+    ru: 'Проект на плато Устюрт (Каракалпакстан): купол у обрыва чинка, Island Bar, терраса с телескопом и пилотная станция из двух модулей для аналоговых миссий.',
   },
   konyukhov: {
     id: 'konyukhov',
@@ -52,8 +67,8 @@ export const ZONES = {
     bar: { title: 'Bar', text: 'Напитки MARS, LUNA, EARTH. 5 мест у стойки, витрина десертов, холодильники с напитками и мойка на задней линии.' },
     kitchen: { title: 'Mini Kitchen', text: 'Мини-кухня за стеклом: холодильник, мойка, индукция и вытяжка с воздуховодом. Вход для персонала из-за бара.' },
     merch: { title: 'Space & Merch', text: 'Маленькая витрина: кружки, нашивки миссий, модели ракет и капсул.' },
-    tourdesk: { title: 'Tour Desk', text: 'Запись на туры в ASTRO CITY на плато Устюрт. На столе — макет купола Station 02.' },
-    crew: { title: 'Crew Wall', text: 'Стена Founding Crew — имена первых участников проекта.' },
+    tourdesk: { title: 'Tour Desk', text: 'Здесь будет запись на туры в ASTRO CITY. На экране — дорожная карта проекта, на столе — макет купола Station 02.' },
+    crew: { title: 'Crew Wall', text: 'Стена Founding Crew: места первого тестового экипажа Mission 001. Имена появятся, когда участники согласятся.' },
     hall: { title: 'Main Hall', text: 'Прямой зал 7 × 10 м, ~25 мест: 4 стола, стойка у иллюминаторов, бар.' },
     earth: { title: 'Earth View', text: 'Иллюминаторы-экраны: живой вид на Землю с орбиты.' },
     park: { title: 'Tashkent City Park', text: 'Через дорогу — парк Tashkent City и башни делового центра.' },
@@ -65,13 +80,18 @@ export const ZONES = {
     corridor: { title: 'Airlock Corridor', text: 'Длинный шлюз-коридор 12 м с иллюминаторами — переход с плато внутрь станции.' },
     bar: { title: 'Island Bar', text: 'Круглый бар в центре купола, 8 мест. Напитки MARS, LUNA, EARTH.' },
     merch: { title: 'Space & Merch', text: 'Витрина у стены купола: нашивки, кружки, модели ровера. Рядом — холодильник с напитками.' },
-    tourdesk: { title: 'Tour Desk', text: 'Стойка у входа: экскурсии по ASTRO CITY, ночные наблюдения, поездки к чинку.' },
+    tourdesk: { title: 'Tour Desk', text: 'Стойка у входа: здесь будут экскурсии по ASTRO CITY, ночные наблюдения и поездки к чинку. На экране — план первой миссии.' },
     hall: { title: 'Main Hall', text: '~100 м², ~35 мест: столы по кругу и стойка у панорамного остекления.' },
     terrace: { title: 'Terrace', text: 'Терраса над обрывом чинка: закат над Устюртом и звёздное небо.' },
     telescope: { title: 'Telescope', text: 'Телескоп на террасе для ночных наблюдений: Луна, Сатурн, Млечный Путь.' },
-    solar: { title: 'Solar Field', text: 'Солнечное поле питает станцию: ряды панелей к востоку от купола.' },
+    solar: { title: 'Solar Field', text: 'Солнечное поле будет питать станцию: ряды панелей к востоку от купола.' },
     antenna: { title: 'Antenna', text: 'Антенна связи и мачта с маяком — ориентир станции ночью.' },
-    rover: { title: 'ASTRA Rover', text: 'ASTRA Rover у входа — шестиколёсный ровер для фото и поездок по плато.' },
+    rover: { title: 'ASTRA Rover', text: 'ASTRA Rover у входа — шестиколёсный ровер для выходов экипажа и поездок по плато.' },
+    habitat: { title: 'Pilot Station', text: 'Пилотная станция для аналоговых миссий: два модуля Ø3,4 × 10 м — жилой HAB и лаборатория LAB (планируется).' },
+    hab: { title: 'HAB Module', text: 'Жилой модуль: 4 спальных места, камбуз и стол экипажа, санузел. Миссия — 7–10 дней по режиму.' },
+    lab: { title: 'LAB Module', text: 'Лаборатория: рабочие места, панель систем жизнеобеспечения, стойка скафандров у шлюза.' },
+    eva: { title: 'EVA', text: 'Выход в скафандрах: экипаж идёт от шлюза пилотной станции к роверу.' },
+    power: { title: 'Power & Water', text: 'Энергоблок и баки воды: подключение энергии и воды — этап монтажа станции.' },
     gate: { title: 'ASTRO CITY Gate', text: 'Указатели к воротам ASTRO CITY: дорога вдоль плато.' },
     restrooms: { title: 'Restrooms', text: 'Сервисный модуль сбоку от шлюза: две раковины с зеркалами-иллюминаторами и два санузла (WC A доступный).' },
     hvac: { title: 'HVAC', text: 'Наружные блоки вентиляции и кондиционирования: воздуховоды в купол и сервисный модуль, сопла под кольцевой балкой.' },

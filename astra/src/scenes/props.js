@@ -3,7 +3,7 @@
 import * as THREE from 'three';
 import { place, roundedBox, cylinderBetween, V } from '../core/geometry.js';
 import { boxUV } from '../core/materials.js';
-import { labelTexture, FONT_MONO, FONT_SANS } from '../core/textures.js';
+import { labelTexture, makeCanvas, toTexture, FONT_MONO, FONT_SANS } from '../core/textures.js';
 
 const G = {
   cyl: (rt, rb, h, seg = 20) => new THREE.CylinderGeometry(rt, rb, h, seg),
@@ -226,4 +226,28 @@ export function menuTexture() {
       { text: 'BLUE COLD BREW · CITRUS', font: FONT_MONO, size: 26, y: 0.78, x: 0.92, align: 'right', color: '#9AA6B6', weight: 400 },
     ],
   });
+}
+
+// Project roadmap screen (stages from «АСТРАХАБ — фильм по этапам»): EN titles, status chips
+export function roadmapTexture(stages) {
+  const w = 1024, h = 576;
+  const c = makeCanvas(w, h), ctx = c.getContext('2d');
+  ctx.fillStyle = '#06090F'; ctx.fillRect(0, 0, w, h);
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle = '#F4F6F8'; ctx.font = `800 46px ${FONT_SANS}`; ctx.fillText('ASTRAHUB ROADMAP', 40, 48);
+  ctx.fillStyle = '#FF6A1A'; ctx.font = `500 22px ${FONT_MONO}`; ctx.fillText('FROM IDEA TO THE FIRST MISSION', 42, 88);
+  const chip = { now: ['NOW', '#FF6A1A'], planned: ['PLANNED', '#5B6B82'], goal: ['GOAL', '#F2C230'] };
+  stages.forEach((st, i) => {
+    const col = i < 6 ? 0 : 1, row = i % 6;
+    const x = 40 + col * 490, y = 140 + row * 70;
+    ctx.fillStyle = 'rgba(221,227,234,0.06)'; ctx.fillRect(x - 10, y - 26, 470, 56);
+    ctx.fillStyle = '#7D8A9C'; ctx.font = `500 24px ${FONT_MONO}`; ctx.fillText(String(st.n).padStart(2, '0'), x, y);
+    ctx.fillStyle = '#DDE3EA'; ctx.font = `700 26px ${FONT_SANS}`; ctx.fillText(st.title.toUpperCase(), x + 48, y);
+    const [label, color] = chip[st.status] || chip.planned;
+    ctx.font = `500 18px ${FONT_MONO}`;
+    const tw = ctx.measureText(label).width + 18;
+    ctx.fillStyle = color; ctx.fillRect(x + 450 - tw, y - 14, tw, 28);
+    ctx.fillStyle = st.status === 'planned' ? '#DDE3EA' : '#05080F'; ctx.fillText(label, x + 459 - tw, y + 1);
+  });
+  return toTexture(c, { wrap: false });
 }

@@ -54,14 +54,15 @@ function lathe(points, y, sz = 0.62, seg = 16) {
  * pose: 'stand' | 'walk' | 'sit' | 'barsit' | 'lean'
  * seed: picks clothing, skin, hair and build
  */
-export function personGeometry(pose = 'stand', height = 1.75, seed = 1, palette = null) {
+export function personGeometry(pose = 'stand', height = 1.75, seed = 1, palette = null, suit = false) {
   const r = rng(Math.floor(seed * 9973) + 17);
   const pick = (a) => a[Math.floor(r() * a.length)];
-  const P = { ...PALETTE, ...(palette || {}) };
+  const SUIT = { skin: ['#F2F3F2'], top: ['#ECEEEF'], bottom: ['#E4E7E9'], shoes: ['#9AA1A8'], hair: ['#ECEEEF'] };
+  const P = suit ? SUIT : { ...PALETTE, ...(palette || {}) };
   const skin = pick(P.skin), top = pick(P.top), bottom = pick(P.bottom);
   const shoes = pick(P.shoes), hair = pick(P.hair);
-  const longHair = r() < 0.4, shortSleeve = r() < 0.35, dress = longHair && r() < 0.3;
-  const build = 0.92 + r() * 0.16; // shoulder width factor
+  const longHair = !suit && r() < 0.4, shortSleeve = !suit && r() < 0.35, dress = longHair && r() < 0.3;
+  const build = suit ? 1.18 : 0.92 + r() * 0.16; // shoulder width factor
   const parts = [];
   const add = (g, c) => parts.push(colored(g, c));
 
@@ -77,11 +78,21 @@ export function personGeometry(pose = 'stand', height = 1.75, seed = 1, palette 
   // neck + head + hair
   add(limb(V(0, sh + 0.02, lean), V(0, sh + 0.12, lean), 0.05, 0.045, 10), skin);
   const hc = V(0, sh + 0.215, lean + 0.01);
-  add(ball(hc, 0.1, 0.86, 1.08, 0.98, 16), skin);
-  add(ball(V(0, hc.y - 0.06, hc.z + 0.03), 0.06, 1.05, 0.8, 1.0, 10), skin); // jaw
+  if (suit) {
+    // EVA suit: helmet with gold visor, life-support backpack, orange mission band
+    add(ball(V(hc.x, hc.y - 0.01, hc.z), 0.165, 1, 1, 1, 18), '#F4F5F5');
+    const visor = new THREE.SphereGeometry(0.168, 18, 10, Math.PI * 0.18, Math.PI * 0.64, Math.PI * 0.3, Math.PI * 0.36); // faces +Z
+    visor.translate(hc.x, hc.y - 0.01, hc.z);
+    add(visor, '#B8862E');
+    add(new THREE.BoxGeometry(0.42, 0.56, 0.2).translate(0, sh - 0.2, lean - 0.2), '#E6E8EA');
+    add(new THREE.BoxGeometry(0.3, 0.12, 0.05).translate(0, sh - 0.04, lean - 0.31), '#FF6A1A');
+    add(new THREE.CylinderGeometry(0.2, 0.2, 0.06, 18).translate(0, sh + 0.03, lean), '#C9CED6');
+  }
+  if (!suit) add(ball(hc, 0.1, 0.86, 1.08, 0.98, 16), skin);
+  if (!suit) add(ball(V(0, hc.y - 0.06, hc.z + 0.03), 0.06, 1.05, 0.8, 1.0, 10), skin); // jaw
   const capG = new THREE.SphereGeometry(0.106, 16, 8, 0, Math.PI * 2, 0, Math.PI * 0.52);
   capG.scale(0.9, 1.08, 1.02); capG.rotateX(-0.25); capG.translate(hc.x, hc.y + 0.008, hc.z - 0.008);
-  if (r() < 0.9) add(capG, hair); else capG.dispose();
+  if (!suit && r() < 0.9) add(capG, hair); else capG.dispose();
   if (longHair) add(ball(V(0, hc.y - 0.07, hc.z - 0.06), 0.085, 1.15, 1.5, 0.7, 12), hair);
 
   // legs
@@ -139,8 +150,8 @@ export function personGeometry(pose = 'stand', height = 1.75, seed = 1, palette 
 }
 
 let counter = 0;
-export function addPerson(parent, material, { x = 0, z = 0, y = 0, rot = 0, pose = 'stand', h = 1.75, seed, palette = null } = {}) {
-  const m = new THREE.Mesh(personGeometry(pose, h, seed ?? (x * 13.1 + z * 7.7 + ++counter * 0.618), palette), material);
+export function addPerson(parent, material, { x = 0, z = 0, y = 0, rot = 0, pose = 'stand', h = 1.75, seed, palette = null, suit = false } = {}) {
+  const m = new THREE.Mesh(personGeometry(pose, h, seed ?? (x * 13.1 + z * 7.7 + ++counter * 0.618), palette, suit), material);
   m.position.set(x, y, z);
   m.rotation.y = rot;
   m.castShadow = true;

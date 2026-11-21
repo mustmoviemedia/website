@@ -22,6 +22,8 @@ const CORR_W = 2.2, CORR_H = 2.5, CORR_Z0 = 5.3, CORR_Z1 = 17.5;
 const TER = { x0: -6.6, x1: 6.6, z0: -12.6, z1: -4.2 };
 const CIRC = Math.PI * 2 * DR;
 const SM_Z = 12.0; // service module (restrooms) axis
+// pilot station for analog missions: two modules Ø3.4 × 10 m (from the ASTRAHUB roadmap)
+const HAB = { x: -24, R: 1.7, AY: 2.15, FL: 0.95, A: [-7, 3], NODE: [3, 4.2], B: [4.2, 14.2] };
 
 const SKY = {
   sunDir: new THREE.Vector3(0.34, 0.12, -0.93),
@@ -44,7 +46,7 @@ function makeTerrainFn() {
   const roadX = (z) => 5 * Math.sin(z * 0.012) * smoothstep(30, 140, z);
   const H = (x, z) => {
     const r = Math.hypot(x, z - 2);
-    const flat = smoothstep(19, 46, r);
+    const flat = Math.min(smoothstep(19, 46, r), smoothstep(15, 32, Math.hypot(x - HAB.x, z - 4)));
     // plateau
     let h = (1.6 * fbm(n, x * 0.012, z * 0.012, 4) + 0.35 * fbm(n2, x * 0.06, z * 0.06, 3)) * flat;
     h += Math.max(0, z - 60) * 0.012 * flat;
@@ -443,11 +445,11 @@ export async function buildAstroCity({ renderer, quality, progress = () => {} })
   const tourTex = T.labelTexture({
     w: 1024, h: 576, bg: '#06090F',
     lines: [
-      { text: 'ASTRO CITY', size: 72, weight: 800, spacing: 0.16, y: 0.14, color: '#F4F6F8' },
-      { text: 'SUNSET WALK · 19:10', font: T.FONT_MONO, size: 36, weight: 500, y: 0.36, color: '#FF6A1A' },
-      { text: 'CHINK CLIFFS · ROVER RIDE', font: T.FONT_MONO, size: 32, weight: 500, y: 0.52, color: '#F2C230' },
-      { text: 'NIGHT SKY · TELESCOPE · 22:00', font: T.FONT_MONO, size: 32, weight: 500, y: 0.68, color: '#DDE3EA' },
-      { text: 'USTYURT PLATEAU · KARAKALPAKSTAN', font: T.FONT_MONO, size: 24, weight: 400, y: 0.86, color: '#7D8A9C' },
+      { text: 'MISSION 001', size: 72, weight: 800, spacing: 0.16, y: 0.14, color: '#F4F6F8' },
+      { text: 'PILOT STATION · 2 MODULES Ø3.4 × 10 M', font: T.FONT_MONO, size: 32, weight: 500, y: 0.36, color: '#FF6A1A' },
+      { text: '7–10 DAYS · EVA · CREW TRAINING', font: T.FONT_MONO, size: 32, weight: 500, y: 0.52, color: '#F2C230' },
+      { text: 'GOAL · IAC 2028 · SAMARKAND', font: T.FONT_MONO, size: 32, weight: 500, y: 0.68, color: '#DDE3EA' },
+      { text: 'PLANNED · USTYURT PLATEAU', font: T.FONT_MONO, size: 24, weight: 400, y: 0.86, color: '#7D8A9C' },
     ],
   });
   const tdScreen = P.display(M, 1.4, 0.79, screenMaterial(dn, tourTex));
@@ -704,6 +706,175 @@ export async function buildAstroCity({ renderer, quality, progress = () => {} })
   }
   progress(0.8);
 
+  // ================= PILOT STATION: HAB + LAB modules (Ø3.4 × 10 m) =================
+  const hab = new THREE.Group(); hab.name = 'pilot_station_HAB_LAB'; hab.position.x = HAB.x; world.add(hab);
+  const { R: HR, AY, FL } = HAB;
+  const circle = (r, cy, n = 48) => Array.from({ length: n + 1 }, (_, k) => { const a = -Math.PI / 2 - (k / n) * Math.PI * 2; return [Math.cos(a) * r, cy + Math.sin(a) * r]; });
+  const hSmp = profileSampler(circle(HR, AY, 64));
+  const per = hSmp.length;
+  const tOf = (deg) => { let a = (-90 - deg) % 360; if (a < 0) a += 360; return (a / 360) * per; };
+  const yWin = FL + 1.45, angW = (Math.asin((yWin - AY) / HR) * 180) / Math.PI;
+  const tL = tOf(180 - angW), tR = tOf(angW);
+  const modTube = (z0, z1, wins) => {
+    const sE = new Set([z0, z1]);
+    for (const w of wins) { sE.add(w - 0.45); sE.add(w + 0.45); }
+    const sEdges = [...sE].sort((a, b) => a - b);
+    const tEdges = [0, tL - 0.45, tL + 0.45, tR - 0.45, tR + 0.45, per];
+    return tileSurface({
+      sEdges, tEdges, maxSeg: 0.35, map: corridorMapping(hSmp),
+      tile: (i, j) => { const c = (sEdges[i] + sEdges[i + 1]) / 2; return wins.some((w) => Math.abs(w - c) < 0.01) && (j === 1 || j === 3) ? { hole: 0.26 } : 'solid'; },
+    });
+  };
+  const winsA = [-5.4, -1.8, 1.6], winsB = [6.2, 9.0];
+  place(hab, modTube(HAB.A[0], HAB.A[1], winsA), compDS, { name: 'HAB_module' });
+  place(hab, modTube(HAB.B[0], HAB.B[1], winsB), compDS, { name: 'LAB_module' });
+  for (const [ws, sides] of [[winsA, [-1, 1]], [winsB, [-1, 1]]]) for (const z of ws) for (const sx of sides) {
+    const a = (sx < 0 ? 180 - angW : angW) * Math.PI / 180;
+    const px = Math.cos(a) * HR, py = AY + Math.sin(a) * HR;
+    const f = P.portholeFrame(M, 0.26, { flange: 0.09, depth: 0.08 }); f.position.set(px, py, z); f.rotation.set(0, sx * Math.PI / 2, 0); f.rotateX(-sx * 0); hab.add(f);
+    const fi = P.portholeFrame(M, 0.26, { flange: 0.06, depth: 0.08 }); fi.position.set(px, py, z); fi.rotation.y = -sx * Math.PI / 2; hab.add(fi);
+    place(hab, new THREE.CircleGeometry(0.27, 24), M.glass, { p: [px, py, z], r: [0, sx * Math.PI / 2, 0], cast: false, receive: false });
+  }
+  // node between the modules
+  const nSmp = profileSampler(circle(0.93, FL + 0.92, 32));
+  place(hab, tileSurface({ sEdges: [HAB.NODE[0] - 0.05, HAB.NODE[1] + 0.05], tEdges: [0, nSmp.length], maxSeg: 0.3, map: corridorMapping(nSmp), tile: () => 'solid' }), compDS, {});
+  place(hab, new THREE.TorusGeometry(0.97, 0.05, 6, 32), M.ledOrange, { p: [0, FL + 0.92, (HAB.NODE[0] + HAB.NODE[1]) / 2], cast: false });
+  // end caps with hatches
+  const hatchPath = () => { const p2 = new THREE.Path(); const w = 0.45, y0 = FL + 0.04, y1 = FL + 1.78, r = 0.3; p2.moveTo(-w, y0); p2.lineTo(w, y0); p2.lineTo(w, y1 - r); p2.quadraticCurveTo(w, y1, w - r, y1); p2.lineTo(-w + r, y1); p2.quadraticCurveTo(-w, y1, -w, y1 - r); p2.closePath(); return p2; };
+  const cap = (hatch) => { const sh = new THREE.Shape(); sh.absarc(0, AY, HR, 0, Math.PI * 2, false); if (hatch) sh.holes.push(hatchPath()); return new THREE.ShapeGeometry(sh, 32); };
+  for (const [z, h] of [[HAB.A[0], false], [HAB.A[1], true], [HAB.B[0], true], [HAB.B[1], true]]) place(hab, cap(h), compDS, { p: [0, 0, z] });
+  for (const z of [HAB.A[1], HAB.B[0], HAB.B[1]]) {
+    const fr = new THREE.Shape(); fr.moveTo(-0.6, FL); fr.lineTo(0.6, FL); fr.lineTo(0.6, FL + 1.95); fr.lineTo(-0.6, FL + 1.95); fr.closePath(); fr.holes.push(hatchPath());
+    const fg = new THREE.ExtrudeGeometry(fr, { depth: 0.12, bevelEnabled: false }); fg.translate(0, 0, -0.06);
+    place(hab, fg, M.alu, { p: [0, 0, z] });
+  }
+  // EVA hatch leaf (open, outward) + LED ring
+  const hl = X.doorLeaf(M, 0.86, 1.72, M.aluSatin); hl.position.set(0.45, FL + 0.04, HAB.B[1] + 0.08); hl.rotation.y = -1.9; hab.add(hl);
+  // ring frames, saddles, handrails, labels
+  for (const z of [HAB.A[0] + 0.12, -2.0, HAB.A[1] - 0.12, HAB.B[0] + 0.12, 9.2, HAB.B[1] - 0.12]) place(hab, new THREE.TorusGeometry(HR + 0.025, 0.055, 6, 56), M.alu, { p: [0, AY, z] });
+  for (const z of [-5.8, -0.5, 1.9, 5.4, 9.6, 13.0]) {
+    place(hab, new THREE.BoxGeometry(2.4, 0.5, 0.35), M.aluDark, { p: [0, 0.25, z] });
+    for (const sx of [-1, 1]) place(hab, new THREE.BoxGeometry(0.2, 0.6, 0.3), M.aluDark, { p: [sx * 1.15, 0.62, z], r: [0, 0, sx * 0.6] });
+  }
+  for (const [z0, z1] of [HAB.A, HAB.B]) for (const sx of [-1, 1]) {
+    const a = (sx < 0 ? 145 : 35) * Math.PI / 180;
+    const hr = P.handrail(M, (z1 - z0) - 1.0); hr.rotation.set(0, sx < 0 ? -Math.PI / 2 : Math.PI / 2, 0);
+    hr.position.set(Math.cos(a) * HR, AY + Math.sin(a) * HR, (z0 + z1) / 2); hab.add(hr);
+  }
+  for (const [txt, z0, z1] of [['ASTRA HAB-1', HAB.A[0], HAB.A[1]], ['ASTRA LAB-1', HAB.B[0], HAB.B[1]]]) {
+    const tex = T.labelTexture({ w: 1024, h: 160, lines: [{ text: txt, size: 92, weight: 800, spacing: 0.22, color: '#13223A' }] });
+    const mat = new THREE.MeshStandardMaterial({ map: tex, transparent: true, roughness: 0.5 });
+    for (const sx of [-1, 1]) {
+      const a = (sx < 0 ? 150 : 30) * Math.PI / 180;
+      const lbl = place(hab, new THREE.PlaneGeometry(2.4, 0.38), mat, { p: [Math.cos(a) * (HR + 0.012), AY + Math.sin(a) * (HR + 0.012), (z0 + z1) / 2], cast: false });
+      lbl.rotation.set(0, sx * Math.PI / 2, sx * (Math.PI / 6), 'ZYX'); // face outwards, tilted with the hull
+    }
+  }
+  // floors + LED strips
+  for (const [z0, z1] of [HAB.A, HAB.B, HAB.NODE]) {
+    const fg = new THREE.BoxGeometry(2.4, 0.06, z1 - z0); boxUV(fg);
+    place(hab, fg, M.floor, { p: [0, FL - 0.03, (z0 + z1) / 2] });
+    if (z1 - z0 > 2) place(hab, new THREE.BoxGeometry(0.3, 0.012, z1 - z0 - 1.2), M.ledWhite, { p: [0, AY + HR - 0.12, (z0 + z1) / 2], cast: false });
+  }
+  // --- HAB interior: bunks, galley, hygiene, lockers ---
+  const mattress = new THREE.MeshStandardMaterial({ name: 'bunk', color: '#2B3E5C', roughness: 0.85 });
+  for (const sx of [-1, 1]) for (const yy of [0.38, 1.22]) {
+    place(hab, new THREE.BoxGeometry(0.78, 0.06, 2.0), M.aluDark, { p: [sx * 0.8, FL + yy, -5.8] });
+    place(hab, roundedBox(0.72, 0.12, 1.92, 0.04), mattress, { p: [sx * 0.8, FL + yy + 0.09, -5.8] });
+    place(hab, new THREE.BoxGeometry(0.74, 0.02, 0.6), M.whiteIn, { p: [sx * 0.8, FL + yy + 0.16, -6.45], cast: false });
+  }
+  for (const sx of [-1, 1]) place(hab, new THREE.BoxGeometry(0.04, 1.5, 2.0), M.aluDark, { p: [sx * 0.39, FL + 0.75, -5.8] });
+  const tbl = new THREE.Group(); tbl.position.set(0, FL, -1.8); hab.add(tbl);
+  place(tbl, roundedBox(0.8, 0.04, 1.4, 0.06), M.whiteIn, { p: [0, 0.74, 0] });
+  place(tbl, new THREE.CylinderGeometry(0.05, 0.06, 0.72, 10), M.alu, { p: [0, 0.36, 0] });
+  for (const [x, z] of [[-0.55, -0.4], [-0.55, 0.4], [0.55, -0.4], [0.55, 0.4]]) { const st = P.barStool(M); st.scale.setScalar(0.62); st.position.set(x, 0, z); tbl.add(st); }
+  const gk = new THREE.BoxGeometry(0.45, 0.9, 1.6); boxUV(gk);
+  place(hab, gk, M.steel, { p: [0.96, FL + 0.45, 0.9] });
+  const gsk = X.counterSink(M, 0.3, 0.26); gsk.position.set(0.95, FL + 0.9, 0.5); gsk.rotation.y = -Math.PI / 2; hab.add(gsk);
+  const gfr = X.fridgeTall(M, { w: 0.5, h: 0.82, d: 0.04, doors: 1 }); gfr.position.set(0.72, FL + 0.02, 1.2); gfr.rotation.y = -Math.PI / 2; hab.add(gfr);
+  const hyg = new THREE.BoxGeometry(0.9, 2.0, 1.4); boxUV(hyg);
+  place(hab, hyg, M.whiteIn, { p: [-0.75, FL + 1.0, 1.4] });
+  const hdoor = X.wcSign(M, dn, { title: 'HYGIENE', icons: ['m', 'f'] }, 0.5); hdoor.position.set(-0.29, FL + 1.75, 1.4); hdoor.rotation.y = Math.PI / 2; hab.add(hdoor);
+  const hclock = X.missionClock(M, dn, { w: 0.8, h: 0.2, place: 'USTYURT' }); hclock.position.set(0, FL + 1.55, HAB.A[0] + 0.06); hab.add(hclock);
+  // --- LAB interior: benches, life-support panel, EVA suit rack ---
+  for (const sx of [-1, 1]) {
+    const bench = new THREE.BoxGeometry(0.55, 0.9, 3.6); boxUV(bench);
+    place(hab, bench, M.steel, { p: [sx * 0.9, FL + 0.45, 6.9] });
+    place(hab, new THREE.BoxGeometry(0.6, 0.03, 3.7), M.stoneTop, { p: [sx * 0.9, FL + 0.915, 6.9] });
+    for (const z of [5.6, 7.0, 8.3]) place(hab, roundedBox(0.04, 0.32, 0.5, 0.02), M.screenOff, { p: [sx * 1.12, FL + 1.25, z], r: [0, 0, sx * 0.25], cast: false });
+  }
+  const labTex = T.labelTexture({ w: 1024, h: 512, bg: '#06090F', lines: [
+    { text: 'LIFE SUPPORT', size: 70, weight: 800, spacing: 0.14, y: 0.18, color: '#F4F6F8' },
+    { text: 'O₂  ·  CO₂  ·  H₂O  ·  POWER', font: T.FONT_MONO, size: 44, weight: 500, y: 0.42, color: '#6FA8FF' },
+    { text: 'AIRTIGHTNESS & AIR TESTS', font: T.FONT_MONO, size: 34, weight: 500, y: 0.62, color: '#F2C230' },
+    { text: 'TEST MODE · PLANNED', font: T.FONT_MONO, size: 34, weight: 500, y: 0.82, color: '#FF6A1A' }] });
+  const eclss = P.display(M, 1.1, 0.55, screenMaterial(dn, labTex, { day: 1, night: 1.3 }));
+  eclss.position.set(-1.1, FL + 1.35, 10.6); eclss.rotation.y = Math.PI / 2; eclss.rotation.z = -0.2; hab.add(eclss);
+  for (const [z] of [[5.8], [7.6]]) { place(hab, new THREE.CylinderGeometry(0.04, 0.06, 0.32, 12), M.graphite, { p: [-0.85, FL + 1.09, z] }); place(hab, new THREE.BoxGeometry(0.22, 0.12, 0.3), M.lunar, { p: [0.85, FL + 0.99, z] }); }
+  place(hab, new THREE.BoxGeometry(0.06, 2.0, 2.2), M.aluDark, { p: [1.15, FL + 1.0, 12.4] });
+  // lights for both modules
+  const habLight = new THREE.PointLight('#FFE6CC', 4, 15, 2); habLight.position.set(HAB.x, FL + 1.9, 3.6);
+  scene.add(habLight); dn.prop(habLight, 'intensity', 3.5, 5);
+  // outside: EVA platform with steps, sign
+  place(hab, new THREE.BoxGeometry(2.2, 0.08, 1.4), M.aluSatin, { p: [0, FL - 0.04, HAB.B[1] + 0.7] });
+  for (let k = 1; k <= 3; k++) place(hab, new THREE.BoxGeometry(1.4, 0.04, 0.32), M.aluSatin, { p: [0, FL - k * (FL / 4) - 0.02, HAB.B[1] + 1.4 + k * 0.3] });
+  for (const sx of [-1, 1]) { place(hab, new THREE.BoxGeometry(0.05, FL, 1.4), M.aluDark, { p: [sx * 0.72, FL / 2, HAB.B[1] + 2.0] }); place(hab, cylinderBetween(V(sx * 0.72, FL + 0.95, HAB.B[1] + 1.2), V(sx * 0.72, 0.95, HAB.B[1] + 2.6), 0.018), M.alu, {}); }
+  const psTex = T.labelTexture({ w: 1024, h: 256, bg: '#13223A', lines: [{ text: 'PILOT STATION', size: 84, weight: 800, spacing: 0.16, y: 0.38, color: '#F4F6F8' }, { text: 'MISSION 001 · PLANNED', font: T.FONT_MONO, size: 40, weight: 500, spacing: 0.1, y: 0.76, color: '#F2C230' }] });
+  const ps = new THREE.Group(); ps.position.set(2.4, 0, HAB.B[1] + 2.6); ps.rotation.y = -0.4; hab.add(ps);
+  for (const x of [-0.8, 0.8]) place(ps, new THREE.BoxGeometry(0.06, 2.0, 0.06), M.aluDark, { p: [x, 1.0, 0] });
+  place(ps, new THREE.PlaneGeometry(1.9, 0.48), screenMaterial(dn, psTex, { day: 0.8, night: 1.3 }), { p: [0, 1.75, 0.04], cast: false });
+  // water tanks + power container with cable tray
+  const tankMat = new THREE.MeshStandardMaterial({ name: 'water-tank', color: '#E9EDF0', roughness: 0.4, metalness: 0.2 });
+  for (const z of [-1.2, 1.4]) {
+    place(hab, new THREE.CylinderGeometry(0.9, 0.9, 3.2, 28), tankMat, { p: [-6.5, 1.25, z], r: [0, 0, Math.PI / 2] });
+    place(hab, new THREE.CylinderGeometry(0.915, 0.915, 0.25, 28), M.deep, { p: [-6.5, 1.25, z], r: [0, 0, Math.PI / 2] });
+    for (const x of [-7.6, -5.4]) place(hab, new THREE.BoxGeometry(0.3, 0.5, 1.6), M.aluDark, { p: [x, 0.25, z] });
+  }
+  const h2o = T.labelTexture({ w: 256, h: 128, lines: [{ text: 'H₂O', size: 80, weight: 800, color: '#DDE3EA' }] });
+  place(hab, new THREE.PlaneGeometry(0.5, 0.25), new THREE.MeshStandardMaterial({ map: h2o, transparent: true }), { p: [-6.5, 1.25, 2.34], cast: false });
+  const pc = new THREE.Group(); pc.position.set(-7.0, 0, 8.5); hab.add(pc);
+  place(pc, new THREE.BoxGeometry(2.4, 2.6, 6.0), M.graphite, { p: [0, 1.3, 0] });
+  place(pc, new THREE.BoxGeometry(2.42, 0.18, 6.02), M.orange, { p: [0, 2.2, 0], cast: false });
+  for (let k = 0; k < 9; k++) place(pc, new THREE.BoxGeometry(2.44, 2.2, 0.03), M.aluDark, { p: [0, 1.15, -2.8 + k * 0.7], cast: false });
+  const pwTex = T.labelTexture({ w: 1024, h: 192, bg: '#181E27', lines: [{ text: 'POWER · BATTERY', size: 76, weight: 800, spacing: 0.14, y: 0.42, color: '#F2C230' }, { text: 'SOLAR · INVERTER · STORAGE', font: T.FONT_MONO, size: 34, weight: 500, y: 0.8, color: '#DDE3EA' }] });
+  place(pc, new THREE.PlaneGeometry(3.4, 0.64), screenMaterial(dn, pwTex, { day: 0.7, night: 1.2 }), { p: [1.215, 1.5, 0], r: [0, Math.PI / 2, 0], cast: false });
+  place(hab, new THREE.BoxGeometry(4.0, 0.12, 0.3), M.aluDark, { p: [-3.6, 0.06, 8.5] });
+  // collisions: hull (inside and outside), interior furniture, tanks, container
+  const hx = HAB.x;
+  for (const [z0, z1] of [HAB.A, HAB.B]) for (const sx of [-1, 1]) { col.seg(hx + sx * 1.15, z0, hx + sx * 1.15, z1); col.seg(hx + sx * 1.75, z0, hx + sx * 1.75, z1); }
+  col.seg(hx - 1.75, HAB.A[0], hx + 1.75, HAB.A[0]);
+  for (const z of [HAB.A[1], HAB.B[0], HAB.B[1]]) col.seg(hx - 1.75, z, hx - 0.45, z).seg(hx + 0.45, z, hx + 1.75, z);
+  col.seg(hx - 0.85, HAB.NODE[0], hx - 0.85, HAB.NODE[1]).seg(hx + 0.85, HAB.NODE[0], hx + 0.85, HAB.NODE[1]);
+  col.box(hx - 1.2, hx - 0.38, -6.8, -4.8).box(hx + 0.38, hx + 1.2, -6.8, -4.8).box(hx - 0.5, hx + 0.5, -2.5, -1.1);
+  col.box(hx + 0.72, hx + 1.2, 0.1, 1.7).box(hx - 1.2, hx - 0.3, 0.7, 2.1);
+  col.box(hx - 1.2, hx - 0.6, 5.1, 8.7).box(hx + 0.6, hx + 1.2, 5.1, 8.7).box(hx + 1.0, hx + 1.2, 11.3, 13.5);
+  col.box(hx - 8.2, hx - 4.8, -2.2, 2.4).box(hx - 8.3, hx - 5.7, 5.4, 11.6);
+
+  // ================= DUST STORM (mission scenario) =================
+  const storm = { target: 0, v: 0 };
+  const dustColor = new THREE.Color();
+  const dustDome = new THREE.Mesh(new THREE.SphereGeometry(70, 32, 16), new THREE.MeshBasicMaterial({ name: 'dust-dome', color: '#B9784E', transparent: true, opacity: 0, side: THREE.BackSide, depthWrite: false, fog: false }));
+  dustDome.renderOrder = 5; dustDome.frustumCulled = false; dustDome.visible = false; dustDome.userData.noExport = true;
+  scene.add(dustDome);
+  const nDust = quality.tier === 'low' ? 900 : 2200, rD = rng(9);
+  const dPos = new Float32Array(nDust * 3), dSize = new Float32Array(nDust);
+  for (let i = 0; i < nDust; i++) { dPos.set([(rD() - 0.5) * 80, rD() * 16, (rD() - 0.5) * 80], i * 3); dSize[i] = 1.5 + rD() * 4; }
+  const dGeo = new THREE.BufferGeometry();
+  dGeo.setAttribute('position', new THREE.BufferAttribute(dPos, 3)); dGeo.setAttribute('size', new THREE.BufferAttribute(dSize, 1));
+  const dMat = new THREE.ShaderMaterial({
+    uniforms: { uTime: { value: 0 }, uStorm: { value: 0 }, uCam: { value: new THREE.Vector3() }, uColor: { value: new THREE.Color('#D49A6A') }, uPR: { value: 1 } },
+    vertexShader: `attribute float size; uniform float uTime, uPR; uniform vec3 uCam; varying float vA;
+      void main(){ vec3 p = position; p.x = mod(p.x + uTime * 9.0 - uCam.x + 40.0, 80.0) - 40.0 + uCam.x; p.z = mod(p.z + uTime * 2.5 - uCam.z + 40.0, 80.0) - 40.0 + uCam.z; p.y += sin(uTime * 1.3 + position.x) * 0.6;
+        vec4 mv = modelViewMatrix * vec4(p, 1.0); gl_Position = projectionMatrix * mv; gl_PointSize = size * uPR * (18.0 / max(1.0, -mv.z)); vA = clamp(1.0 - (-mv.z) / 45.0, 0.0, 1.0); }`,
+    fragmentShader: `uniform float uStorm; uniform vec3 uColor; varying float vA; void main(){ float d = length(gl_PointCoord - 0.5); if (d > 0.5) discard; gl_FragColor = vec4(uColor, (0.5 - d) * 1.4 * uStorm * vA); }`,
+    transparent: true, depthWrite: false, fog: false,
+  });
+  const dust = new THREE.Points(dGeo, dMat); dust.frustumCulled = false; dust.visible = false; dust.renderOrder = 6; dust.userData.noExport = true;
+  scene.add(dust);
+  let lastNight = 0;
+  const baseRef = { sun: 0, hemi: 0, fogD: 0, fogC: new THREE.Color() };
+  const captureBase = () => { baseRef.sun = base.sun.intensity; baseRef.hemi = base.hemi.intensity; baseRef.fogD = base.fog.density; baseRef.fogC.copy(base.fog.color); };
+
   // ================= PEOPLE =================
   const ppl = new THREE.Group(); ppl.name = 'scale_figures'; world.add(ppl);
   const people = [
@@ -729,10 +900,18 @@ export async function buildAstroCity({ renderer, quality, progress = () => {} })
     { x: -2.6, z: 21.6, rot: -2.4, pose: 'stand', h: 1.75 },
     { x: -3.2, z: 22.4, rot: -2.0, pose: 'lean', h: 1.64 },
     { x: 1.0, z: 26, rot: Math.PI, pose: 'walk', h: 1.78 },
+    // EVA crew from the pilot station heading to the rover, suits on the rack in the LAB
+    { x: -15.6, z: 17.6, rot: 1.25, pose: 'walk', h: 1.8, suit: true },
+    { x: -14.2, z: 18.9, rot: 1.1, pose: 'walk', h: 1.74, suit: true },
+    { x: HAB.x - 0.3, z: HAB.B[1] + 3.6, rot: 0.3, pose: 'stand', h: 1.78, suit: true },
+    { x: HAB.x + 0.8, y: HAB.FL, z: 11.8, rot: -Math.PI / 2, pose: 'stand', h: 1.78, suit: true },
+    { x: HAB.x + 0.8, y: HAB.FL, z: 13.0, rot: -Math.PI / 2, pose: 'stand', h: 1.72, suit: true },
+    { x: HAB.x - 0.2, y: HAB.FL, z: -1.25, rot: Math.PI, pose: 'sit', h: 1.74 },
+    { x: HAB.x - 0.4, y: HAB.FL, z: 7.4, rot: -Math.PI / 2, pose: 'stand', h: 1.7 },
   ];
   for (const p of people) {
     if (p.rot === undefined) p.rot = Math.atan2(-p.x, -p.z);
-    if (p.y === undefined) p.y = Math.hypot(p.x, p.z) < DR + 2 ? 0 : Math.max(0, H(p.x, p.z));
+    if (p.y === undefined) p.y = Math.hypot(p.x, p.z) < DR + 2 ? 0 : Math.max(-0.08, H(p.x, p.z));
     addPerson(ppl, M.person, p);
   }
 
@@ -764,6 +943,11 @@ export async function buildAstroCity({ renderer, quality, progress = () => {} })
     { id: 'tourdesk', pos: [td.position.x, 1.55, td.position.z], zone: 'in', ...Z.tourdesk },
     { id: 'hall', pos: [-3.0, 1.5, -1.6], zone: 'in', ...Z.hall },
     { id: 'restrooms', pos: [1.0, 2.2, SM_Z], zone: 'in', ...Z.restrooms },
+    { id: 'habitat', pos: [HAB.x, HAB.AY + 2.4, 3.6], zone: 'out', ...Z.habitat },
+    { id: 'eva', pos: [-14.9, 2.5, 18.2], zone: 'out', ...Z.eva },
+    { id: 'power', pos: [HAB.x - 7.0, 3.3, 8.5], zone: 'out', ...Z.power },
+    { id: 'hab', pos: [HAB.x, HAB.FL + 1.5, -3.2], zone: 'in', ...Z.hab },
+    { id: 'lab', pos: [HAB.x, HAB.FL + 1.5, 8.0], zone: 'in', ...Z.lab },
     { id: 'hvac', pos: [-7.9, 2.3, 1.5], zone: 'out', ...Z.hvac },
   ];
   const tour = [
@@ -777,9 +961,11 @@ export async function buildAstroCity({ renderer, quality, progress = () => {} })
     { pos: [1.3, 1.65, 1.9], look: [3.1, 1.3, 3.4], hold: 2.6, move: 2.4, hotspot: 'tourdesk' },
     { pos: [2.9, 2.6, 2.4], look: [-1.5, 1.4, -4.2], hold: 3.0, move: 2.8, hotspot: 'hall' },
     { pos: [0, 1.7, -7.6], look: [0.4, 1.2, -22], hold: 3.2, move: 4.2, hotspot: 'terrace' },
+    { pos: [-16, 5, -9], look: [-24, 2.2, 3], hold: 0.1, move: 3.6 },
+    { pos: [-10.5, 3.6, 21.5], look: [-22, 2.0, 7], hold: 3.4, move: 4.0, hotspot: 'habitat' },
   ];
   const plan = {
-    bounds: [-9, 9, -13.5, 19],
+    bounds: [-28, 9, -13.5, 19],
     draw(ctx, S) {
       ctx.strokeStyle = 'rgba(221,227,234,0.85)'; ctx.lineWidth = 2;
       const c = S(0, 0), e = S(DR, 0);
@@ -791,6 +977,11 @@ export async function buildAstroCity({ renderer, quality, progress = () => {} })
       r(1.1, SM_Z - 1.05, 5.35, SM_Z + 1.05, 'rgba(111,168,255,0.16)', 'rgba(221,227,234,0.85)');
       ctx.beginPath(); ctx.moveTo(...S(2.45, SM_Z - 1.05)); ctx.lineTo(...S(2.45, SM_Z + 1.05)); ctx.moveTo(...S(2.45, SM_Z)); ctx.lineTo(...S(5.35, SM_Z)); ctx.stroke();
       r(-8.5, 0.9, -7.3, 2.1, 'rgba(221,227,234,0.3)', null);
+      r(HAB.x - 1.7, HAB.A[0], HAB.x + 1.7, HAB.A[1], 'rgba(255,106,26,0.18)', 'rgba(221,227,234,0.85)');
+      r(HAB.x - 1.7, HAB.B[0], HAB.x + 1.7, HAB.B[1], 'rgba(111,168,255,0.18)', 'rgba(221,227,234,0.85)');
+      r(HAB.x - 0.8, HAB.NODE[0], HAB.x + 0.8, HAB.NODE[1], null, 'rgba(221,227,234,0.85)');
+      r(HAB.x - 8.2, -2.1, HAB.x - 4.8, 2.3, 'rgba(221,227,234,0.25)', null);
+      r(HAB.x - 8.2, 5.5, HAB.x - 5.8, 11.5, 'rgba(242,194,48,0.4)', null);
       ctx.fillStyle = 'rgba(255,106,26,0.8)';
       const b = S(1.75, 0); ctx.beginPath(); ctx.arc(c[0], c[1], Math.abs(b[0] - c[0]), 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = 'rgba(5,8,15,1)'; const b2 = S(1.15, 0); ctx.beginPath(); ctx.arc(c[0], c[1], Math.abs(b2[0] - c[0]), 0, Math.PI * 2); ctx.fill();
@@ -799,7 +990,7 @@ export async function buildAstroCity({ renderer, quality, progress = () => {} })
       ctx.fillStyle = 'rgba(242,194,48,0.85)';
       for (const [x, z] of [[td.position.x, td.position.z], [Math.sin(mA) * 5.1, Math.cos(mA) * 5.1]]) { const p = S(x, z); ctx.fillRect(p[0] - 4, p[1] - 4, 8, 8); }
     },
-    labels: [['BAR', 0, 0], ['TOUR', 3.1, 3.3], ['MERCH', -4.1, 3.0], ['TERRACE', 0, -9.6], ['AIRLOCK', 0, 8.6], ['WC', 3.9, SM_Z], ['AHU', -7.9, -0.6]],
+    labels: [['BAR', 0, 0], ['TOUR', 3.1, 3.3], ['MERCH', -4.1, 3.0], ['TERRACE', 0, -9.6], ['AIRLOCK', 0, 8.6], ['WC', 3.9, SM_Z], ['AHU', -7.9, -0.6], ['HAB', HAB.x, -2], ['LAB', HAB.x, 9.2], ['PWR', HAB.x - 7, 8.5]],
   };
 
   const station = {
@@ -818,6 +1009,8 @@ export async function buildAstroCity({ renderer, quality, progress = () => {} })
     groundAt(x, z) {
       if (Math.hypot(x, z) < DR + 1.5 || (Math.abs(x) < 1.8 && z > 0 && z < CORR_Z1 + 2.5)) return 0;
       if (x > 0.9 && x < 5.4 && Math.abs(z - SM_Z) < 1.1) return 0;
+      if (Math.abs(x - HAB.x) < 1.2 && z > HAB.A[0] && z < HAB.B[1] + 1.45) return HAB.FL;
+      if (Math.abs(x - HAB.x) < 0.75 && z >= HAB.B[1] + 1.45 && z < HAB.B[1] + 2.6) return HAB.FL * clamp(1 - (z - HAB.B[1] - 1.45) / 1.15, 0, 1);
       if (x > TER.x0 - 0.2 && x < TER.x1 + 0.2 && z > TER.z0 - 0.2 && z < TER.z1) return 0.04;
       return Math.max(H(x, z), -2);
     },
@@ -827,19 +1020,50 @@ export async function buildAstroCity({ renderer, quality, progress = () => {} })
       const ez = edgeZ(p.x) + 3.5;
       if (p.z < ez && !(p.x > TER.x0 && p.x < TER.x1 && p.z > TER.z0)) p.z = ez;
     },
-    isInside(p) { return (Math.hypot(p.x, p.z) < DR - 0.1 && p.y < DRUM_H + DR) || (Math.abs(p.x) < CORR_W / 2 && p.z > DR - 0.3 && p.z < CORR_Z1 + 0.1 && p.y < CORR_H) || (p.x > 1.0 && p.x < 5.35 && Math.abs(p.z - SM_Z) < 1.05 && p.y < 2.35); },
+    isInside(p) { return (Math.hypot(p.x, p.z) < DR - 0.1 && p.y < DRUM_H + DR) || (Math.abs(p.x) < CORR_W / 2 && p.z > DR - 0.3 && p.z < CORR_Z1 + 0.1 && p.y < CORR_H) || (p.x > 1.0 && p.x < 5.35 && Math.abs(p.z - SM_Z) < 1.05 && p.y < 2.35) || (Math.abs(p.x - HAB.x) < 1.25 && p.z > HAB.A[0] && p.z < HAB.B[1] && p.y < HAB.AY + 1.5); },
     hotspots, tour, plan,
     occluders: [
       { sphere: new THREE.Sphere(new THREE.Vector3(0, DRUM_H - 0.3, 0), DR - 0.15) },
       { box: new THREE.Box3(new THREE.Vector3(-DR + 0.2, 0, -DR + 0.2), new THREE.Vector3(DR - 0.2, DRUM_H, DR - 0.2)) },
       { box: new THREE.Box3(new THREE.Vector3(-1.1, 0, DR), new THREE.Vector3(1.1, CORR_H, CORR_Z1)) },
       { box: new THREE.Box3(new THREE.Vector3(1.1, 0, SM_Z - 1.0), new THREE.Vector3(5.3, 2.3, SM_Z + 1.0)) },
+      { box: new THREE.Box3(new THREE.Vector3(HAB.x - 1.6, 0.5, HAB.A[0]), new THREE.Vector3(HAB.x + 1.6, HAB.AY + 1.6, HAB.B[1])) },
     ],
     stats: { merged: stats, fx: fxStats },
-    setNight: (n) => base.setNight(n),
+    setNight: (n) => { base.setNight(n); lastNight = n; captureBase(); },
+    setStorm(on) { storm.target = on ? 1 : 0; },
+    get storm() { return storm.target > 0.5; },
+    zoneViews: {
+      hab: { pos: [HAB.x, HAB.FL + 1.62, 1.6], look: [HAB.x, HAB.FL + 1.0, -5.5], path: [
+        { pos: [HAB.x + 3.2, 2.0, HAB.B[1] + 6], look: [HAB.x, 1.9, HAB.B[1]], move: 2.6, hold: 0 },
+        { pos: [HAB.x, HAB.FL + 1.62, HAB.B[1] + 1.0], look: [HAB.x, HAB.FL + 1.5, 9], move: 2.0, hold: 0 },
+        { pos: [HAB.x, HAB.FL + 1.62, 8.5], look: [HAB.x, HAB.FL + 1.5, 2], move: 2.2, hold: 0 }] },
+      lab: { pos: [HAB.x, HAB.FL + 1.62, 12.6], look: [HAB.x - 0.5, HAB.FL + 1.1, 6.5], path: [
+        { pos: [HAB.x + 3.2, 2.0, HAB.B[1] + 6], look: [HAB.x, 1.9, HAB.B[1]], move: 2.6, hold: 0 },
+        { pos: [HAB.x, HAB.FL + 1.62, HAB.B[1] + 1.0], look: [HAB.x, HAB.FL + 1.5, 9], move: 2.0, hold: 0 }] },
+    },
     setCutaway(on) { domeLayer.forEach((o) => { o.visible = !on; }); renderer.shadowMap.needsUpdate = true; },
     update(dt, t, camera, mode) {
       clock.userData.update();
+      hclock.userData.update();
+      // dust storm blend
+      const prev = storm.v;
+      storm.v += (storm.target - storm.v) * (1 - Math.exp(-dt * 0.9));
+      if (Math.abs(storm.v - storm.target) < 0.002) storm.v = storm.target;
+      const sv = storm.v;
+      if (sv > 0 || prev > 0) {
+        dustColor.set('#B9784E').lerp(new THREE.Color('#2A1A12'), lastNight);
+        base.fog.density = baseRef.fogD + sv * 0.028;
+        base.fog.color.copy(baseRef.fogC).lerp(dustColor, sv);
+        base.sun.intensity = baseRef.sun * (1 - 0.7 * sv);
+        base.hemi.intensity = baseRef.hemi * (1 + 0.25 * sv);
+        dustDome.visible = sv > 0.01; dust.visible = sv > 0.01;
+        dustDome.material.color.copy(dustColor); dustDome.material.opacity = 0.9 * sv;
+        dustDome.position.copy(camera.position);
+        dMat.uniforms.uStorm.value = sv; dMat.uniforms.uTime.value = t; dMat.uniforms.uCam.value.copy(camera.position);
+        dMat.uniforms.uColor.value.set('#D49A6A').lerp(new THREE.Color('#5A3A28'), lastNight);
+        dMat.uniforms.uPR.value = renderer.getPixelRatio();
+      }
       for (const d of dynamic.doors) {
         const near = Math.hypot(camera.position.x - d.at[0], camera.position.z - d.at[1]) < 3.6 || mode === 'tour';
         const target = near ? d.g.userData.openX : d.g.userData.closedX;
@@ -1107,7 +1331,7 @@ function rocks(M, gy, edgeZ, quality) {
   for (let i = 0; i < n * 3 && c < n; i++) {
     const a = r() * Math.PI * 2, d = 9 + Math.pow(r(), 0.7) * 80;
     const x = Math.sin(a) * d, z = Math.cos(a) * d;
-    if (z < edgeZ(x) + 1 || (Math.abs(x) < 9 && z > -14 && z < 26) || (x > 13 && x < 35 && z > -10 && z < 16)) continue;
+    if (z < edgeZ(x) + 1 || (Math.abs(x) < 9 && z > -14 && z < 26) || (x > 13 && x < 35 && z > -10 && z < 16) || (x > -36 && x < -11 && z > -12 && z < 24)) continue;
     const s = 0.15 + Math.pow(r(), 3) * 1.4;
     e.set(r() * 3, r() * 3, r() * 3);
     q.setFromEuler(e);
